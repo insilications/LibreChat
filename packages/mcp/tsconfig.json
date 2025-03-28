@@ -13,12 +13,18 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "strict": true,
+    "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "sourceMap": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "declarationMap": true,
+    "paths": {
+      "librechat-data-provider": ["../data-provider"],
+      "librechat-data-provider/*": ["../data-provider/*"]
+    }
   },
   "ts-node": {
     "experimentalSpecifierResolution": "node",
