@@ -9,16 +9,16 @@ import type { Plugin } from 'vite';
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
-    host: 'localhost',
+    host: 'chat',
     port: 3090,
     strictPort: false,
     proxy: {
       '/api': {
-        target: 'http://localhost:3080',
+        target: 'http://chat:3088',
         changeOrigin: true,
       },
       '/oauth': {
-        target: 'http://localhost:3080',
+        target: 'http://chat:3088',
         changeOrigin: true,
       },
     },
