@@ -56,7 +56,7 @@ const initializeClient = async ({ req, res, endpointOption, optionsOnly, overrid
   let apiKey = userProvidesKey ? userValues?.apiKey : CUSTOM_API_KEY;
   let baseURL = userProvidesURL ? userValues?.baseURL : CUSTOM_BASE_URL;
 
-  if (userProvidesKey & !apiKey) {
+  if (userProvidesKey && !apiKey) {
     throw new Error(
       JSON.stringify({
         type: ErrorTypes.NO_USER_KEY,
