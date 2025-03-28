@@ -49,7 +49,6 @@ meili_data/
 api/node_modules/
 client/node_modules/
 bower_components/
-*.d.ts
 !vite-env.d.ts
 
 # Floobits
