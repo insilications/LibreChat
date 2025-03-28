@@ -1637,7 +1637,7 @@
 
 /**
  * @typedef {object} txData - Transaction data.
- * @property {mongoose.Schema.Types.ObjectId} user - The user ID.
+ * @property {import('mongoose').Schema.Types.ObjectId} user - The user ID.
  * @property {String} conversationId - The ID of the conversation.
  * @property {String} model - The model name.
  * @property {String} context - The context in which the transaction is made.
