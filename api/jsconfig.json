@@ -2,12 +2,30 @@
   "compilerOptions": {
     "target": "ES6",
     "module": "CommonJS",
-    // "checkJs": true,           // Report errors in JavaScript files
+    "checkJs": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
     "baseUrl": "./",
+    "lib": ["ES6"],
     "paths": {
       "*": ["*", "node_modules/*"],
-      "~/*": ["./*"]
-    }
+      "~/*": ["./*"],
+      "@librechat/data-schemas": ["../packages/data-schemas/src"],
+      "@librechat/data-schemas/*": ["../packages/data-schemas/src/*"],
+      "librechat-data-provider": ["../packages/data-provider/src"],
+      "librechat-data-provider/*": ["../packages/data-provider/src/*"],
+      "librechat-mcp": ["../packages/mcp/src"],
+      "librechat-mcp/*": ["../packages/mcp/src/*"],
+      "~/types/*": ["./types/*"]
+    },
+    "strict": true,
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "noImplicitOverride": true,
+    "esModuleInterop": true,
+    "typeRoots": ["./@types", "./node_modules/@types", "../node_modules/@types"]
   },
+  "include": ["**/*.js", "**/*.d.ts", "types/**/*.d.ts"],
   "exclude": ["node_modules"]
 }
