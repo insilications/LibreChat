@@ -20,7 +20,7 @@
       "~/types/*": ["./types/*"]
     },
     "strict": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "strictNullChecks": true,
     "noImplicitOverride": true,
     "esModuleInterop": true,
