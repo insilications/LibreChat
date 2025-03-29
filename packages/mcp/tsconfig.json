@@ -3,7 +3,6 @@
     "declaration": true,
     "declarationDir": "./dist/types",
     "module": "esnext",
-    "noImplicitAny": true,
     "outDir": "./types",
     "target": "es2015",
     "moduleResolution": "node",
@@ -14,13 +13,14 @@
     "esModuleInterop": true,
     "strict": true,
     "strictNullChecks": true,
+    "noImplicitOverride": true,
+    "noImplicitAny": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "declarationMap": true,
     "paths": {
       "librechat-data-provider": ["../data-provider"],
       "librechat-data-provider/*": ["../data-provider/*"]

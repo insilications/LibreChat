@@ -13,6 +13,7 @@ import react from 'eslint-plugin-react';
 import jest from 'eslint-plugin-jest';
 import globals from 'globals';
 import js from '@eslint/js';
+import pluginPrettierRecommendedConfigs from 'eslint-plugin-prettier/recommended';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -380,4 +381,5 @@ export default [
       },
     },
   },
+  pluginPrettierRecommendedConfigs,
 ];
