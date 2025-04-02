@@ -11,6 +11,7 @@ import {
   tMessageSchema,
   tConvoUpdateSchema,
   ContentTypes,
+  LocalStorageKeys,
 } from 'librechat-data-provider';
 import type {
   TMessage,
@@ -19,7 +20,13 @@ import type {
   ConversationData,
 } from 'librechat-data-provider';
 import type { SetterOrUpdater, Resetter } from 'recoil';
-import type { TResData, TFinalResData, ConvoGenerator } from '~/common';
+import type {
+  TResData,
+  TFinalResData,
+  TPrefillResData,
+  TAddTitleResData,
+  ConvoGenerator,
+} from '~/common';
 import type { TGenTitleMutation } from '~/data-provider';
 import {
   scrollToEnd,
@@ -209,6 +216,8 @@ export default function useEventHandlers({
       const { requestMessage, responseMessage, conversation } = data;
       const { messages, isRegenerate = false } = submission;
 
+      console.log('PORRA - 0 - useEventHandlers - cancelHandler');
+
       const convoUpdate =
         (conversation as TConversation | null) ?? (submission.conversation as TConversation);
 
@@ -243,6 +252,7 @@ export default function useEventHandlers({
       }
 
       if (setConversation && !isAddedRequest) {
+        console.log('PORRA - 1 - useEventHandlers - cancelHandler');
         setConversation((prevState) => {
           const update = {
             ...prevState,
@@ -262,6 +272,8 @@ export default function useEventHandlers({
     (data: TSyncData, submission: EventSubmission) => {
       const { conversationId, thread_id, responseMessage, requestMessage } = data;
       const { initialResponse, messages: _messages, userMessage } = submission;
+
+      console.log('PORRA - 0 - useEventHandlers - syncHandler');
 
       const messages = _messages.filter((msg) => msg.messageId !== userMessage.messageId);
 
@@ -315,6 +327,7 @@ export default function useEventHandlers({
           }
         });
       } else if (setConversation) {
+        console.log('PORRA - 1 - useEventHandlers - syncHandler');
         setConversation((prevState) => {
           update = tConvoUpdateSchema.parse({
             ...prevState,
@@ -344,6 +357,7 @@ export default function useEventHandlers({
 
   const createdHandler = useCallback(
     (data: TResData, submission: EventSubmission) => {
+      console.log('PORRA - 0 - useEventHandlers - createdHandler');
       const { messages, userMessage, isRegenerate = false, isTemporary = false } = submission;
       const initialResponse = {
         ...submission.initialResponse,
@@ -400,6 +414,7 @@ export default function useEventHandlers({
           }
         });
       } else if (setConversation) {
+        console.log('PORRA - 1 - useEventHandlers - createdHandler');
         setConversation((prevState) => {
           update = tConvoUpdateSchema.parse({
             ...prevState,
@@ -435,6 +450,8 @@ export default function useEventHandlers({
         isRegenerate = false,
         isTemporary = false,
       } = submission;
+
+      console.log('PORRA - 0 - useEventHandlers - finalHandler - conversation: %O', conversation);
 
       setShowStopButton(false);
       setCompleted((prev) => new Set(prev.add(submission.initialResponse.messageId)));
@@ -686,6 +703,362 @@ export default function useEventHandlers({
     [token, setIsSubmitting, finalHandler, cancelHandler, setMessages, newConversation],
   );
 
+  const prefilledHandler = useCallback(
+    (data: TPrefillResData, submission: EventSubmission) => {
+      // sendMessage(res, {
+      //   added: true,
+      //   conversation,
+      //   title: conversation?.title,
+      //   // requestMessage: userMessage,
+      //   requestMessage: userMessage,
+      //   // responseMessage: response,
+      // });
+      // const { requestMessage, responseMessage, conversation, runMessages } = data;
+      const { requestMessage, conversation } = data;
+      const {
+        messages,
+        conversation: submissionConvo,
+        // userMessage: submissionUserMessage,
+        // isRegenerate = false,
+        isTemporary = false,
+      } = submission;
+
+      // const {
+      //   conversationId: submissionUserMessage_conversationId,
+      //   parentMessageId: submissionUserMessage_parentMessageId,
+      // } = submissionUserMessage;
+
+      console.log('PORRA - 0 - useEventHandlers - prefilledHandler - submission: %O', submission);
+      console.log('PORRA - 1 - useEventHandlers - prefilledHandler - data: %O', data);
+
+      // setShowStopButton(false);
+      setCompleted((prev) => new Set(prev.add(submission.userMessage.messageId)));
+
+      // IS THIS CHECK NECESSARY???
+      const currentMessages = getMessages();
+      /* Early return if messages are empty; i.e., the user navigated away */
+      if (!currentMessages || currentMessages.length === 0) {
+        return setIsSubmitting(false);
+      }
+
+      /* a11y announcements */
+      announcePolite({
+        message: 'prefilled',
+        isStatus: true,
+      });
+      announcePolite({
+        message: getAllContentText(requestMessage),
+      });
+
+      setMessages([...messages, requestMessage]);
+
+      /* Update messages; if assistants endpoint, client doesn't receive responseMessage */
+      // if (runMessages) {
+      //   setMessages([...runMessages]);
+      // } else if (isRegenerate && responseMessage) {
+      //   setMessages([...messages, responseMessage]);
+      // } else if (requestMessage != null && responseMessage != null) {
+      //   setMessages([...messages, requestMessage, responseMessage]);
+      // }
+
+      // const { mutateAsync: sendEdit } = usePromptEditSendMutation();
+      // const kk = await sendEdit();
+
+      const isNewConvo = conversation.conversationId !== submissionConvo.conversationId;
+      console.log(
+        `PORRA - 2 - useEventHandlers - prefilledHandler - conversation.conversationId: ${conversation.conversationId} - submissionConvo.conversationId: ${submissionConvo.conversationId} - isNewConvo: ${isNewConvo}`,
+      );
+
+      if (isNewConvo) {
+        //   queryClient.setQueryData<ConversationData>([QueryKeys.allConversations], (convoData) => {
+        //     if (!convoData) {
+        //       console.log('PORRA - 14 - useEventHandlers - prefilledHandler - convoData: %O', convoData);
+        //       return convoData;
+        //     }
+        //     console.log('PORRA - 15 - useEventHandlers - prefilledHandler - convoData: %O', convoData);
+        //     console.log(
+        //       'PORRA - 16 - useEventHandlers - prefilledHandler - submissionConvo.conversationId: %O',
+        //       submissionConvo.conversationId,
+        //     );
+        //     return deleteConversation(convoData, submissionConvo.conversationId as string);
+        //   });
+        setTimeout(() => {
+          console.log('PORRA - 3 - useEventHandlers - prefilledHandler - clearDraft NEW');
+          localStorage.removeItem(`${LocalStorageKeys.TEXT_DRAFT}${Constants.NEW_CONVO}`);
+          localStorage.removeItem(`${LocalStorageKeys.FILES_DRAFT}${Constants.NEW_CONVO}`);
+        }, 2500);
+      } else {
+        console.log(
+          `PORRA - 4 - useEventHandlers - prefilledHandler - clearDraft conversation.conversationId: ${conversation.conversationId}`,
+        );
+        localStorage.removeItem(`${LocalStorageKeys.TEXT_DRAFT}${conversation.conversationId}`);
+        localStorage.removeItem(`${LocalStorageKeys.FILES_DRAFT}${conversation.conversationId}`);
+      }
+
+      /* Refresh title */
+      if (
+        genTitle &&
+        isNewConvo &&
+        !isTemporary &&
+        // requestMessage &&
+        requestMessage.parentMessageId === Constants.NO_PARENT
+      ) {
+        setTimeout(() => {
+          console.log('PORRA - 5 - useEventHandlers - prefilledHandler - genTitle.mutate');
+          genTitle.mutate({
+            conversationId: conversation.conversationId as string,
+          });
+        }, 2500);
+      }
+
+      let update = {} as TConversation;
+      if (setConversation && isAddedRequest !== true) {
+        console.log('PORRA - 6 - useEventHandlers - prefilledHandler - window.history.pushState');
+        if (window.location.pathname === '/c/new') {
+          window.history.pushState({}, '', '/c/' + conversation.conversationId);
+        }
+
+        setConversation((prevState) => {
+          // let title = prevState?.title;
+          // console.log('PORRA - 6.5 - useEventHandlers - createdHandler - title: %O', title);
+
+          // if (
+          //   submissionUserMessage_parentMessageId !== Constants.NO_PARENT &&
+          //   (title?.toLowerCase().includes('new chat') ?? false)
+          // ) {
+          //   const convos = queryClient.getQueryData<ConversationData>([QueryKeys.allConversations]);
+          //   const cachedConvo = getConversationById(convos, conversationId);
+          //   title = cachedConvo?.title;
+          //   console.log('PORRA - 6.6 - useEventHandlers - createdHandler - title: %O', title);
+          // }
+
+          update = {
+            ...prevState,
+            ...conversation,
+            prefilled: true,
+          };
+          // update = tConvoUpdateSchema.parse({
+          //   ...prevState,
+          //   ...conversation,
+          //   prefilled: true,
+          // }) as TConversation;
+
+          if (prevState?.model != null && prevState.model !== submissionConvo.model) {
+            update.model = prevState.model;
+          }
+
+          console.log('PORRA - 7 - useEventHandlers - addHandler - setConversation');
+
+          return update;
+        });
+
+        if (isTemporary) {
+          return;
+        }
+
+        console.log(
+          'PORRA - 8 - useEventHandlers - prefilledHandler - requestMessage: %O',
+          requestMessage,
+        );
+
+        queryClient.setQueryData<ConversationData>([QueryKeys.allConversations], (convoData) => {
+          if (!convoData) {
+            return convoData;
+          }
+          if (requestMessage.parentMessageId === Constants.NO_PARENT) {
+            console.log('PORRA - 9 - useEventHandlers - prefilledHandler - addConversation');
+            return addConversation(convoData, update);
+          } else {
+            console.log('PORRA - 10 - useEventHandlers - prefilledHandler - updateConversation');
+            return updateConversation(convoData, update);
+          }
+        });
+      } else {
+        console.log(
+          'PORRA - 11 - useEventHandlers - prefilledHandler - NO window.history.pushState',
+        );
+      }
+
+      // if (resetLatestMessage) {
+      //   resetLatestMessage();
+      // }
+
+      setIsSubmitting(false);
+      scrollToEnd(() => setAbortScroll(false));
+    },
+    [
+      genTitle,
+      queryClient,
+      getMessages,
+      setMessages,
+      setCompleted,
+      isAddedRequest,
+      announcePolite,
+      setConversation,
+      setIsSubmitting,
+      // setShowStopButton,
+      // resetLatestMessage,
+      setAbortScroll,
+    ],
+  );
+
+  const addTitleHandler = useCallback(
+    (data: TAddTitleResData, submission: EventSubmission) => {
+      const { conversationId } = data;
+      // const {
+      //   // messages,
+      //   // conversation: submissionConvo,
+      //   // userMessage: submissionUserMessage,
+      //   // isRegenerate = false,
+      //   isTemporary = false,
+      // } = submission;
+
+      // const {
+      //   conversationId: submissionUserMessage_conversationId,
+      //   parentMessageId: submissionUserMessage_parentMessageId,
+      // } = submissionUserMessage;
+
+      console.log('PORRA - 1 - useEventHandlers - addTitleHandler - submission: %O', submission);
+      console.log('PORRA - 2 - useEventHandlers - addTitleHandler - data: %O', data);
+
+      // setShowStopButton(false);
+      // setCompleted((prev) => new Set(prev.add(submission.userMessage.messageId)));
+
+      // IS THIS CHECK NECESSARY???
+      const currentMessages = getMessages();
+      /* Early return if messages are empty; i.e., the user navigated away */
+      if (!currentMessages || currentMessages.length === 0) {
+        return setIsSubmitting(false);
+      }
+
+      /* a11y announcements */
+      announcePolite({
+        message: 'title added',
+        isStatus: true,
+      });
+
+      // setMessages([...messages, requestMessage]);
+
+      /* Update messages; if assistants endpoint, client doesn't receive responseMessage */
+      // if (runMessages) {
+      //   setMessages([...runMessages]);
+      // } else if (isRegenerate && responseMessage) {
+      //   setMessages([...messages, responseMessage]);
+      // } else if (requestMessage != null && responseMessage != null) {
+      //   setMessages([...messages, requestMessage, responseMessage]);
+      // }
+
+      // const { mutateAsync: sendEdit } = usePromptEditSendMutation();
+      // const kk = await sendEdit();
+
+      // const isNewConvo = conversation.conversationId !== submissionConvo.conversationId;
+      // console.log(
+      //   `PORRA - 3 - useEventHandlers - addTitleHandler - conversation.conversationId: ${conversation.conversationId} - submissionConvo.conversationId: ${submissionConvo.conversationId} - isNewConvo: ${isNewConvo}`,
+      // );
+
+      // if (isNewConvo) {
+      //   setTimeout(() => {
+      //     console.log('PORRA - 4 - useEventHandlers - addTitleHandler - clearDraft NEW');
+      //     localStorage.removeItem(`${LocalStorageKeys.TEXT_DRAFT}${Constants.NEW_CONVO}`);
+      //     localStorage.removeItem(`${LocalStorageKeys.FILES_DRAFT}${Constants.NEW_CONVO}`);
+      //   }, 2500);
+      // } else {
+      //   console.log(
+      //     `PORRA - 5 - useEventHandlers - addTitleHandler - clearDraft conversation.conversationId: ${conversation.conversationId}`,
+      //   );
+      //   localStorage.removeItem(`${LocalStorageKeys.TEXT_DRAFT}${conversation.conversationId}`);
+      //   localStorage.removeItem(`${LocalStorageKeys.FILES_DRAFT}${conversation.conversationId}`);
+      // }
+
+      /* Refresh title */
+      if (genTitle) {
+        setTimeout(() => {
+          console.log('PORRA - 6 - useEventHandlers - addTitleHandler - genTitle.mutate');
+          genTitle.mutate({
+            conversationId,
+          });
+        }, 2500);
+      }
+
+      // let update = {} as TConversation;
+      // if (setConversation && isAddedRequest !== true) {
+      //   console.log('PORRA - 7 - useEventHandlers - addTitleHandler - window.history.pushState');
+      //   if (window.location.pathname === '/c/new') {
+      //     window.history.pushState({}, '', '/c/' + conversation.conversationId);
+      //   }
+
+      //   setConversation((prevState) => {
+      //     // let title = prevState?.title;
+      //     // console.log('PORRA - 6.5 - useEventHandlers - addTitleHandler - title: %O', title);
+
+      //     // if (
+      //     //   submissionUserMessage_parentMessageId !== Constants.NO_PARENT &&
+      //     //   (title?.toLowerCase().includes('new chat') ?? false)
+      //     // ) {
+      //     //   const convos = queryClient.getQueryData<ConversationData>([QueryKeys.allConversations]);
+      //     //   const cachedConvo = getConversationById(convos, conversationId);
+      //     //   title = cachedConvo?.title;
+      //     //   console.log('PORRA - 6.6 - useEventHandlers - addTitleHandler - title: %O', title);
+      //     // }
+
+      //     // update = {
+      //     //   ...prevState,
+      //     //   ...conversation,
+      //     // };
+      //     update = tConvoUpdateSchema.parse({
+      //       ...prevState,
+      //       ...conversation,
+      //       prefilled: true,
+      //     }) as TConversation;
+
+      //     if (prevState?.model != null && prevState.model !== submissionConvo.model) {
+      //       update.model = prevState.model;
+      //     }
+
+      //     console.log('PORRA - 8 - useEventHandlers - addTitleHandler - setConversation');
+
+      //     return update;
+      //   });
+
+      //   if (isTemporary) {
+      //     return;
+      //   }
+      //   queryClient.setQueryData<ConversationData>([QueryKeys.allConversations], (convoData) => {
+      //     if (!convoData) {
+      //       return convoData;
+      //     }
+      //     if (requestMessage.parentMessageId === Constants.NO_PARENT) {
+      //       console.log('PORRA - 9 - useEventHandlers - addTitleHandler - addConversation');
+      //       return addConversation(convoData, update);
+      //     } else {
+      //       console.log('PORRA - 10 - useEventHandlers - addTitleHandler - updateConversation');
+      //       return updateConversation(convoData, update);
+      //     }
+      //   });
+      // } else {
+      //   console.log(
+      //     'PORRA - 11 - useEventHandlers - addTitleHandler - NO window.history.pushState',
+      //   );
+      // }
+
+      setIsSubmitting(false);
+    },
+    [
+      genTitle,
+      // queryClient,
+      getMessages,
+      // setMessages,
+      // setCompleted,
+      // isAddedRequest,
+      announcePolite,
+      // setConversation,
+      setIsSubmitting,
+      // setShowStopButton,
+      // resetLatestMessage,
+      // setAbortScroll,
+    ],
+  );
+
   return {
     stepHandler,
     syncHandler,
@@ -696,5 +1069,7 @@ export default function useEventHandlers({
     createdHandler,
     attachmentHandler,
     abortConversation,
+    prefilledHandler,
+    addTitleHandler,
   };
 }

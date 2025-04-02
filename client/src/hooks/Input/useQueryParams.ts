@@ -224,6 +224,7 @@ export default function useQueryParams({
         const newUrl = window.location.pathname;
         window.history.replaceState({}, '', newUrl);
         processedRef.current = true;
+        console.log('PORRA 0 - useQueryParams - newUrl: %O', newUrl);
         console.log('Parameters processed successfully');
         clearInterval(intervalId);
       };

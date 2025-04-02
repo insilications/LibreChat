@@ -1813,7 +1813,7 @@
 /** Clients */
 
 /**
- * @typedef {Promise<{ message: TMessage, conversation: TConversation }> | undefined} ClientDatabaseSavePromise
+ * @typedef {Promise<{ message: TMessage, conversation: TConversation }>} ClientDatabaseSavePromise
  * @memberof typedefs
  */
 

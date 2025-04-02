@@ -63,6 +63,8 @@ export type TSubmission = {
   conversation: Partial<TConversation>;
   endpointOption: TEndpointOption;
   clientTimestamp?: string;
+  isPrefilledMessage?: boolean;
+  isAddTitle?: boolean;
 };
 
 export type EventSubmission = Omit<TSubmission, 'initialResponse'> & { initialResponse: TMessage };
@@ -532,3 +534,11 @@ export type TAcceptTermsResponse = {
 };
 
 export type TBannerResponse = TBanner | null;
+
+export type TAddTitleConversationRequest = {
+  conversation: TConversation;
+};
+
+export type TAddTitleConversationResponse = {
+  title: string;
+};

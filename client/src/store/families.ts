@@ -76,6 +76,18 @@ const conversationByIndex = atomFamily<TConversation | null, string | number>({
       onSet(async (newValue) => {
         const index = Number(node.key.split('__')[1]);
         logger.log('conversation', 'Setting conversation:', { index, newValue });
+        // console.groupCollapsed(
+        //   `%c[Recoil node.key Set] %c${node.key}`,
+        //   'color: #4CAF50; font-weight: bold;', // Green label
+        //   'color: #03A9F4;', // Blue key
+        // );
+        // console.log('%cNew Value:', 'color: #FF9800; font-weight: bold;', newValue);
+        // console.log('%cOld Value:', 'color: #9E9E9E;', oldValue);
+        // console.log('%cIs Reset:', 'color: #9E9E9E;', isReset);
+        // console.log('%cindex:', 'color: #9E9E9E;', index);
+        // // Most valuable part: The stack trace!
+        // console.trace('Stack trace for set operation');
+        // console.groupEnd();
         if (newValue?.assistant_id != null && newValue.assistant_id) {
           localStorage.setItem(
             `${LocalStorageKeys.ASST_ID_PREFIX}${index}${newValue.endpoint}`,

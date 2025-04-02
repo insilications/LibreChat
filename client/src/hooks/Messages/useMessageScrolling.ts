@@ -15,7 +15,8 @@ export default function useMessageScrolling(messagesTree?: TMessage[] | null) {
   const scrollableRef = useRef<HTMLDivElement | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
-  const { conversation, setAbortScroll, isSubmitting, abortScroll } = useChatContext();
+  const { conversation, setAbortScroll, abortScroll } = useChatContext();
+  // const { conversation, setAbortScroll, isSubmitting, abortScroll } = useChatContext();
   const { conversationId } = conversation ?? {};
 
   const timeoutIdRef = useRef<NodeJS.Timeout>();
@@ -80,7 +81,8 @@ export default function useMessageScrolling(messagesTree?: TMessage[] | null) {
       return;
     }
 
-    if (isSubmitting && scrollToBottom && abortScroll !== true) {
+    // if (isSubmitting && scrollToBottom && abortScroll !== true) {
+    if (scrollToBottom && abortScroll !== true) {
       scrollToBottom();
     }
 
@@ -89,7 +91,8 @@ export default function useMessageScrolling(messagesTree?: TMessage[] | null) {
         scrollToBottom && scrollToBottom.cancel();
       }
     };
-  }, [isSubmitting, messagesTree, scrollToBottom, abortScroll]);
+  }, [messagesTree, scrollToBottom, abortScroll]);
+  // }, [isSubmitting, messagesTree, scrollToBottom, abortScroll]);
 
   useEffect(() => {
     if (!messagesEndRef.current || !scrollableRef.current) {

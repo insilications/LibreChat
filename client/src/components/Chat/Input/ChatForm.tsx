@@ -31,6 +31,9 @@ import SendButton from './SendButton';
 import { BadgeRow } from './BadgeRow';
 import EditBadges from './EditBadges';
 import Mention from './Mention';
+import AddPrefilledMessageButton from './AddPrefilledMessageButton';
+import AddTitleConversationButton from './AddTitleConversationButton';
+// import { useAddTitleConversationMutation } from '~/data-provider';
 import store from '~/store';
 
 const ChatForm = memo(({ index = 0 }: { index?: number }) => {
@@ -44,6 +47,7 @@ const ChatForm = memo(({ index = 0 }: { index?: number }) => {
   const [backupBadges, setBackupBadges] = useState<Pick<BadgeItem, 'id'>[]>([]);
 
   const isSearching = useRecoilValue(store.isSearching);
+  const prefillMessages = useRecoilValue(store.prefillMessages);
   const SpeechToText = useRecoilValue(store.speechToText);
   const TextToSpeech = useRecoilValue(store.textToSpeech);
   const chatDirection = useRecoilValue(store.chatDirection);
@@ -98,6 +102,7 @@ const ChatForm = memo(({ index = 0 }: { index?: number }) => {
     () => requiresKey || invalidAssistant,
     [requiresKey, invalidAssistant],
   );
+  const isPrefilledConvo = useMemo(() => conversation?.prefilled, [conversation?.prefilled]);
 
   const handleContainerClick = useCallback(() => {
     textAreaRef.current?.focus();
@@ -116,7 +121,8 @@ const ChatForm = memo(({ index = 0 }: { index?: number }) => {
     setFiles,
   });
 
-  const { submitMessage, submitPrompt } = useSubmitMessage();
+  const { submitMessage, submitPrompt, submitPrefilledMessage, submitAddTitle } =
+    useSubmitMessage();
   const handleKeyUp = useHandleKeyUp({
     index,
     textAreaRef,
@@ -129,6 +135,26 @@ const ChatForm = memo(({ index = 0 }: { index?: number }) => {
     setIsScrollable,
     disabled: disableInputs,
   });
+
+  const handleAddPrefilledMessageCallback = useCallback(async () => {
+    console.log('handleAddPrefilledMessageCallback');
+    await methods.handleSubmit((data) => submitPrefilledMessage(data))();
+  }, [methods, submitPrefilledMessage]);
+  // const handleAddPrefilledMessageCallback = useCallback(
+  //   () => methods.handleSubmit((data) => submitPrefilledMessage(data))(),
+  //   [methods, submitPrefilledMessage],
+  // );
+
+  // const { mutateAsync: addTitleConversation } = useAddTitleConversationMutation();
+
+  const handleAddTitleConversation = useCallback(() => {
+    console.log('PORRA - 0 - handleAddTitleConversation - conversation: %O', conversation);
+    if (conversation?.conversationId) {
+      submitAddTitle(conversation?.conversationId);
+    } else {
+      console.warn('PORRA - 0 - handleAddTitleConversation - conversation is null');
+    }
+  }, [conversation, submitAddTitle]);
 
   useQueryParams({ textAreaRef });
 
@@ -285,8 +311,24 @@ const ChatForm = memo(({ index = 0 }: { index?: number }) => {
                 isRTL ? 'flex-row-reverse' : 'flex-row',
               )}
             >
-              <div className={`${isRTL ? 'mr-2' : 'ml-2'}`}>
+              <div className={`${isRTL ? 'mr-2 flex items-center' : 'ml-2 flex items-center'}`}>
                 <AttachFileChat disableInputs={disableInputs} />
+                {endpoint && prefillMessages && (
+                  <>
+                    <AddPrefilledMessageButton
+                      handleAddPrefilledMessage={handleAddPrefilledMessageCallback}
+                      control={methods.control}
+                      disabled={!!(filesLoading || isSubmitting || disableInputs)}
+                    />
+                    <AddTitleConversationButton
+                      handleAddTitleConversation={handleAddTitleConversation}
+                      control={methods.control}
+                      disabled={
+                        !!(filesLoading || isSubmitting || disableInputs || !isPrefilledConvo)
+                      }
+                    />
+                  </>
+                )}
               </div>
               <BadgeRow
                 onChange={(newBadges) => setBadges(newBadges)}

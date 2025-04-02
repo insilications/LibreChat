@@ -24,6 +24,7 @@ export default function useAddedHelpers({
   const setLatestMultiMessage = useSetRecoilState(store.latestMessageFamily(currentIndex));
 
   const { useCreateConversationAtom } = store;
+  // console.log('PORRA - 0 - useAddedHelpers - index: %O', currentIndex);
   const { conversation, setConversation } = useCreateConversationAtom(currentIndex);
   const [isSubmitting, setIsSubmitting] = useRecoilState(store.isSubmittingFamily(currentIndex));
 

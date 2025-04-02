@@ -48,6 +48,7 @@ const localStorageAtoms = {
   customPromptMode: atomWithLocalStorage('customPromptMode', false),
   centerFormOnLanding: atomWithLocalStorage('centerFormOnLanding', true),
   showFooter: atomWithLocalStorage('showFooter', true),
+  prefillMessages: atomWithLocalStorage<boolean>('prefillMessages', false),
 
   // Commands settings
   atCommand: atomWithLocalStorage('atCommand', true),
