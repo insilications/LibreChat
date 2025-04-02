@@ -17,6 +17,8 @@
       "librechat-data-provider/*": ["../packages/data-provider/src/*"],
       "librechat-mcp": ["../packages/mcp/src"],
       "librechat-mcp/*": ["../packages/mcp/src/*"],
+      "@librechat/agents": ["../node_modules/@librechat/agents/src/"],
+      "@librechat/agents/*": ["../node_modules/@librechat/agents/src/*"],
       "~/types/*": ["./types/*"]
     },
     "strict": true,
