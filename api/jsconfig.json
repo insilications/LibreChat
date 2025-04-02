@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ES6",
+    "target": "ESNext",
     "module": "CommonJS",
     "checkJs": true,
     "allowJs": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "baseUrl": "./",
-    "lib": ["ES6"],
+    "lib": ["ESNext"],
     "paths": {
       "*": ["*", "node_modules/*"],
       "~/*": ["./*"],
@@ -17,6 +17,8 @@
       "librechat-data-provider/*": ["../packages/data-provider/src/*"],
       "librechat-mcp": ["../packages/mcp/src"],
       "librechat-mcp/*": ["../packages/mcp/src/*"],
+      "@librechat/agents": ["../node_modules/@librechat/agents/src/"],
+      "@librechat/agents/*": ["../node_modules/@librechat/agents/src/*"],
       "~/types/*": ["./types/*"]
     },
     "strict": true,
