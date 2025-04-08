@@ -1,4 +1,5 @@
 import { Schema } from 'mongoose';
+import { prependListener } from 'process';
 
 // @ts-ignore
 export const conversationPreset = {
@@ -134,5 +135,9 @@ export const conversationPreset = {
   /** omni models only */
   reasoning_effort: {
     type: String,
+  },
+  // This is a prefilled conversation
+  prefilled: {
+    type: Boolean,
   },
 };

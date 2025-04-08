@@ -71,9 +71,9 @@ export const useAutoSave = ({
         const { fileToRecover, fileIdToRecover } = fileData
           ? { fileToRecover: fileData, fileIdToRecover: fileId }
           : {
-            fileToRecover: tempFileData,
-            fileIdToRecover: (tempFileData?.temp_file_id ?? '') || fileId,
-          };
+              fileToRecover: tempFileData,
+              fileIdToRecover: (tempFileData?.temp_file_id ?? '') || fileId,
+            };
 
         if (fileToRecover) {
           setFiles((currentFiles) => {
@@ -105,6 +105,11 @@ export const useAutoSave = ({
       if (!textAreaRef?.current) {
         return;
       }
+      // console.log('PORRA - 0 - useAutoSave - currentConversationId: %O', id);
+      // console.log(
+      //   'PORRA - 1 - useAutoSave - textAreaRef.current.value: %O',
+      //   textAreaRef.current.value,
+      // );
       // Save the draft of the current conversation before switching
       if (textAreaRef.current.value === '') {
         clearDraft(id);
@@ -164,6 +169,12 @@ export const useAutoSave = ({
       return;
     }
 
+    // console.log('PORRA - 4 - useAutoSave - conversationId: %O', conversationId);
+    // console.log(
+    //   'PORRA - 5 - useAutoSave - textAreaRef.current.value: %O',
+    //   textAreaRef?.current?.value,
+    // );
+
     // clear attachment files when switching conversation
     setFiles(new Map());
 
@@ -203,6 +214,12 @@ export const useAutoSave = ({
     ) {
       return;
     }
+
+    // console.log('PORRA - 6 - useAutoSave - conversationId: %O', conversationId);
+    // console.log(
+    //   'PORRA - 7 - useAutoSave - textAreaRef.current.value: %O',
+    //   textAreaRef?.current?.value,
+    // );
 
     if (fileIds.length === 0) {
       localStorage.removeItem(`${LocalStorageKeys.FILES_DRAFT}${conversationId}`);

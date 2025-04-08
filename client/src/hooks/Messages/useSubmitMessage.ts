@@ -1,6 +1,7 @@
 import { v4 } from 'uuid';
 import { useCallback } from 'react';
 import { Constants } from 'librechat-data-provider';
+import type { TMessage } from 'librechat-data-provider';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useChatContext, useChatFormContext, useAddedChatContext } from '~/Providers';
 import { useAuthContext } from '~/hooks/AuthContext';
@@ -17,7 +18,8 @@ const appendIndex = (index: number, value?: string) => {
 export default function useSubmitMessage() {
   const { user } = useAuthContext();
   const methods = useChatFormContext();
-  const { ask, index, getMessages, setMessages, latestMessage } = useChatContext();
+  const { ask, prefill, add_title, index, getMessages, setMessages, latestMessage } =
+    useChatContext();
   const { addedIndex, ask: askAdditional, conversation: addedConvo } = useAddedChatContext();
 
   const autoSendPrompts = useRecoilValue(store.autoSendPrompts);
@@ -46,6 +48,9 @@ export default function useSubmitMessage() {
       const overrideUserMessageId = hasAdded ? v4() : undefined;
       const rootIndex = addedIndex - 1;
       const clientTimestamp = new Date().toISOString();
+
+      console.log('PORRA - 0 - submitMessage - overrideConvoId: %O', overrideConvoId);
+      console.log('PORRA - 1 - submitMessage - overrideUserMessageId: %O', overrideUserMessageId);
 
       ask({
         text: data.text,
@@ -95,5 +100,37 @@ export default function useSubmitMessage() {
     [autoSendPrompts, submitMessage, setActivePrompt, methods, user],
   );
 
-  return { submitMessage, submitPrompt };
+  const submitPrefilledMessage = useCallback(
+    (data?: { text: string }) => {
+      if (!data) {
+        return console.warn('No data provided to submitMessage');
+      }
+
+      const clientTimestamp = new Date().toLocaleString('sv').replace(' ', 'T');
+
+      prefill({ text: data.text, clientTimestamp });
+
+      methods.reset();
+    },
+    [prefill, methods],
+  );
+
+  const submitAddTitle = useCallback(
+    (conversationId: string | null, addingTitleMessages: TMessage[]) => {
+      if (!conversationId) {
+        return console.warn('No conversationId provided to submitAddTitle');
+      }
+
+      console.log('PORRA - 0 - submitAddTitle - conversationId: %O', conversationId);
+      console.log('PORRA - 1 - submitAddTitle - addingTitleMessages: %O', addingTitleMessages);
+      const clientTimestamp = new Date().toLocaleString('sv').replace(' ', 'T');
+
+      add_title({ conversationId, messages: addingTitleMessages, clientTimestamp });
+
+      methods.reset();
+    },
+    [add_title, methods],
+  );
+
+  return { submitMessage, submitPrompt, submitPrefilledMessage, submitAddTitle };
 }

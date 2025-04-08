@@ -151,6 +151,11 @@ const useNewConvo = (index = 0) => {
         if (!(keepAddedConvos ?? false)) {
           clearAllConversations(true);
         }
+        console.log('PORRA 0 - useNewConvo - switchToConversation - index: %O', index);
+        console.log(
+          'PORRA 1 - useNewConvo - switchToConversation - conversation: %O',
+          conversation,
+        );
         setConversation(conversation);
         setSubmission({} as TSubmission);
         if (!(keepLatestMessage ?? false)) {

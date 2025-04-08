@@ -4,6 +4,8 @@ import useAddedHelpers from '~/hooks/Chat/useAddedHelpers';
 
 export default function useAddedResponse({ rootIndex }: { rootIndex: number }) {
   const currentIndex = useMemo(() => rootIndex + 1, [rootIndex]);
+  // console.log('PORRA - 0 - useAddedResponse - rootIndex: %O', rootIndex);
+  // console.log('PORRA - 1 - useAddedResponse - currentIndex: %O', currentIndex);
   const {
     ask,
     regenerate,

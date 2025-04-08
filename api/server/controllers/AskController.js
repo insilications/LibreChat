@@ -109,6 +109,8 @@ const AskController = async (req, res, next, initializeClient, addTitle) => {
     conversation.title =
       conversation && !conversation.title ? null : conversation?.title || 'New Chat';
 
+    console.log('PORRA 0 - AskController - conversation: %O', conversation);
+
     if (client.options.attachments) {
       userMessage.files = client.options.attachments;
       conversation.model = endpointOption.modelOptions.model;
@@ -136,7 +138,7 @@ const AskController = async (req, res, next, initializeClient, addTitle) => {
 
     if (!client.skipSaveUserMessage) {
       await saveMessage(req, userMessage, {
-        context: 'api/server/controllers/AskController.js - don\'t skip saving user message',
+        context: "api/server/controllers/AskController.js - don't skip saving user message",
       });
     }
 

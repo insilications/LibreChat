@@ -4,6 +4,7 @@ import { ForkSettings } from './ForkSettings';
 import ChatDirection from './ChatDirection';
 import ToggleSwitch from '../ToggleSwitch';
 import store from '~/store';
+import PrefillMessages from './PrefillMessages';
 
 const toggleSwitchConfigs = [
   {
@@ -98,6 +99,9 @@ function Chat() {
         </div>
       ))}
       <ForkSettings />
+      <div className="pb-3">
+        <PrefillMessages />
+      </div>
     </div>
   );
 }

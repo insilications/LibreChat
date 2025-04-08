@@ -1,4 +1,4 @@
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import { useCallback, useMemo, memo } from 'react';
 import type { TMessage } from 'librechat-data-provider';
 import type { TMessageProps, TMessageIcon } from '~/common';
@@ -60,6 +60,9 @@ const MessageRender = memo(
 
     const maximizeChatSpace = useRecoilValue(store.maximizeChatSpace);
     const fontSize = useRecoilValue(store.fontSize);
+    const prefillMessages = useRecoilValue(store.prefillMessages);
+    const isAddingTitle = useRecoilValue(store.isAddingTitle);
+    const [addingTitleMessages, setAddingTitleMessages] = useRecoilState(store.AddingTitleMessages);
 
     const handleRegenerateMessage = useCallback(() => regenerateMessage(), [regenerateMessage]);
     const hasNoChildren = !(msg?.children?.length ?? 0);
@@ -68,8 +71,21 @@ const MessageRender = memo(
       [hasNoChildren, msg?.depth, latestMessage?.depth],
     );
     const isLatestMessage = msg?.messageId === latestMessage?.messageId;
+    // const showCardRender = isLast && !isSubmittingFamily && isCard;
     const showCardRender = isLast && !isSubmittingFamily && isCard;
     const isLatestCard = isCard && !isSubmittingFamily && isLatestMessage;
+
+    const isMessageSelectedForTitle =
+      !isSubmittingFamily &&
+      addingTitleMessages.some((message) => message.messageId === msg?.messageId);
+    const showAddingTitleRender = useMemo(
+      () => prefillMessages && !isSubmittingFamily,
+      [isSubmittingFamily, prefillMessages],
+    );
+    const addingTitleClickHandler = useMemo(
+      () => isAddingTitle && !isSubmittingFamily,
+      [isSubmittingFamily, isAddingTitle],
+    );
 
     const iconData: TMessageIcon = useMemo(
       () => ({
@@ -90,33 +106,65 @@ const MessageRender = memo(
       ],
     );
 
-    const clickHandler = useMemo(
-      () =>
-        showCardRender && !isLatestMessage
-          ? () => {
-            logger.log(`Message Card click: Setting ${msg?.messageId} as latest message`);
-            logger.dir(msg);
-            setLatestMessage(msg!);
-          }
-          : undefined,
-      [showCardRender, isLatestMessage, msg, setLatestMessage],
-    );
+    const clickHandler = useMemo(() => {
+      if (showCardRender && !isLatestMessage) {
+        return () => {
+          logger.log(`Message Card click: Setting ${msg?.messageId} as latest message`);
+          logger.dir(msg);
+          setLatestMessage(msg!);
+        };
+      } else if (addingTitleClickHandler) {
+        return () => {
+          setAddingTitleMessages((prev) => {
+            if (msg) {
+              if (!prev.some((message) => message.messageId === msg.messageId)) {
+                // Add the message to `addingTitleMessages` only if there are less than 2 messages
+                // already selected
+                if (prev.length < 2) {
+                  return [...prev, msg];
+                } else {
+                  return prev.toSpliced(1, 1, msg);
+                }
+              } else {
+                return prev.filter((message) => message.messageId !== msg.messageId);
+              }
+            }
+            return prev;
+          });
+        };
+      } else {
+        return undefined;
+      }
+    }, [
+      showCardRender,
+      isLatestMessage,
+      msg,
+      setLatestMessage,
+      addingTitleClickHandler,
+      setAddingTitleMessages,
+    ]);
 
     if (!msg) {
       return null;
     }
 
     const baseClasses = {
-      common: 'group mx-auto flex flex-1 gap-3 transition-all duration-300 transform-gpu ',
+      common: 'group mx-auto flex flex-1 gap-3 transition-all duration-300 transform-gpu',
       card: 'relative w-full gap-1 rounded-lg border border-border-medium bg-surface-primary-alt p-2 md:w-1/2 md:gap-3 md:p-4',
       chat: maximizeChatSpace
         ? 'w-full max-w-full md:px-5 lg:px-1 xl:px-5'
         : 'md:max-w-[47rem] xl:max-w-[55rem]',
+      chatAddingTitle: maximizeChatSpace
+        ? 'w-full max-w-full md:px-5 lg:px-1 xl:px-5 rounded-lg border border-border-medium py-2'
+        : 'md:max-w-[47rem] xl:max-w-[55rem] rounded-lg border border-border-medium py-2',
     };
 
     const conditionalClasses = {
       latestCard: isLatestCard ? 'bg-surface-secondary' : '',
       cardRender: showCardRender ? 'cursor-pointer transition-colors duration-300' : '',
+      addingTitleRender: addingTitleClickHandler
+        ? 'cursor-pointer transition-colors duration-300 hover:border-white'
+        : '',
       focus: 'focus:outline-none focus:ring-2 focus:ring-border-xheavy',
     };
 
@@ -126,9 +174,14 @@ const MessageRender = memo(
         aria-label={`message-${msg.depth}-${msg.messageId}`}
         className={cn(
           baseClasses.common,
-          isCard ? baseClasses.card : baseClasses.chat,
+          isCard
+            ? baseClasses.card
+            : showAddingTitleRender
+              ? baseClasses.chatAddingTitle
+              : baseClasses.chat,
           conditionalClasses.latestCard,
           conditionalClasses.cardRender,
+          conditionalClasses.addingTitleRender,
           conditionalClasses.focus,
           'message-render',
         )}
@@ -141,7 +194,7 @@ const MessageRender = memo(
         role={showCardRender ? 'button' : undefined}
         tabIndex={showCardRender ? 0 : undefined}
       >
-        {isLatestCard && (
+        {(isLatestCard || isMessageSelectedForTitle) && (
           <div className="absolute right-0 top-0 m-2 h-3 w-3 rounded-full bg-text-primary" />
         )}
 

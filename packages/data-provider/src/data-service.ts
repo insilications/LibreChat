@@ -779,15 +779,11 @@ export function enableTwoFactor(): Promise<t.TEnable2FAResponse> {
   return request.get(endpoints.enableTwoFactor());
 }
 
-export function verifyTwoFactor(
-  payload: t.TVerify2FARequest,
-): Promise<t.TVerify2FAResponse> {
+export function verifyTwoFactor(payload: t.TVerify2FARequest): Promise<t.TVerify2FAResponse> {
   return request.post(endpoints.verifyTwoFactor(), payload);
 }
 
-export function confirmTwoFactor(
-  payload: t.TVerify2FARequest,
-): Promise<t.TVerify2FAResponse> {
+export function confirmTwoFactor(payload: t.TVerify2FARequest): Promise<t.TVerify2FAResponse> {
   return request.post(endpoints.confirmTwoFactor(), payload);
 }
 
@@ -803,4 +799,14 @@ export function verifyTwoFactorTemp(
   payload: t.TVerify2FATempRequest,
 ): Promise<t.TVerify2FATempResponse> {
   return request.post(endpoints.verifyTwoFactorTemp(), payload);
+}
+
+// export const promptEdit = () => '/api/title';
+export function addTitleConversation(
+  payload: t.TAddTitleConversationRequest,
+): Promise<t.TAddTitleConversationResponse> {
+  const { conversation } = payload;
+  const modelEndpoint = conversation.endpointType ?? conversation.endpoint;
+  console.log(`PORRA - 0 - addTitleConversation - modelEndpoint: ${modelEndpoint}`);
+  return request.post(`/api/title/${modelEndpoint}`, payload);
 }

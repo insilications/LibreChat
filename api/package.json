@@ -51,6 +51,8 @@
     "@langchain/textsplitters": "^0.1.0",
     "@librechat/agents": "^2.4.12",
     "@librechat/data-schemas": "*",
+    "@smithy/eventstream-codec": "^4.0.2",
+    "@smithy/signature-v4": "^5.0.2",
     "@waylaidwanderer/fetch-event-source": "^3.0.1",
     "axios": "^1.8.2",
     "bcryptjs": "^2.4.3",

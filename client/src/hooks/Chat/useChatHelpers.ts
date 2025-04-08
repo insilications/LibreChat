@@ -20,10 +20,11 @@ export default function useChatHelpers(index = 0, paramId?: string) {
 
   const { newConversation } = useNewConvo(index);
   const { useCreateConversationAtom } = store;
+  // console.log('PORRA - 0 - useChatHelpers - index: %O', index);
   const { conversation, setConversation } = useCreateConversationAtom(index);
   const { conversationId } = conversation ?? {};
 
-  const queryParam = paramId === 'new' ? paramId : conversationId ?? paramId ?? '';
+  const queryParam = paramId === 'new' ? paramId : (conversationId ?? paramId ?? '');
 
   /* Messages: here simply to fetch, don't export and use `getMessages()` instead */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -73,7 +74,7 @@ export default function useChatHelpers(index = 0, paramId?: string) {
 
   const setSubmission = useSetRecoilState(store.submissionByIndex(index));
 
-  const { ask, regenerate } = useChatFunctions({
+  const { ask, regenerate, prefill, add_title } = useChatFunctions({
     index,
     files,
     setFiles,
@@ -153,6 +154,8 @@ export default function useChatHelpers(index = 0, paramId?: string) {
     setLatestMessage,
     resetLatestMessage,
     ask,
+    prefill,
+    add_title,
     index,
     regenerate,
     stopGenerating,

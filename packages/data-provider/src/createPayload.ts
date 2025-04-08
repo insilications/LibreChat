@@ -11,6 +11,8 @@ export default function createPayload(submission: t.TSubmission) {
     isContinued,
     isTemporary,
     ephemeralAgent,
+    isPrefilledMessage,
+    isAddTitle,
   } = submission;
   const { conversationId } = s.tConvoUpdateSchema.parse(conversation);
   const { endpoint, endpointType } = endpointOption as {
@@ -25,6 +27,14 @@ export default function createPayload(submission: t.TSubmission) {
     server += '/modify';
   } else if (isEdited) {
     server = server.replace('/ask/', '/edit/');
+  } else if (isPrefilledMessage) {
+    server = server.replace('/ask/', '/prefill/');
+  } else if (isAddTitle) {
+    server = server.replace('/ask/', '/title/');
+    // payload = {
+    //   ...payload,
+    //   messages: submission.messages,
+    // };
   } else if (isEphemeral) {
     server = `${EndpointURLs[s.EModelEndpoint.agents]}/${endpoint}`;
   }
@@ -36,6 +46,7 @@ export default function createPayload(submission: t.TSubmission) {
     isContinued: !!(isEdited && isContinued),
     conversationId,
     isTemporary,
+    messages: isAddTitle ? submission.messages : undefined,
   };
 
   return { server, payload };

@@ -1,12 +1,13 @@
 import { memo, useRef, useMemo, useEffect, useState, useCallback } from 'react';
 import { useWatch } from 'react-hook-form';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Constants, isAssistantsEndpoint, isAgentsEndpoint } from 'librechat-data-provider';
 import {
   useChatContext,
   useChatFormContext,
   useAddedChatContext,
   useAssistantsMapContext,
+  useToastContext,
 } from '~/Providers';
 import {
   useTextarea,
@@ -15,6 +16,7 @@ import {
   useHandleKeyUp,
   useQueryParams,
   useSubmitMessage,
+  useLocalize,
 } from '~/hooks';
 import { mainTextareaId, BadgeItem } from '~/common';
 import AttachFileChat from './Files/AttachFileChat';
@@ -31,6 +33,10 @@ import SendButton from './SendButton';
 import EditBadges from './EditBadges';
 import BadgeRow from './BadgeRow';
 import Mention from './Mention';
+import AddPrefilledMessageButton from './AddPrefilledMessageButton';
+import AddTitleConversationButton from './AddTitleConversationButton';
+import AddTitleSelectMessagesButton from './AddTitleSelectMessagesButton';
+// import { useAddTitleConversationMutation } from '~/data-provider';
 import store from '~/store';
 
 const ChatForm = memo(({ index = 0 }: { index?: number }) => {
@@ -44,6 +50,9 @@ const ChatForm = memo(({ index = 0 }: { index?: number }) => {
   const [backupBadges, setBackupBadges] = useState<Pick<BadgeItem, 'id'>[]>([]);
 
   const isSearching = useRecoilValue(store.isSearching);
+  const prefillMessages = useRecoilValue(store.prefillMessages);
+  const [addingTitle, setAddingTitle] = useRecoilState(store.isAddingTitle);
+  const [addingTitleMessages, setAddingTitleMessages] = useRecoilState(store.AddingTitleMessages);
   const SpeechToText = useRecoilValue(store.speechToText);
   const TextToSpeech = useRecoilValue(store.textToSpeech);
   const chatDirection = useRecoilValue(store.chatDirection);
@@ -60,6 +69,8 @@ const ChatForm = memo(({ index = 0 }: { index?: number }) => {
     store.showMentionPopoverFamily(index),
   );
 
+  const localize = useLocalize();
+  const { showToast } = useToastContext();
   const { requiresKey } = useRequiresKey();
   const methods = useChatFormContext();
   const {
@@ -98,6 +109,10 @@ const ChatForm = memo(({ index = 0 }: { index?: number }) => {
     () => requiresKey || invalidAssistant,
     [requiresKey, invalidAssistant],
   );
+  const isPrefilledConvo = useMemo(
+    () => conversation?.prefilled ?? false,
+    [conversation?.prefilled],
+  );
 
   const handleContainerClick = useCallback(() => {
     textAreaRef.current?.focus();
@@ -116,7 +131,8 @@ const ChatForm = memo(({ index = 0 }: { index?: number }) => {
     setFiles,
   });
 
-  const { submitMessage, submitPrompt } = useSubmitMessage();
+  const { submitMessage, submitPrompt, submitPrefilledMessage, submitAddTitle } =
+    useSubmitMessage();
   const handleKeyUp = useHandleKeyUp({
     index,
     textAreaRef,
@@ -129,6 +145,46 @@ const ChatForm = memo(({ index = 0 }: { index?: number }) => {
     setIsScrollable,
     disabled: disableInputs,
   });
+
+  const handleAddPrefilledMessageCallback = useCallback(async () => {
+    console.log('PORRA - 0 - handleAddPrefilledMessageCallback - conversation: %O', conversation);
+    await methods.handleSubmit((data) => submitPrefilledMessage(data))();
+  }, [methods, submitPrefilledMessage, conversation]);
+  // const handleAddPrefilledMessageCallback = useCallback(
+  //   () => methods.handleSubmit((data) => submitPrefilledMessage(data))(),
+  //   [methods, submitPrefilledMessage],
+  // );
+  // const { mutateAsync: addTitleConversation } = useAddTitleConversationMutation();
+
+  const handleAddTitleConversation = useCallback(() => {
+    console.log('PORRA - 0 - handleAddTitleConversation - conversation: %O', conversation);
+    if (conversation?.conversationId) {
+      submitAddTitle(conversation?.conversationId, addingTitleMessages);
+      setAddingTitle(false);
+      setAddingTitleMessages([]);
+    }
+  }, [conversation, submitAddTitle, setAddingTitle, addingTitleMessages, setAddingTitleMessages]);
+
+  const handleAddTitleSelectMessage = useCallback(() => {
+    console.log('PORRA - 0 - handleAddTitleSelectMessage - conversation: %O', conversation);
+    if (conversation?.conversationId) {
+      if (!addingTitle) {
+        console.log(
+          'PORRA - 1 - handleAddTitleSelectMessage - enable selecting messages to generate title',
+        );
+        showToast({
+          message: localize('com_add_title_select_toast'),
+          status: 'info',
+        });
+        setAddingTitle(true);
+      } else {
+        console.log(
+          'PORRA - 2 - handleAddTitleSelectMessage - disable selecting messages to generate title',
+        );
+        setAddingTitle(false);
+      }
+    }
+  }, [conversation, addingTitle, setAddingTitle, localize, showToast]);
 
   useQueryParams({ textAreaRef });
 
@@ -285,8 +341,25 @@ const ChatForm = memo(({ index = 0 }: { index?: number }) => {
                 isRTL ? 'flex-row-reverse' : 'flex-row',
               )}
             >
-              <div className={`${isRTL ? 'mr-2' : 'ml-2'}`}>
+              <div className={`${isRTL ? 'mr-2 flex items-center' : 'ml-2 flex items-center'}`}>
                 <AttachFileChat disableInputs={disableInputs} />
+                {endpoint && prefillMessages && (
+                  <>
+                    <AddPrefilledMessageButton
+                      handleAddPrefilledMessage={handleAddPrefilledMessageCallback}
+                      control={methods.control}
+                      disabled={filesLoading || isSubmitting || disableInputs}
+                    />
+                    <AddTitleSelectMessagesButton
+                      handleAddTitleSelectMessage={handleAddTitleSelectMessage}
+                      disabled={filesLoading || isSubmitting || disableInputs || !isPrefilledConvo}
+                    />
+                    <AddTitleConversationButton
+                      handleAddTitleConversation={handleAddTitleConversation}
+                      disabled={filesLoading || isSubmitting || disableInputs || !isPrefilledConvo}
+                    />
+                  </>
+                )}
               </div>
               <BadgeRow
                 showEphemeralBadges={!isAgentsEndpoint(endpoint) && !isAssistantsEndpoint(endpoint)}

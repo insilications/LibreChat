@@ -65,18 +65,26 @@ class BaseClient {
     this.currentMessages = [];
     /** @type {import('librechat-data-provider').VisionModes | undefined} */
     this.visionMode;
+    /** @type {import('~/types/api/app/clients/BaseClient').ClientOptions} */
+    this.options;
+    /** @type {import('~/types/api/app/clients/BaseClient').ClientMessageFileMap | undefined} */
+    this.message_file_map;
   }
 
-  setOptions() {
-    throw new Error('Method \'setOptions\' must be implemented.');
+  /**
+   * @param {import('~/types/api/app/clients/BaseClient').ClientOptions} options
+   * @returns
+   */
+  setOptions(options) {
+    throw new Error("Method 'setOptions' must be implemented.");
   }
 
   async getCompletion() {
-    throw new Error('Method \'getCompletion\' must be implemented.');
+    throw new Error("Method 'getCompletion' must be implemented.");
   }
 
   async sendCompletion() {
-    throw new Error('Method \'sendCompletion\' must be implemented.');
+    throw new Error("Method 'sendCompletion' must be implemented.");
   }
 
   getSaveOptions() {
@@ -144,7 +152,10 @@ class BaseClient {
     return await fetch(url, init);
   }
 
-  getBuildMessagesOptions() {
+  /**
+   * @type {import('~/types/api/app/clients/OpenAIClient').OpenAIClientGetBuildMessagesOptionsFn}
+   */
+  getBuildMessagesOptions(opts) {
     throw new Error('Subclasses must implement getBuildMessagesOptions');
   }
 
@@ -175,6 +186,75 @@ class BaseClient {
     }
 
     return [overrideConvoId, overrideUserMessageId];
+  }
+
+  /** @type {import('~/types/api/app/clients/BaseClient').ClientSetAddMesageOptionsFn} */
+  async setAddMessageOptions(opts) {
+    if (opts && opts.replaceOptions) {
+      this.setOptions(opts);
+    }
+
+    const [overrideConvoId, overrideUserMessageId] = this.processOverideIds();
+    // const { isEdited, isContinued } = opts;
+    const user = opts.user ?? null;
+    this.user = user;
+    const saveOptions = this.getSaveOptions();
+    saveOptions.prefilled = true;
+    console.log('PORRA - 0 - setAddMessageOptions - saveOptions: %O', saveOptions);
+    this.abortController = opts.abortController ?? new AbortController();
+
+    console.log(`PORRA - 1 - setAddMessageOptions - opts.conversationId: ${opts.conversationId}`);
+    const conversationId = overrideConvoId ?? opts.conversationId ?? crypto.randomUUID();
+    console.log(`PORRA - 2 - setAddMessageOptions - overrideConvoId: ${overrideConvoId}`);
+    console.log(`PORRA - 3 - setAddMessageOptions - conversationId: ${conversationId}`);
+
+    const parentMessageId = opts.parentMessageId ?? Constants.NO_PARENT;
+    const userMessageId =
+      overrideUserMessageId ?? opts.overrideParentMessageId ?? crypto.randomUUID();
+    console.log(
+      `PORRA - 4 - setAddMessageOptions - overrideUserMessageId: ${overrideUserMessageId}`,
+    );
+    console.log(
+      `PORRA - 5 - setAddMessageOptions - opts.overrideParentMessageId: ${opts.overrideParentMessageId}`,
+    );
+    console.log(`PORRA - 6 - setAddMessageOptions - userMessageId: ${userMessageId}`);
+
+    // let responseMessageId = opts.responseMessageId ?? crypto.randomUUID();
+    // console.log(
+    // `PORRA - 6 - setAddMessageOptions - opts.responseMessageId: ${opts.responseMessageId}`,
+    // );
+    // console.log(`PORRA - 7 - setMessageOptions - responseMessageId: ${responseMessageId}`);
+    // let head = isEdited ? responseMessageId : parentMessageId;
+    let head = parentMessageId;
+
+    this.currentMessages = (await this.loadHistory(conversationId, head)) ?? [];
+    this.conversationId = conversationId;
+    console.log(`PORRA - 7 - setAddMessageOptions - this.conversationId: ${this.conversationId}`);
+    console.log(
+      'PORRA - 8 - setAddMessageOptions - this.currentMessages: %O',
+      this.currentMessages,
+    );
+
+    // if (isEdited && !isContinued) {
+    //   responseMessageId = crypto.randomUUID();
+    //   head = responseMessageId;
+    //   this.currentMessages[this.currentMessages.length - 1].messageId = head;
+    // }
+
+    // this.responseMessageId = responseMessageId;
+    // MAYBE UNNECESSARY TO SET THIS??????????????????
+    this.responseMessageId = userMessageId;
+
+    return {
+      ...opts,
+      user,
+      head,
+      conversationId,
+      parentMessageId,
+      userMessageId,
+      // responseMessageId,
+      saveOptions,
+    };
   }
 
   async setMessageOptions(opts = {}) {
@@ -242,11 +322,11 @@ class BaseClient {
     const userMessage = opts.isEdited
       ? this.currentMessages[this.currentMessages.length - 2]
       : this.createUserMessage({
-        messageId: userMessageId,
-        parentMessageId,
-        conversationId,
-        text: message,
-      });
+          messageId: userMessageId,
+          parentMessageId,
+          conversationId,
+          text: message,
+        });
 
     if (typeof opts?.getReqData === 'function') {
       opts.getReqData({
@@ -563,6 +643,240 @@ class BaseClient {
     return { payload, tokenCountMap, promptTokens, messages: orderedWithInstructions };
   }
 
+  /** @type {import('~/types/api/app/clients/BaseClient').ClientAddPrefilledMessageFn} */
+  async addPrefilledMessage(message, opts) {
+    const {
+      user,
+      // head,
+      conversationId,
+      parentMessageId,
+      userMessageId,
+      // responseMessageId,
+      // isEdited,
+      saveOptions,
+    } = await this.setAddMessageOptions(opts);
+
+    /** @type {TMessage} */
+    const userMessage = {
+      messageId: userMessageId,
+      parentMessageId,
+      conversationId,
+      sender: opts.sender,
+      isCreatedByUser: opts.isCreatedByUser,
+      text: message,
+    };
+
+    if (typeof opts?.getReqData === 'function') {
+      opts.getReqData({
+        userMessage,
+        conversationId,
+        // responseMessageId,
+        responseMessageId: userMessageId,
+        // sender: this.sender,
+        sender: opts.sender,
+      });
+    }
+
+    // const { user, head, isEdited, conversationId, responseMessageId, saveOptions, userMessage } =
+    // await this.handleStartMethods(message, opts);
+
+    // console.log('PORRA - 0 - addPrefilledMessage - this.currentMessages: %O', this.currentMessages);
+    console.log('PORRA - 1 - addPrefilledMessage - userMessage: %O', userMessage);
+
+    if (opts.progressCallback) {
+      opts.onProgress = opts.progressCallback.call(null, {
+        ...(opts.progressOptions ?? {}),
+        parentMessageId: userMessage.messageId,
+        // messageId: responseMessageId,
+        messageId: userMessageId,
+      });
+    }
+
+    // const { generation = '' } = opts;
+
+    // It's not necessary to push to currentMessages
+    // depending on subclass implementation of handling messages
+    // When this is an edit, all messages are already in currentMessages, both user and response
+    // if (isEdited) {
+    //   let latestMessage = this.currentMessages[this.currentMessages.length - 1];
+    //   if (!latestMessage) {
+    //     latestMessage = {
+    //       messageId: responseMessageId,
+    //       conversationId,
+    //       parentMessageId: userMessage.messageId,
+    //       isCreatedByUser: false,
+    //       model: this.modelOptions?.model ?? this.model,
+    //       sender: this.sender,
+    //       text: generation,
+    //     };
+    //     this.currentMessages.push(userMessage, latestMessage);
+    //   } else {
+    //     latestMessage.text = generation;
+    //   }
+    //   this.continued = true;
+    // } else {
+    //   this.currentMessages.push(userMessage);
+    // }
+    this.currentMessages.push(userMessage);
+
+    let {
+      prompt: payload,
+      tokenCountMap,
+      promptTokens,
+    } = await this.buildMessages(
+      this.currentMessages,
+      // When the userMessage is pushed to currentMessages, the parentMessage is the userMessageId.
+      // this only matters when buildMessages is utilizing the parentMessageId, and may vary on implementation
+      // isEdited ? head : userMessage.messageId,
+      userMessage.messageId,
+      this.getBuildMessagesOptions(opts),
+      opts,
+    );
+
+    if (tokenCountMap) {
+      logger.debug('[BaseClient] tokenCountMap', tokenCountMap);
+      if (tokenCountMap[userMessage.messageId]) {
+        userMessage.tokenCount = tokenCountMap[userMessage.messageId];
+        logger.debug('[BaseClient] userMessage', userMessage);
+      }
+
+      this.handleTokenCountMap(tokenCountMap);
+    }
+
+    if (this.options.attachments) {
+      try {
+        saveOptions.files = this.options.attachments.map((attachments) => attachments.file_id);
+      } catch (error) {
+        logger.error('[BaseClient] Error mapping attachments for conversation', error);
+      }
+    }
+
+    console.log('PORRA - 2 - addPrefilledMessage - userMessage: %O', userMessage);
+    if (this.options.attachments) {
+      userMessage.files = this.options.attachments;
+      // conversation.model = endpointOption.modelOptions.model;
+      delete userMessage.image_urls;
+    }
+
+    // if (!isEdited && !this.skipSaveUserMessage) {
+    this.userMessagePromise = this.saveMessageToDatabase(userMessage, saveOptions, user);
+    this.savedMessageIds.add(userMessage.messageId);
+    if (typeof opts?.getReqData === 'function') {
+      opts.getReqData({
+        userMessagePromise: this.userMessagePromise,
+      });
+    }
+    // }
+
+    const balance = this.options.req?.app?.locals?.balance;
+    if (
+      balance?.enabled &&
+      supportsBalanceCheck[this.options.endpointType ?? this.options.endpoint]
+    ) {
+      await checkBalance({
+        req: this.options.req,
+        res: this.options.res,
+        txData: {
+          user: this.user,
+          tokenType: 'prompt',
+          amount: promptTokens,
+          endpoint: this.options.endpoint,
+          model: this.modelOptions?.model ?? this.model,
+          endpointTokenConfig: this.options.endpointTokenConfig,
+        },
+      });
+    }
+
+    console.log('PORRA - 3 - addPrefilledMessage - this.currentMessages: %O', this.currentMessages);
+
+    // /** @type {string|string[]|undefined} */
+    // const completion = await this.sendCompletion(payload, opts);
+    this.abortController.requestCompleted = true;
+
+    // /** @type {TMessage} */
+    // const responseMessage = {
+    //   messageId: responseMessageId,
+    //   conversationId,
+    //   parentMessageId: userMessage.messageId,
+    //   isCreatedByUser: false,
+    //   isEdited,
+    //   model: this.getResponseModel(),
+    //   sender: this.sender,
+    //   promptTokens,
+    //   iconURL: this.options.iconURL,
+    //   endpoint: this.options.endpoint,
+    //   ...(this.metadata ?? {}),
+    // };
+
+    // if (typeof completion === 'string') {
+    //   responseMessage.text = addSpaceIfNeeded(generation) + completion;
+    // } else if (
+    //   Array.isArray(completion) &&
+    //   isParamEndpoint(this.options.endpoint, this.options.endpointType)
+    // ) {
+    //   responseMessage.text = '';
+    //   responseMessage.content = completion;
+    // } else if (Array.isArray(completion)) {
+    //   responseMessage.text = addSpaceIfNeeded(generation) + completion.join('');
+    // }
+
+    // tokenCountMap,
+    // promptTokens,
+
+    if (
+      tokenCountMap &&
+      this.recordTokenUsage &&
+      this.getTokenCountForResponse &&
+      this.getTokenCount
+    ) {
+      // let completionTokens;
+
+      /**
+         * Metadata about input/output costs for the current message. The client
+         * should provide a function to get the current stream usage metadata; if not,
+         * use the legacy token estimations.
+        //  * @type {StreamUsage | null} */
+      // const usage = this.getStreamUsage != null ? this.getStreamUsage() : null;
+
+      // if (usage != null && Number(usage[this.outputTokensKey]) > 0) {
+      //   responseMessage.tokenCount = usage[this.outputTokensKey];
+      //   completionTokens = responseMessage.tokenCount;
+      //   await this.updateUserMessageTokenCount({ usage, tokenCountMap, userMessage, opts });
+      // } else {
+      //   responseMessage.tokenCount = this.getTokenCountForResponse(responseMessage);
+      //   completionTokens = responseMessage.tokenCount;
+      // }
+
+      // await this.recordTokenUsage({ promptTokens, completionTokens, usage });
+      await this.recordTokenUsage({ promptTokens, completionTokens: 0 });
+    }
+
+    // if (this.userMessagePromise) {
+    //   await this.userMessagePromise;
+    // }
+
+    // if (this.artifactPromises) {
+    // responseMessage.attachments = (await Promise.all(this.artifactPromises)).filter((a) => a);
+    // }
+
+    // if (this.options.attachments) {
+    //   try {
+    //     saveOptions.files = this.options.attachments.map((attachments) => attachments.file_id);
+    //   } catch (error) {
+    //     logger.error('[BaseClient] Error mapping attachments for conversation', error);
+    //   }
+    // }
+
+    console.log('PORRA - 4 - addPrefilledMessage - saveOptions: %O', saveOptions);
+
+    // this.responsePromise = this.saveMessageToDatabase(responseMessage, saveOptions, user);
+    // this.savedMessageIds.add(responseMessage.messageId);
+    // delete responseMessage.tokenCount;
+    // return responseMessage;
+    console.log('PORRA - 5 - addPrefilledMessage - userMessage: %O', userMessage);
+    return this.userMessagePromise;
+  }
+
   async sendMessage(message, opts = {}) {
     const { user, head, isEdited, conversationId, responseMessageId, saveOptions, userMessage } =
       await this.handleStartMethods(message, opts);
@@ -794,6 +1108,12 @@ class BaseClient {
     });
   }
 
+  /**
+   *
+   * @param {string} conversationId
+   * @param {string | null} parentMessageId
+   * @returns {Promise<TMessage[]>}
+   */
   async loadHistory(conversationId, parentMessageId = null) {
     logger.debug('[BaseClient] Loading history:', { conversationId, parentMessageId });
 
@@ -846,6 +1166,7 @@ class BaseClient {
    * @param {TMessage} message
    * @param {Partial<TConversation>} endpointOptions
    * @param {string | null} user
+   * @returns {ClientDatabaseSavePromise}
    */
   async saveMessageToDatabase(message, endpointOptions, user = null) {
     if (this.user && user !== this.user) {

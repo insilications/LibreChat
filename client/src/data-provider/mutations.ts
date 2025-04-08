@@ -1070,3 +1070,53 @@ export const useAcceptTermsMutation = (
     onMutate: options?.onMutate,
   });
 };
+
+// export const useAddTitleConversationMutation = (
+//   options?: t.MutationOptions<void, t.TAddTitleConversation, unknown, Error>,
+// ): UseMutationResult<void, Error, t.TAddTitleConversation, unknown> => {
+//   return useMutation(
+//     (payload: t.TAddTitleConversation) => {
+//       return dataService.addTitleConversation(payload);
+//     },
+//     {
+//       onSuccess: options?.onSuccess,
+//       onError: options?.onError,
+//     },
+//   );
+// };
+
+export const useAddTitleConversationMutation = (): UseMutationResult<
+  t.TAddTitleConversationResponse,
+  unknown,
+  t.TAddTitleConversationRequest,
+  unknown
+> => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    (payload: t.TAddTitleConversationRequest) => dataService.addTitleConversation(payload),
+    {
+      onSuccess: (response, vars) => {
+        const { conversation } = vars;
+        queryClient.setQueryData(
+          [QueryKeys.conversation, conversation.conversationId],
+          (convo: t.TConversation | undefined) => {
+            if (!convo) {
+              return convo;
+            }
+            return { ...convo, title: response.title };
+          },
+        );
+        queryClient.setQueryData<t.ConversationData>([QueryKeys.allConversations], (convoData) => {
+          if (!convoData) {
+            return convoData;
+          }
+          return updateConvoFields(convoData, {
+            conversationId: conversation.conversationId,
+            title: response.title,
+          } as t.TConversation);
+        });
+        document.title = response.title;
+      },
+    },
+  );
+};
