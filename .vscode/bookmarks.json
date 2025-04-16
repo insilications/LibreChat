@@ -1,0 +1,24 @@
+{
+	"files": [
+		{
+			"path": "client/src/data-provider/Files/mutations.ts",
+			"bookmarks": [
+				{
+					"line": 41,
+					"column": 4,
+					"label": ""
+				}
+			]
+		},
+		{
+			"path": "client/src/utils/files.ts",
+			"bookmarks": [
+				{
+					"line": 180,
+					"column": 36,
+					"label": ""
+				}
+			]
+		}
+	]
+}

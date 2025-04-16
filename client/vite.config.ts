@@ -1,4 +1,5 @@
 import path, { resolve } from 'path';
+import fs from 'fs'; // Import the 'fs' module
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import { defineConfig } from 'vite';
@@ -6,12 +7,26 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import { compression } from 'vite-plugin-compression2';
 import type { Plugin } from 'vite';
 
+// Define the path to your certificate files
+const certsPath = resolve(__dirname, '.certs'); // Assuming .certs is in the same dir as vite.config.ts
+const keyPath = resolve(certsPath, 'chat-key.pem');
+const certPath = resolve(certsPath, 'chat.pem');
+
+// Check if certificate files exist before configuring HTTPS
+const httpsOptions = (fs.existsSync(keyPath) && fs.existsSync(certPath))
+  ? {
+      key: fs.readFileSync(keyPath),
+      cert: fs.readFileSync(certPath),
+    }
+  : undefined; // Set to undefined if certs don't exist, Vite will use HTTP
+
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
     host: 'chat',
     port: 3090,
     strictPort: false,
+    https: httpsOptions, // Use the generated options or undefined
     proxy: {
       '/api': {
         target: 'http://chat:3088',
