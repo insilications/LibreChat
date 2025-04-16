@@ -3,6 +3,7 @@ import { Tools } from './types/assistants';
 import type { TMessageContentParts, FunctionTool, FunctionToolCall } from './types/assistants';
 import type { TEphemeralAgent } from './types';
 import type { TFile } from './types/files';
+import type { Agents } from './types/agents';
 
 export const isUUID = z.string().uuid();
 
@@ -533,6 +534,11 @@ export type TMessage = z.input<typeof tMessageSchema> & {
   siblingIndex?: number;
   attachments?: TAttachment[];
   clientTimestamp?: string;
+  tokenCount?: number;
+  summaryTokenCount?: number;
+  summary?: string;
+  role?: string;
+  image_urls?: Agents.MessageContentImageUrl[];
 };
 
 export const coerceNumber = z.union([z.number(), z.string()]).transform((val) => {
@@ -626,6 +632,8 @@ export const tConversationSchema = z.object({
   iconURL: z.string().nullable().optional(),
   /* temporary chat */
   expiredAt: z.string().nullable().optional(),
+  /* This is a prefilled conversation */
+  prefilled: z.boolean().optional(),
   /** @deprecated */
   resendImages: z.boolean().optional(),
   /** @deprecated */

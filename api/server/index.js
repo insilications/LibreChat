@@ -110,6 +110,8 @@ const startServer = async () => {
   app.use('/api/agents', routes.agents);
   app.use('/api/banner', routes.banner);
   app.use('/api/bedrock', routes.bedrock);
+  app.use('/api/prefill', routes.prefill);
+  app.use('/api/title', routes.title);
 
   app.use('/api/tags', routes.tags);
 

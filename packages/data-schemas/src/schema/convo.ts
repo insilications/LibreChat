@@ -46,6 +46,8 @@ export interface IConversation extends Document {
   maxContextTokens?: number;
   max_tokens?: number;
   reasoning_effort?: string;
+  // This is a prefilled conversation
+  prefilled?: boolean;
   // Additional fields
   files?: string[];
   expiredAt?: Date;

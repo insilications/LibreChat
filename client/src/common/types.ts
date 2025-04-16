@@ -315,6 +315,46 @@ export type TOptions = {
 
 export type TAskFunction = (props: TAskProps, options?: TOptions) => void;
 
+export type TPrefillProps = {
+  text: string;
+  // isCreatedByUser: boolean;
+  overrideConvoId?: string;
+  overrideUserMessageId?: string;
+  // parentMessageId?: string | null;
+  conversationId?: string | null;
+  // messageId?: string | null;
+  clientTimestamp?: string;
+};
+
+export type TPrefillFunction = (props: TPrefillProps, options?: TOptions) => void;
+
+export type TPrefillAskProps = {
+  text: string;
+  overrideConvoId?: string;
+  overrideUserMessageId?: string;
+  parentMessageId?: string | null;
+  conversationId?: string | null;
+  messageId: string;
+  // messageId?: string | null;
+  clientTimestamp?: string;
+};
+
+export type TPrefillAskFunction = (props: TPrefillAskProps, options?: TOptions) => void;
+
+export type TAddTitleProps = {
+  // text: string;
+  // isCreatedByUser: boolean;
+  overrideConvoId?: string;
+  overrideUserMessageId?: string;
+  // parentMessageId?: string | null;
+  conversationId?: string | null;
+  messages: t.TMessage[];
+  // messageId?: string | null;
+  clientTimestamp?: string;
+};
+
+export type TAddTitleFunction = (props: TAddTitleProps, options?: TOptions) => void;
+
 export type TMessageProps = {
   conversation?: t.TConversation | null;
   messageId?: string | null;
@@ -552,6 +592,16 @@ export type TFinalResData = Omit<TBaseResData, 'conversation'> & {
   conversation: Partial<t.TConversation> & Pick<t.TConversation, 'conversationId'>;
   requestMessage?: t.TMessage;
   responseMessage?: t.TMessage;
+};
+
+export type TPrefillResData = TBaseResData & {
+  prefilled?: boolean;
+  requestMessage: t.TMessage;
+};
+
+export type TAddTitleResData = {
+  title_added?: boolean;
+  conversationId: string;
 };
 
 export type TVectorStore = {

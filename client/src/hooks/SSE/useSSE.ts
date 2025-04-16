@@ -81,6 +81,8 @@ export default function useSSE(
     createdHandler,
     attachmentHandler,
     abortConversation,
+    prefilledHandler,
+    addTitleHandler,
   } = useEventHandlers({
     genTitle,
     setMessages,
@@ -138,6 +140,12 @@ export default function useSSE(
 
     let textIndex = null;
 
+    console.log(
+      `PORRA - 0 - SSE - isAddedRequest: ${isAddedRequest} - payloadData.server: ${payloadData.server}`,
+    );
+    console.log('PORRA - 1 - SSE - payloadData: %O', payloadData);
+    console.log('PORRA - 2 - SSE - payload: %O', payload);
+
     const sse = new SSE(payloadData.server, {
       payload: JSON.stringify(payload),
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
@@ -153,6 +161,7 @@ export default function useSSE(
     });
 
     sse.addEventListener('message', (e: MessageEvent) => {
+      // console.log('PORRA - 3 - SSE - e.data: %O', e.data);
       const data = JSON.parse(e.data);
 
       if (data.final != null) {
@@ -186,6 +195,18 @@ export default function useSSE(
         }
 
         contentHandler({ data, submission: submission as EventSubmission });
+      } else if (data.prefilled != null) {
+        const { plugins } = data;
+        prefilledHandler(data, { ...submission, plugins } as EventSubmission);
+        (startupConfig?.checkBalance ?? false) && balanceQuery.refetch();
+        console.log('prefilled', data);
+        return;
+      } else if (data.title_added != null) {
+        const { plugins } = data;
+        addTitleHandler(data, { ...submission, plugins } as EventSubmission);
+        (startupConfig?.checkBalance ?? false) && balanceQuery.refetch();
+        console.log('title_added', data);
+        return;
       } else {
         const text = data.text ?? data.response;
         const { plugin, plugins } = data;
@@ -276,7 +297,9 @@ export default function useSSE(
     return () => {
       const isCancelled = sse.readyState <= 1;
       sse.close();
+      console.log('PORRA - 3 - SSE - sse.close()');
       if (isCancelled) {
+        console.log('PORRA - 4 - SSE - isCancelled');
         const e = new Event('cancel');
         /* @ts-ignore */
         sse.dispatchEvent(e);

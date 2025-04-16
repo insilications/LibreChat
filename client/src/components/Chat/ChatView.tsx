@@ -17,12 +17,15 @@ import Landing from './Landing';
 import Header from './Header';
 import Footer from './Footer';
 import store from '~/store';
+// import type { TConversation } from 'librechat-data-provider';
 
 function ChatView({ index = 0 }: { index?: number }) {
   const { conversationId } = useParams();
   const rootSubmission = useRecoilValue(store.submissionByIndex(index));
   const addedSubmission = useRecoilValue(store.submissionByIndex(index + 1));
   const centerFormOnLanding = useRecoilValue(store.centerFormOnLanding);
+
+  // console.log(`PORRA 0 - ChatView - index: ${index} - index + 1: ${index + 1}`);
 
   const fileMap = useFileMapContext();
 
@@ -39,6 +42,24 @@ function ChatView({ index = 0 }: { index?: number }) {
 
   const chatHelpers = useChatHelpers(index, conversationId);
   const addedChatHelpers = useAddedResponse({ rootIndex: index });
+
+  // const { endpoint: _endpoint_rootSubmission, endpointType: endpointType_rootSubmission } =
+  //   (rootSubmission?.conversation as TConversation | null) ?? {};
+  // console.log('PORRA - 1 - ChatView - rootSubmission: %O', rootSubmission);
+  // console.log('PORRA - 2 - ChatView - _endpoint_rootSubmission: %O', _endpoint_rootSubmission);
+  // console.log(
+  //   'PORRA - 3 - ChatView - endpointType_rootSubmission: %O',
+  //   endpointType_rootSubmission,
+  // );
+
+  // const { endpoint: _endpoint_addedSubmission, endpointType: endpointType_addedSubmission } =
+  //   (addedSubmission?.conversation as TConversation | null) ?? {};
+  // console.log('PORRA - 4 - ChatView - addedSubmission: %O', addedSubmission);
+  // console.log('PORRA - 5 - ChatView - _endpoint_addedSubmission: %O', _endpoint_addedSubmission);
+  // console.log(
+  //   'PORRA - 6 - ChatView - endpointType_addedSubmission: %O',
+  //   endpointType_addedSubmission,
+  // );
 
   useSSE(rootSubmission, chatHelpers, false);
   useSSE(addedSubmission, addedChatHelpers, true);

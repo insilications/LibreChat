@@ -73,7 +73,7 @@ export default function useChatHelpers(index = 0, paramId?: string) {
 
   const setSubmission = useSetRecoilState(store.submissionByIndex(index));
 
-  const { ask, regenerate } = useChatFunctions({
+  const { ask, regenerate, prefill, prefill_ask, add_title } = useChatFunctions({
     index,
     files,
     setFiles,
@@ -153,6 +153,9 @@ export default function useChatHelpers(index = 0, paramId?: string) {
     setLatestMessage,
     resetLatestMessage,
     ask,
+    prefill,
+    prefill_ask,
+    add_title,
     index,
     regenerate,
     stopGenerating,

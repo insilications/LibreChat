@@ -10,11 +10,11 @@ export default function Files({ open, onOpenChange }) {
 
   const { data: files = [] } = useGetFiles<TFile[]>({
     select: (files) =>
-      files.map((file) => {
-        file.context = file.context ?? FileContext.unknown;
-        file.filterSource = file.source === FileSources.firebase ? FileSources.local : file.source;
-        return file;
-      }),
+      files.map((file) => ({
+        ...file,
+        context: file.context ?? FileContext.unknown,
+        filterSource: file.source === FileSources.firebase ? FileSources.local : file.source,
+      })),
   });
 
   return (

@@ -135,4 +135,8 @@ export const conversationPreset = {
   reasoning_effort: {
     type: String,
   },
+  // This is a prefilled conversation
+  prefilled: {
+    type: Boolean,
+  },
 };

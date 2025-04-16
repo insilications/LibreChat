@@ -12,9 +12,16 @@ import {
   tConvoUpdateSchema,
   ContentTypes,
   isAssistantsEndpoint,
+  LocalStorageKeys,
 } from 'librechat-data-provider';
 import type { TMessage, TConversation, EventSubmission } from 'librechat-data-provider';
-import type { TResData, TFinalResData, ConvoGenerator } from '~/common';
+import type {
+  TResData,
+  TFinalResData,
+  ConvoGenerator,
+  TPrefillResData,
+  TAddTitleResData,
+} from '~/common';
 import type { InfiniteData } from '@tanstack/react-query';
 import type { TGenTitleMutation } from '~/data-provider';
 import type { SetterOrUpdater, Resetter } from 'recoil';
@@ -265,6 +272,7 @@ export default function useEventHandlers({
       }
 
       if (setConversation && !isAddedRequest) {
+        console.log('PORRA - 1 - useEventHandlers - cancelHandler');
         setConversation((prevState) => {
           const update = { ...prevState, ...convoUpdate };
           return update;
@@ -322,6 +330,7 @@ export default function useEventHandlers({
           updateConvoInAllQueries(queryClient, update.conversationId!, (_c) => update);
         }
       } else if (setConversation) {
+        console.log('PORRA - 1 - useEventHandlers - syncHandler');
         setConversation((prevState) => {
           update = tConvoUpdateSchema.parse({
             ...prevState,
@@ -351,6 +360,7 @@ export default function useEventHandlers({
 
   const createdHandler = useCallback(
     (data: TResData, submission: EventSubmission) => {
+      console.log('PORRA - 0 - useEventHandlers - createdHandler');
       const { messages, userMessage, isRegenerate = false, isTemporary = false } = submission;
       const initialResponse = {
         ...submission.initialResponse,
@@ -399,6 +409,7 @@ export default function useEventHandlers({
           }
         }
       } else if (setConversation) {
+        console.log('PORRA - 1 - useEventHandlers - createdHandler');
         setConversation((prevState) => {
           update = tConvoUpdateSchema.parse({
             ...prevState,
@@ -433,6 +444,8 @@ export default function useEventHandlers({
         isRegenerate = false,
         isTemporary = false,
       } = submission;
+
+      console.log('PORRA - 0 - useEventHandlers - finalHandler - conversation: %O', conversation);
 
       setShowStopButton(false);
       setCompleted((prev) => new Set(prev.add(submission.initialResponse.messageId)));
@@ -692,6 +705,206 @@ export default function useEventHandlers({
     [token, setIsSubmitting, finalHandler, cancelHandler, setMessages, newConversation],
   );
 
+  const prefilledHandler = useCallback(
+    (data: TPrefillResData, submission: EventSubmission) => {
+      const { requestMessage, conversation } = data;
+      const {
+        messages,
+        conversation: submissionConvo,
+        // userMessage: submissionUserMessage,
+        // isRegenerate = false,
+        isTemporary = false,
+      } = submission;
+
+      console.log('PORRA - 0 - useEventHandlers - prefilledHandler - submission: %O', submission);
+      console.log('PORRA - 1 - useEventHandlers - prefilledHandler - data: %O', data);
+
+      // setShowStopButton(false);
+      setCompleted((prev) => new Set(prev.add(submission.userMessage.messageId)));
+
+      // IS THIS CHECK NECESSARY???
+      // const currentMessages = getMessages();
+      // /* Early return if messages are empty; i.e., the user navigated away */
+      // if (!currentMessages || currentMessages.length === 0) {
+      //   setIsSubmitting(false);
+      //   return;
+      // }
+
+      /* a11y announcements */
+      announcePolite({
+        message: 'prefilled',
+        isStatus: true,
+      });
+      announcePolite({
+        message: getAllContentText(requestMessage),
+      });
+
+      console.log('PORRA - 2 - useEventHandlers - prefilledHandler - [...messages]: %O', [
+        ...messages,
+      ]);
+      console.log('PORRA - 3 - useEventHandlers - prefilledHandler - [requestMessage]: %O', [
+        requestMessage,
+      ]);
+      setMessages([...messages, requestMessage]);
+
+      const isNewConvo = conversation.conversationId !== submissionConvo.conversationId;
+      console.log(
+        `PORRA - 4 - useEventHandlers - prefilledHandler - conversation.conversationId: ${conversation.conversationId} - submissionConvo.conversationId: ${submissionConvo.conversationId} - isNewConvo: ${isNewConvo}`,
+      );
+
+      if (isNewConvo) {
+        removeConvoFromAllQueries(queryClient, submissionConvo.conversationId as string);
+      }
+
+      if (isNewConvo) {
+        setTimeout(() => {
+          console.log('PORRA -  5 - useEventHandlers - prefilledHandler - clearDraft NEW');
+          localStorage.removeItem(`${LocalStorageKeys.TEXT_DRAFT}${Constants.NEW_CONVO}`);
+          localStorage.removeItem(`${LocalStorageKeys.FILES_DRAFT}${Constants.NEW_CONVO}`);
+        }, 2500);
+      } else {
+        setTimeout(() => {
+          console.log(
+            `PORRA - 6 - useEventHandlers - prefilledHandler - clearDraft conversation.conversationId: ${conversation.conversationId}`,
+          );
+          localStorage.removeItem(`${LocalStorageKeys.TEXT_DRAFT}${conversation.conversationId}`);
+          localStorage.removeItem(`${LocalStorageKeys.FILES_DRAFT}${conversation.conversationId}`);
+        }, 2500);
+      }
+
+      let update = {} as TConversation;
+      if (conversation.conversationId) {
+        applyAgentTemplate(conversation.conversationId, submissionConvo.conversationId);
+      }
+      if (setConversation && isAddedRequest !== true) {
+        if (window.location.pathname === '/c/new') {
+          console.log('PORRA - 7 - useEventHandlers - prefilledHandler - window.history.pushState');
+          window.history.pushState({}, '', '/c/' + conversation.conversationId);
+        }
+
+        setConversation((prevState) => {
+          update = {
+            ...prevState,
+            ...(conversation as TConversation),
+            // prefilled: true,
+          };
+
+          if (prevState?.model != null && prevState.model !== submissionConvo.model) {
+            update.model = prevState.model;
+          }
+
+          const cachedConvo = queryClient.getQueryData<TConversation>([
+            QueryKeys.conversation,
+            conversation.conversationId,
+          ]);
+          if (!cachedConvo) {
+            queryClient.setQueryData([QueryKeys.conversation, conversation.conversationId], update);
+          }
+
+          console.log('PORRA - 8 - useEventHandlers - addHandler - setConversation');
+
+          return update;
+        });
+
+        console.log(
+          'PORRA - 9 - useEventHandlers - prefilledHandler - requestMessage: %O',
+          requestMessage,
+        );
+
+        if (!isTemporary) {
+          if (requestMessage.parentMessageId === Constants.NO_PARENT) {
+            console.log('PORRA - 10 - useEventHandlers - prefilledHandler - addConversation');
+            addConvoToAllQueries(queryClient, update);
+          } else {
+            console.log('PORRA - 11 - useEventHandlers - prefilledHandler - updateConversation');
+            updateConvoInAllQueries(queryClient, update.conversationId!, (_c) => update);
+          }
+        }
+      } else {
+        console.log(
+          'PORRA - 12 - useEventHandlers - prefilledHandler - NO window.history.pushState',
+        );
+      }
+
+      // /* Refresh title */
+      // if (
+      //   genTitle &&
+      //   isNewConvo &&
+      //   !isTemporary &&
+      //   // requestMessage &&
+      //   requestMessage.parentMessageId === Constants.NO_PARENT
+      // ) {
+      //   setTimeout(() => {
+      //     console.log('PORRA - 5 - useEventHandlers - prefilledHandler - genTitle.mutate');
+      //     genTitle.mutate({
+      //       conversationId: conversation.conversationId as string,
+      //     });
+      //   }, 2500);
+      // }
+
+      // if (resetLatestMessage) {
+      //   resetLatestMessage();
+      // }
+
+      setIsSubmitting(false);
+      scrollToEnd(() => setAbortScroll(false));
+    },
+    [
+      // genTitle,
+      queryClient,
+      // getMessages,
+      setMessages,
+      setCompleted,
+      isAddedRequest,
+      announcePolite,
+      setConversation,
+      setIsSubmitting,
+      // setShowStopButton,
+      // resetLatestMessage,
+      setAbortScroll,
+      applyAgentTemplate,
+    ],
+  );
+
+  const addTitleHandler = useCallback(
+    (data: TAddTitleResData, submission: EventSubmission) => {
+      const { conversationId } = data;
+
+      console.log('PORRA - 1 - useEventHandlers - addTitleHandler - submission: %O', submission);
+      console.log('PORRA - 2 - useEventHandlers - addTitleHandler - data: %O', data);
+
+      // setShowStopButton(false);
+      // setCompleted((prev) => new Set(prev.add(submission.userMessage.messageId)));
+
+      // IS THIS CHECK NECESSARY???
+      // const currentMessages = getMessages();
+      // /* Early return if messages are empty; i.e., the user navigated away */
+      // if (!currentMessages || currentMessages.length === 0) {
+      //   setIsSubmitting(false);
+      //   return;
+      // }
+
+      /* a11y announcements */
+      announcePolite({
+        message: 'title added',
+        isStatus: true,
+      });
+
+      /* Refresh title */
+      if (genTitle) {
+        setTimeout(() => {
+          console.log('PORRA - 6 - useEventHandlers - addTitleHandler - genTitle.mutate');
+          genTitle.mutate({
+            conversationId,
+          });
+        }, 2500);
+      }
+
+      setIsSubmitting(false);
+    },
+    [genTitle, announcePolite, setIsSubmitting],
+  );
+
   return {
     stepHandler,
     syncHandler,
@@ -702,5 +915,7 @@ export default function useEventHandlers({
     createdHandler,
     attachmentHandler,
     abortConversation,
+    prefilledHandler,
+    addTitleHandler,
   };
 }

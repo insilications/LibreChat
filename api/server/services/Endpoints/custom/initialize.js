@@ -17,6 +17,9 @@ const getLogStores = require('~/cache/getLogStores');
 
 const { PROXY } = process.env;
 
+/**
+ * @type {import('~/types/api/server/services/Endpoints/custom/initialize').InitializeClientCustomFn}
+ */
 const initializeClient = async ({ req, res, endpointOption, optionsOnly, overrideEndpoint }) => {
   const { key: expiresAt } = req.body;
   const endpoint = overrideEndpoint ?? req.body.endpoint;
@@ -26,13 +29,16 @@ const initializeClient = async ({ req, res, endpointOption, optionsOnly, overrid
     throw new Error(`Config not found for the ${endpoint} custom endpoint.`);
   }
 
-  const CUSTOM_API_KEY = extractEnvVariable(endpointConfig.apiKey);
-  const CUSTOM_BASE_URL = extractEnvVariable(endpointConfig.baseURL);
+  const CUSTOM_API_KEY = extractEnvVariable(/** @type {string} */ (endpointConfig.apiKey));
+  const CUSTOM_BASE_URL = extractEnvVariable(/** @type {string} */ (endpointConfig.baseURL));
 
+  /** @type {Record<string, string>} */
   let resolvedHeaders = {};
   if (endpointConfig.headers && typeof endpointConfig.headers === 'object') {
     Object.keys(endpointConfig.headers).forEach((key) => {
-      resolvedHeaders[key] = extractEnvVariable(endpointConfig.headers[key]);
+      resolvedHeaders[key] = extractEnvVariable(
+        /** @type {Record<string, any>} */ (endpointConfig.headers)[key],
+      );
     });
   }
 
@@ -47,6 +53,7 @@ const initializeClient = async ({ req, res, endpointOption, optionsOnly, overrid
   const userProvidesKey = isUserProvided(CUSTOM_API_KEY);
   const userProvidesURL = isUserProvided(CUSTOM_BASE_URL);
 
+  /** @type {Record<string,string> | null} */
   let userValues = null;
   if (expiresAt && (userProvidesKey || userProvidesURL)) {
     checkUserKeyExpiry(expiresAt, endpoint);
@@ -94,13 +101,14 @@ const initializeClient = async ({ req, res, endpointOption, optionsOnly, overrid
   if (
     FetchTokenConfig[endpoint.toLowerCase()] &&
     endpointConfig &&
-    endpointConfig.models.fetch &&
+    endpointConfig?.models?.fetch &&
     !endpointTokenConfig
   ) {
     await fetchModels({ apiKey, baseURL, name: endpoint, user: req.user.id, tokenKey });
     endpointTokenConfig = await cache.get(tokenKey);
   }
 
+  /** @type {import('~/types/api/server/services/Endpoints/custom/initialize').ClientCustomOptions} */
   const customOptions = {
     headers: resolvedHeaders,
     addParams: endpointConfig.addParams,
@@ -124,6 +132,7 @@ const initializeClient = async ({ req, res, endpointOption, optionsOnly, overrid
     customOptions.streamRate = allConfig.streamRate;
   }
 
+  /** @type {import('~/types/api/app/clients/BaseClient').ClientOptions} */
   let clientOptions = {
     reverseProxyUrl: baseURL ?? null,
     proxy: PROXY ?? null,

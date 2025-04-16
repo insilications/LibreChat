@@ -13,6 +13,7 @@ const {
 const { sendMessage, createOnProgress } = require('~/server/utils');
 const { saveMessage } = require('~/models');
 const { logger } = require('~/config');
+const { inspect } = require('util');
 
 const AskController = async (req, res, next, initializeClient, addTitle) => {
   let {
@@ -197,6 +198,13 @@ const AskController = async (req, res, next, initializeClient, addTitle) => {
 
     const latestUserMessage = reqDataContext.userMessage;
 
+    console.log(
+      `PORRA - 0 - AskController - latestUserMessage: ${inspect(latestUserMessage, { depth: 3, colors: true })}`,
+    );
+    console.log(
+      `PORRA - 1 - AskController - conversation: ${inspect(conversation, { depth: 3, colors: true })}`,
+    );
+
     if (client?.options?.attachments && latestUserMessage) {
       latestUserMessage.files = client.options.attachments;
       if (endpointOption?.modelOptions?.model) {
@@ -231,6 +239,13 @@ const AskController = async (req, res, next, initializeClient, addTitle) => {
         context: 'api/server/controllers/AskController.js - don\'t skip saving user message',
       });
     }
+
+    console.log(
+      `PORRA - 2 - AskController - latestUserMessage: ${inspect(latestUserMessage, { depth: 3, colors: true })}`,
+    );
+    console.log(
+      `PORRA - 3 - AskController - conversation: ${inspect(conversation, { depth: 3, colors: true })}`,
+    );
 
     if (typeof addTitle === 'function' && parentMessageId === Constants.NO_PARENT && newConvo) {
       addTitle(req, {

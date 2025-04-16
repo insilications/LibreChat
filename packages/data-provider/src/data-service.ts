@@ -791,3 +791,13 @@ export function verifyTwoFactorTemp(
 ): Promise<t.TVerify2FATempResponse> {
   return request.post(endpoints.verifyTwoFactorTemp(), payload);
 }
+
+// export const promptEdit = () => '/api/title';
+export function addTitleConversation(
+  payload: t.TAddTitleConversationRequest,
+): Promise<t.TAddTitleConversationResponse> {
+  const { conversation } = payload;
+  const modelEndpoint = conversation.endpointType ?? conversation.endpoint;
+  console.log(`PORRA - 0 - addTitleConversation - modelEndpoint: ${modelEndpoint}`);
+  return request.post(`/api/title/${modelEndpoint}`, payload);
+}
