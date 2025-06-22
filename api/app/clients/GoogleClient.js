@@ -176,6 +176,9 @@ class GoogleClient extends BaseClient {
     delete this.modelOptions.thinking;
     delete this.modelOptions.thinkingBudget;
 
+    logger.debug(`this.modelOptions.thinkingConfig.includeThoughts: ${this.modelOptions.thinkingConfig.includeThoughts}`);
+    logger.debug(`this.modelOptions.thinkingConfig.thinkingBudget: ${this.modelOptions.thinkingConfig.thinkingBudget}`);
+
     this.sender =
       this.options.sender ??
       getResponseSender({
@@ -691,14 +694,32 @@ class GoogleClient extends BaseClient {
           { once: true },
         );
 
+        logger.debug(`requestOptions.generationConfig: ${JSON.stringify(requestOptions.generationConfig)}`);
+
         const result = await client.generateContentStream(requestOptions, {
           signal: abortController.signal,
         });
+        let isThinking = false;
         for await (const chunk of result.stream) {
           usageMetadata = !usageMetadata
             ? chunk?.usageMetadata
             : Object.assign(usageMetadata, chunk?.usageMetadata);
-          const chunkText = chunk.text();
+
+          let chunkText = '';
+          for (const part of chunk.candidates?.[0]?.content?.parts ?? []) {
+            if (!isThinking && part.thought) {
+              // Reasoning started
+              chunkText += ':::thinking\n' + part.text;
+              isThinking = true;
+            } else if (isThinking && !part.thought) {
+              // Reasoning ended
+              chunkText += '\n:::\n' + part.text;
+              isThinking = false;
+            } else {
+              chunkText += part.text;
+            }
+          }
+
           await this.generateTextStream(chunkText, onProgress, {
             delay,
           });

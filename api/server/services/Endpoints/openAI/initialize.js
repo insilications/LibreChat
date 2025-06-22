@@ -143,6 +143,7 @@ const initializeClient = async ({
     clientOptions = Object.assign({ modelOptions }, clientOptions);
     clientOptions.modelOptions.user = req.user.id;
     const options = getOpenAIConfig(apiKey, clientOptions);
+    console.log(`[initialize OpenAI] - options: ${JSON.stringify(options)}`);
     const streamRate = clientOptions.streamRate;
     if (!streamRate) {
       return options;

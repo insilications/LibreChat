@@ -713,11 +713,13 @@ class AgentClient extends BaseClient {
       };
 
       const toolSet = new Set((this.options.agent.tools ?? []).map((tool) => tool && tool.name));
+      console.log(`api/server/controllers/agents/client.js - chatCompletion - payload: ${JSON.stringify(payload)}`);
       let { messages: initialMessages, indexTokenCountMap } = formatAgentMessages(
         payload,
         this.indexTokenCountMap,
         toolSet,
       );
+      console.log(`api/server/controllers/agents/client.js - chatCompletion - initialMessages: ${JSON.stringify(initialMessages)}`);
       if (legacyContentEndpoints.has(this.options.agent.endpoint?.toLowerCase())) {
         initialMessages = formatContentStrings(initialMessages);
       }
