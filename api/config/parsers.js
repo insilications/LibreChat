@@ -73,7 +73,7 @@ const redactFormat = winston.format((info) => {
  * @param {number} [length] - The length at which to truncate the value. Default: 100.
  * @returns {any} - The truncated or original value.
  */
-const truncateLongStrings = (value, length = 100) => {
+const truncateLongStrings = (value, length = CONSOLE_JSON_STRING_LENGTH) => {
   if (typeof value === 'string') {
     return value.length > length ? value.substring(0, length) + '... [truncated]' : value;
   }
@@ -118,7 +118,7 @@ const debugTraverse = winston.format.printf(({ level, message, timestamp, ...met
     return `${timestamp} ${level}: ${JSON.stringify(message)}`;
   }
 
-  let msg = `${timestamp} ${level}: ${truncateLongStrings(message?.trim(), 150)}`;
+  let msg = `${timestamp} ${level}: ${truncateLongStrings(message?.trim(), CONSOLE_JSON_STRING_LENGTH)}`;
   try {
     if (level !== 'debug') {
       return msg;
