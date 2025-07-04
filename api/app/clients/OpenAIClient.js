@@ -1368,7 +1368,7 @@ ${convo}
       });
 
       intermediateReply = this.streamHandler.tokens;
-      logger.debug(`modelOptions: ${JSON.stringify(modelOptions)}`);
+      console.log(`modelOptions: ${JSON.stringify(modelOptions)}`);
       if (modelOptions.stream) {
         streamPromise = new Promise((resolve) => {
           streamResolve = resolve;

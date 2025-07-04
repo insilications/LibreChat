@@ -64,6 +64,7 @@ class ModelEndHandler {
       }
       const stepKey = graph.getStepKey(metadata);
       const message_id = getMessageId(stepKey, graph) ?? '';
+      console.log(`ModelEndHandler: message_id: ${message_id}`);
       if (message_id) {
         graph.dispatchRunStep(stepKey, {
           type: StepTypes.MESSAGE_CREATION,

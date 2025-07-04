@@ -1,0 +1,29 @@
+{
+	"files": [
+		{
+			"path": "api/app/clients/BaseClient.js",
+			"bookmarks": [
+				{
+					"line": 662,
+					"column": 64,
+					"label": ""
+				},
+				{
+					"line": 1172,
+					"column": 52,
+					"label": ""
+				}
+			]
+		},
+		{
+			"path": "api/server/controllers/agents/request.js",
+			"bookmarks": [
+				{
+					"line": 181,
+					"column": 66,
+					"label": ""
+				}
+			]
+		}
+	]
+}

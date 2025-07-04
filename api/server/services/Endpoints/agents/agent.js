@@ -129,7 +129,9 @@ const initializeAgent = async ({
     4096,
   );
   console.log(`[Endpoints/agents/agent.js] - maxTokens: ${JSON.stringify(maxTokens)}`);
-  console.log(`[Endpoints/agents/agent.js] - agentMaxContextTokens: ${JSON.stringify(agentMaxContextTokens)}`);
+  console.log(
+    `[Endpoints/agents/agent.js] - agentMaxContextTokens: ${JSON.stringify(agentMaxContextTokens)}`,
+  );
   if (
     agent.endpoint === EModelEndpoint.azureOpenAI &&
     options.llmConfig?.azureOpenAIApiInstanceName == null
@@ -176,8 +178,12 @@ const initializeAgent = async ({
       artifacts: agent.artifacts,
     });
   }
-  console.log(`[Endpoints/agents/agent.js] - (agentMaxContextTokens - maxTokens): ${(agentMaxContextTokens - maxTokens)}`);
-  console.log(`[Endpoints/agents/agent.js] - (agentMaxContextTokens - maxTokens) * 0.9: ${(agentMaxContextTokens - maxTokens) * 0.9}`);
+  console.log(
+    `[Endpoints/agents/agent.js] - (agentMaxContextTokens - maxTokens): ${agentMaxContextTokens - maxTokens}`,
+  );
+  console.log(
+    `[Endpoints/agents/agent.js] - (agentMaxContextTokens - maxTokens) * 0.9: ${(agentMaxContextTokens - maxTokens) * 0.9}`,
+  );
   return {
     ...agent,
     attachments,

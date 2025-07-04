@@ -661,6 +661,7 @@ class BaseClient {
 
     /** @type {string|string[]|undefined} */
     const completion = await this.sendCompletion(payload, opts);
+    console.log(`[BaseClient] completion:`, completion);
     if (this.abortController) {
       this.abortController.requestCompleted = true;
     }
