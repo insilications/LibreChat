@@ -1,13 +1,30 @@
 {
   "compilerOptions": {
-    "target": "ES6",
+    "target": "es2021",
     "module": "CommonJS",
-    // "checkJs": true,           // Report errors in JavaScript files
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "lib": ["es2021"],
+    "allowJs": true,
+    "checkJs": true,
     "baseUrl": "./",
     "paths": {
       "*": ["*", "node_modules/*"],
-      "~/*": ["./*"]
-    }
+      "~/*": ["./*"],
+      "@librechat/data-schemas": ["../packages/data-schemas/src"],
+      "@librechat/data-schemas/*": ["../packages/data-schemas/src/*"],
+      "@librechat/api": ["../packages/api/src"],
+      "@librechat/api/*": ["../packages/api/src/*"],
+      "@librechat/agents": ["../../agents/src"],
+      "@librechat/agents/*": ["../../agents/src/*"],
+      "librechat-data-provider": ["../packages/data-provider/src"],
+      "librechat-data-provider/*": ["../packages/data-provider/src/*"]
+    },
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitOverride": true,
+    "esModuleInterop": true
   },
   "exclude": ["node_modules"]
 }

@@ -14,8 +14,13 @@
     "resolveJsonModule": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitOverride": true,
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "librechat-data-provider": ["../data-provider/src"],
+      "librechat-data-provider/*": ["../data-provider/src/*"]
     }
   },
   "include": ["src/**/*"],

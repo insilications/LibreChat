@@ -13,6 +13,8 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "strict": true,
+    "strictNullChecks": true,
+    "noImplicitOverride": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -20,7 +22,13 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "@librechat/agents": ["../../../agents/src"],
+      "@librechat/agents/*": ["../../../agents/src/*"],
+      "librechat-data-provider": ["../data-provider/src"],
+      "librechat-data-provider/*": ["../data-provider/src/*"],
+      "@librechat/data-schemas": ["../data-schemas/src"],
+      "@librechat/data-schemas/*": ["../data-schemas/src/*"]
     }
   },
   "ts-node": {
