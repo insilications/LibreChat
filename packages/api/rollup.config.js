@@ -24,7 +24,7 @@ const plugins = [
     requireReturnsDefault: 'auto',
   }),
   typescript({
-    tsconfig: './tsconfig.json',
+    tsconfig: './tsconfig.build.json',
     outDir: './dist',
     sourceMap: true,
     inlineSourceMap: true,
