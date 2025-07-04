@@ -15,19 +15,10 @@ const { getCustomEndpointConfig } = require('~/server/services/Config');
 const { loadAgentTools } = require('~/server/services/ToolService');
 const AgentClient = require('~/server/controllers/agents/client');
 const { getAgent } = require('~/models/Agent');
+const {stringify} = require('flatted');
 
 function createToolLoader() {
-  /**
-   * @param {object} params
-   * @param {ServerRequest} params.req
-   * @param {ServerResponse} params.res
-   * @param {string} params.agentId
-   * @param {string[]} params.tools
-   * @param {string} params.provider
-   * @param {string} params.model
-   * @param {AgentToolResources} params.tool_resources
-   * @returns {Promise<{ tools: StructuredTool[], toolContextMap: Record<string, unknown> } | undefined>}
-   */
+  /** @type {LoadToolsFn} */
   return async function loadTools({ req, res, agentId, tools, provider, model, tool_resources }) {
     const agent = { id: agentId, tools, provider, model };
     try {
@@ -51,6 +42,8 @@ const initializeClient = async ({ req, res, endpointOption }) => {
   // TODO: use endpointOption to determine options/modelOptions
   /** @type {Array<UsageMetadata>} */
   const collectedUsage = [];
+  /** @type {Array<TMessageMetadata>} */
+  const collectedMessageMetadata = [];
   /** @type {ArtifactPromises} */
   const artifactPromises = [];
   const { contentParts, aggregateContent } = createContentAggregator();
@@ -60,12 +53,16 @@ const initializeClient = async ({ req, res, endpointOption }) => {
     aggregateContent,
     toolEndCallback,
     collectedUsage,
+    collectedMessageMetadata,
   });
 
   if (!endpointOption.agent) {
     throw new Error('No agent promise provided');
   }
 
+  console.log(
+    `[Endpoints/agents/initialize.js initializeClient] endpointOption: ${stringify(endpointOption)}`,
+  );
   const primaryAgent = await endpointOption.agent;
   delete endpointOption.agent;
   if (!primaryAgent) {
@@ -86,13 +83,16 @@ const initializeClient = async ({ req, res, endpointOption }) => {
     req,
     res,
     loadTools,
+    agent: primaryAgent,
     requestFiles,
     conversationId,
-    agent: primaryAgent,
     endpointOption,
     allowedProviders,
     isInitialAgent: true,
   });
+  console.log(
+    `[Endpoints/agents/initialize.js initializeClient] primaryConfig: ${stringify(primaryConfig)}`,
+  );
 
   const agent_ids = primaryConfig.agent_ids;
   if (agent_ids?.length) {
@@ -144,6 +144,7 @@ const initializeClient = async ({ req, res, endpointOption }) => {
     agentConfigs,
     eventHandlers,
     collectedUsage,
+    collectedMessageMetadata,
     aggregateContent,
     artifactPromises,
     agent: primaryConfig,

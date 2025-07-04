@@ -49,6 +49,7 @@ const BaseClient = require('~/app/clients/BaseClient');
 const { getRoleByName } = require('~/models/Role');
 const { loadAgent } = require('~/models/Agent');
 const { getMCPManager } = require('~/config');
+const { stringify } = require('flatted');
 
 const omitTitleOptions = new Set([
   'stream',
@@ -115,6 +116,7 @@ class AgentClient extends BaseClient {
       agentConfigs,
       contentParts,
       collectedUsage,
+      collectedMessageMetadata,
       artifactPromises,
       maxContextTokens,
       ...clientOptions
@@ -126,6 +128,8 @@ class AgentClient extends BaseClient {
     this.contentParts = contentParts;
     /** @type {Array<UsageMetadata>} */
     this.collectedUsage = collectedUsage;
+    /** @type {Array<TMessageMetadata>} */
+    this.collectedMessageMetadata = collectedMessageMetadata;
     /** @type {ArtifactPromises} */
     this.artifactPromises = artifactPromises;
     /** @type {AgentClientOptions} */
@@ -272,6 +276,10 @@ class AgentClient extends BaseClient {
         orderedMessages[orderedMessages.length - 1].text,
       );
     }
+
+    console.log(
+      `[AgentClient/buildMessages/client.js] orderedMessages: ${Bun.inspect(orderedMessages)}`,
+    );
 
     const formattedMessages = orderedMessages.map((message, i) => {
       const formattedMessage = formatMessage({
@@ -644,6 +652,14 @@ class AgentClient extends BaseClient {
   }
 
   /**
+   * Get stream message metadata as returned by this client's API response.
+   * @returns {Array<TMessageMetadata>} The stream message metadata object.
+   */
+  getStreamMessageMetadata() {
+    return this.collectedMessageMetadata;
+  }
+
+  /**
    * @param {TMessage} responseMessage
    * @returns {number}
    */
@@ -713,24 +729,33 @@ class AgentClient extends BaseClient {
       };
 
       const toolSet = new Set((this.options.agent.tools ?? []).map((tool) => tool && tool.name));
-      console.log(`api/server/controllers/agents/client.js - chatCompletion - payload: ${JSON.stringify(payload)}`);
+
+      console.log(
+        `api/server/controllers/agents/client.js - chatCompletion - payload: ${stringify(payload)}`,
+      );
+
       let { messages: initialMessages, indexTokenCountMap } = formatAgentMessages(
         payload,
         this.indexTokenCountMap,
         toolSet,
       );
-      console.log(`api/server/controllers/agents/client.js - chatCompletion - initialMessages: ${JSON.stringify(initialMessages)}`);
       if (legacyContentEndpoints.has(this.options.agent.endpoint?.toLowerCase())) {
         initialMessages = formatContentStrings(initialMessages);
+      }
+
+      for (const initialMsg of initialMessages) {
+        console.log(
+          `api/server/controllers/agents/client.js - chatCompletion - initialMessages: ${stringify(initialMsg)}`,
+        );
       }
 
       /**
        *
        * @param {Agent} agent
-       * @param {BaseMessage[]} messages
+       * @param {BaseMessage[]} _messages
        * @param {number} [i]
        * @param {TMessageContentParts[]} [contentData]
-       * @param {Record<string, number>} [currentIndexCountMap]
+       * @param {Record<string, number>} [_currentIndexCountMap]
        */
       const runAgent = async (agent, _messages, i = 0, contentData = [], _currentIndexCountMap) => {
         config.configurable.model = agent.model_parameters.model;
@@ -848,6 +873,8 @@ class AgentClient extends BaseClient {
           );
         }
 
+        console.log(`[controllers/agents/client.js runAgent] messages: ${stringify(messages)}`);
+
         await run.processStream({ messages }, config, {
           keepContent: i !== 0,
           tokenCounter: createTokenCounter(this.getEncoding()),
@@ -861,7 +888,15 @@ class AgentClient extends BaseClient {
         config.signal = null;
       };
 
+      console.log(
+        `[controllers/agents/client.js initializeClient] this.options.agent: ${stringify(this.options.agent)}`,
+      );
+      console.log(
+        `[controllers/agents/client.js initializeClient] initialMessages: ${stringify(initialMessages)}`,
+      );
       await runAgent(this.options.agent, initialMessages);
+      console.log(`[controllers/agents/client.js initializeClient] await runAgent`);
+
       let finalContentStart = 0;
       if (
         this.agentConfigs &&

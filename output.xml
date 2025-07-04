@@ -1,0 +1,968 @@
+<directory_structure>
+api/
+  jsconfig.json
+  package.json
+client/
+  package.json
+  tsconfig.json
+config/
+  translations/
+    tsconfig.json
+packages/
+  api/
+    package.json
+    tsconfig.json
+  data-provider/
+    react-query/
+      package.json
+    package.json
+    tsconfig.json
+  data-schemas/
+    package.json
+    tsconfig.json
+package.json
+</directory_structure>
+
+<files>
+<file path="packages/data-provider/react-query/package.json">
+{
+  "name": "librechat-data-provider/react-query",
+  "private": true,
+  "main": "../index.js",
+  "module": "./index.es.js",
+  "types": "../dist/types/react-query/index.d.ts",
+  "dependencies": {
+    "axios": "^1.7.7"
+  }
+}
+</file>
+
+<file path="config/translations/tsconfig.json">
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "baseUrl": ".",
+    "outDir": "./dist",
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "target": "es6",
+    "module": "esnext",
+    "lib": ["dom", "es6"],
+    "paths": {
+      "~/*": ["../../api/*"]
+    },
+    "noErrorTruncation": true,
+    "disableSizeLimit": true
+  },
+  "include": ["*.ts"]
+}
+</file>
+
+<file path="packages/data-schemas/package.json">
+{
+  "name": "@librechat/data-schemas",
+  "version": "0.0.10",
+  "description": "Mongoose schemas and models for LibreChat",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.es.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && rollup -c --silent --bundleConfigAsCjs",
+    "build:watch": "rollup -c -w",
+    "test": "jest --coverage --watch",
+    "test:ci": "jest --coverage --ci",
+    "verify": "npm run test:ci",
+    "b:clean": "bun run rimraf dist",
+    "b:build": "bun run b:clean && bun run rollup -c --silent --bundleConfigAsCjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danny-avila/LibreChat.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danny-avila/LibreChat/issues"
+  },
+  "homepage": "https://librechat.ai",
+  "devDependencies": {
+    "@rollup/plugin-alias": "^5.1.0",
+    "@rollup/plugin-commonjs": "^25.0.2",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "@rollup/plugin-replace": "^5.0.5",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "@types/diff": "^6.0.0",
+    "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.2",
+    "@types/node": "^20.3.0",
+    "@types/traverse": "^0.6.37",
+    "jest": "^29.5.0",
+    "jest-junit": "^16.0.0",
+    "mongodb-memory-server": "^10.1.4",
+    "rimraf": "^5.0.1",
+    "rollup": "^4.22.4",
+    "rollup-plugin-generate-package-json": "^3.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.35.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.0.4"
+  },
+  "peerDependencies": {
+    "jsonwebtoken": "^9.0.2",
+    "keyv": "^5.3.2",
+    "klona": "^2.0.6",
+    "librechat-data-provider": "*",
+    "lodash": "^4.17.21",
+    "meilisearch": "^0.38.0",
+    "mongoose": "^8.12.1",
+    "nanoid": "^3.3.7",
+    "traverse": "^0.6.11",
+    "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "keywords": [
+    "mongoose",
+    "schema",
+    "typescript",
+    "librechat"
+  ]
+}
+</file>
+
+<file path="api/jsconfig.json">
+{
+  "compilerOptions": {
+    "target": "es2021",
+    "module": "CommonJS",
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "lib": ["es2021"],
+    "checkJs": true,
+    "baseUrl": "./",
+    "paths": {
+      "*": ["*", "node_modules/*"],
+      "~/*": ["./*"],
+      "@librechat/data-schemas": ["../packages/data-schemas/src"],
+      "@librechat/data-schemas/*": ["../packages/data-schemas/src/*"],
+      "@librechat/api": ["../packages/api/src"],
+      "@librechat/api/*": ["../packages/api/src/*"],
+      "@librechat/agents": ["../../agents/src"],
+      "@librechat/agents/*": ["../../agents/src/*"],
+      "librechat-data-provider": ["../packages/data-provider/src"],
+      "librechat-data-provider/*": ["../packages/data-provider/src/*"]
+    },
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitOverride": true,
+    "esModuleInterop": true,
+    "noErrorTruncation": true,
+    "disableSizeLimit": true
+  },
+  "exclude": ["node_modules"]
+}
+</file>
+
+<file path="client/tsconfig.json">
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": true,
+    "checkJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": false,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitOverride": true,
+    "noEmit": false,
+    "declaration": true,
+    "declarationDir": "./types",
+    "sourceMap": true,
+    "emitDeclarationOnly": true,
+    "jsx": "preserve",
+    "baseUrl": "..",
+    "paths": {
+      "~/*": ["./client/src/*"],
+      "test/*": ["./client/test/*"],
+      "*": ["./client/*", "../node_modules/*"],
+      "librechat-data-provider/*": ["./packages/data-provider/src/*"],
+      "librechat-data-provider": ["./packages/data-provider/src"]
+    },
+    "noErrorTruncation": true,
+    "disableSizeLimit": true
+  },
+  "types": ["node", "jest", "@testing-library/jest-dom"],
+  "exclude": ["node_modules", "vite.config.ts"],
+  "include": [
+    "src/**/*",
+    "test/**/*",
+    "../e2e/**/*",
+    "test/setupTests.js",
+    "env.d.ts",
+    "../config/translations/**/*.ts"
+  ]
+}
+</file>
+
+<file path="packages/api/tsconfig.json">
+{
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "./dist/types",
+    "module": "esnext",
+    "noImplicitAny": true,
+    "outDir": "./types",
+    "target": "es2015",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "lib": ["es2017", "dom", "ES2021.String"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "noImplicitOverride": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"],
+      "@librechat/agents": ["../../../agents/src"],
+      "@librechat/agents/*": ["../../../agents/src/*"],
+      "librechat-data-provider": ["../data-provider/src"],
+      "librechat-data-provider/*": ["../data-provider/src/*"],
+      "@librechat/data-schemas": ["../data-schemas/src"],
+      "@librechat/data-schemas/*": ["../data-schemas/src/*"]
+    },
+    "noErrorTruncation": true,
+    "disableSizeLimit": true
+  },
+  "ts-node": {
+    "experimentalSpecifierResolution": "node",
+    "transpileOnly": true,
+    "esm": true
+  },
+  "exclude": ["node_modules", "dist", "types"],
+  "include": ["src/**/*", "types/index.d.ts", "types/react-query/index.d.ts"]
+}
+</file>
+
+<file path="packages/data-provider/tsconfig.json">
+{
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "./dist/types",
+    "module": "esnext",
+    "noImplicitAny": true,
+    "outDir": "./types",
+    "target": "es5",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "lib": ["es2017", "dom", "ES2021.String"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "strictNullChecks": true,
+    "noImplicitOverride": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "librechat-data-provider/react-query": ["./src/react-query/index.ts"]
+    },
+    "noErrorTruncation": true,
+    "disableSizeLimit": true
+  },
+  "exclude": ["node_modules", "dist", "types"],
+  "include": ["src/**/*", "types/index.d.ts", "types/react-query/index.d.ts"]
+}
+</file>
+
+<file path="packages/data-schemas/tsconfig.json">
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "declaration": true,
+    "declarationDir": "dist/types",
+    "outDir": "dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitOverride": true,
+    "paths": {
+      "~/*": ["./src/*"],
+      "librechat-data-provider": ["../data-provider/src"],
+      "librechat-data-provider/*": ["../data-provider/src/*"]
+    },
+    "noErrorTruncation": true,
+    "disableSizeLimit": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "tests"]
+}
+</file>
+
+<file path="client/package.json">
+{
+  "name": "@librechat/frontend",
+  "version": "v0.7.9-rc1",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "data-provider": "cd .. && npm run build:data-provider",
+    "build:file": "cross-env NODE_ENV=production vite build --debug > vite-output.log 2>&1",
+    "build": "cross-env NODE_ENV=production vite build && node ./scripts/post-build.cjs",
+    "build:ci": "cross-env NODE_ENV=development vite build --mode ci",
+    "dev": "cross-env NODE_ENV=development vite",
+    "preview-prod": "cross-env NODE_ENV=development vite preview",
+    "test": "cross-env NODE_ENV=development jest --watch",
+    "test:ci": "cross-env NODE_ENV=development jest --ci",
+    "b:test": "NODE_ENV=test bunx jest --watch",
+    "b:build": "NODE_ENV=production bun --bun vite build",
+    "b:dev": "NODE_ENV=development bunx vite"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danny-avila/LibreChat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danny-avila/LibreChat/issues"
+  },
+  "homepage": "https://librechat.ai",
+  "dependencies": {
+    "@ariakit/react": "^0.4.15",
+    "@ariakit/react-core": "^0.4.17",
+    "@codesandbox/sandpack-react": "^2.19.10",
+    "@dicebear/collection": "^9.2.2",
+    "@dicebear/core": "^9.2.2",
+    "@headlessui/react": "^2.1.2",
+    "@marsidev/react-turnstile": "^1.1.0",
+    "@radix-ui/react-accordion": "^1.1.2",
+    "@radix-ui/react-alert-dialog": "^1.0.2",
+    "@radix-ui/react-checkbox": "^1.0.3",
+    "@radix-ui/react-collapsible": "^1.0.3",
+    "@radix-ui/react-dialog": "^1.0.2",
+    "@radix-ui/react-dropdown-menu": "^2.1.1",
+    "@radix-ui/react-hover-card": "^1.0.5",
+    "@radix-ui/react-icons": "^1.3.0",
+    "@radix-ui/react-label": "^2.0.0",
+    "@radix-ui/react-popover": "^1.0.7",
+    "@radix-ui/react-progress": "^1.1.2",
+    "@radix-ui/react-radio-group": "^1.1.3",
+    "@radix-ui/react-select": "^2.0.0",
+    "@radix-ui/react-separator": "^1.0.3",
+    "@radix-ui/react-slider": "^1.1.1",
+    "@radix-ui/react-switch": "^1.0.3",
+    "@radix-ui/react-tabs": "^1.0.3",
+    "@radix-ui/react-toast": "^1.1.5",
+    "@react-spring/web": "^9.7.5",
+    "@tanstack/react-query": "^4.28.0",
+    "@tanstack/react-table": "^8.11.7",
+    "class-variance-authority": "^0.6.0",
+    "clsx": "^1.2.1",
+    "copy-to-clipboard": "^3.3.3",
+    "cross-env": "^7.0.3",
+    "date-fns": "^3.3.1",
+    "downloadjs": "^1.4.7",
+    "export-from-json": "^1.7.2",
+    "filenamify": "^6.0.0",
+    "framer-motion": "^11.5.4",
+    "heic-to": "^1.1.14",
+    "html-to-image": "^1.11.11",
+    "i18next": "^24.2.2",
+    "i18next-browser-languagedetector": "^8.0.3",
+    "input-otp": "^1.4.2",
+    "js-cookie": "^3.0.5",
+    "librechat-data-provider": "*",
+    "lodash": "^4.17.21",
+    "lucide-react": "^0.394.0",
+    "match-sorter": "^6.3.4",
+    "micromark-extension-llm-math": "^3.1.0",
+    "qrcode.react": "^4.2.0",
+    "rc-input-number": "^7.4.2",
+    "react": "^18.2.0",
+    "react-avatar-editor": "^13.0.2",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
+    "react-dom": "^18.2.0",
+    "react-flip-toolkit": "^7.1.0",
+    "react-gtm-module": "^2.0.11",
+    "react-hook-form": "^7.43.9",
+    "react-i18next": "^15.4.0",
+    "react-lazy-load-image-component": "^1.6.0",
+    "react-markdown": "^9.0.1",
+    "react-resizable-panels": "^3.0.2",
+    "react-router-dom": "^6.11.2",
+    "react-speech-recognition": "^3.10.0",
+    "react-textarea-autosize": "^8.4.0",
+    "react-transition-group": "^4.4.5",
+    "react-virtualized": "^9.22.6",
+    "recoil": "^0.7.7",
+    "regenerator-runtime": "^0.14.1",
+    "rehype-highlight": "^6.0.0",
+    "rehype-katex": "^6.0.3",
+    "remark-directive": "^3.0.0",
+    "remark-gfm": "^4.0.0",
+    "remark-math": "^6.0.0",
+    "remark-supersub": "^1.0.0",
+    "sse.js": "^2.5.0",
+    "tailwind-merge": "^1.9.1",
+    "tailwindcss-animate": "^1.0.5",
+    "tailwindcss-radix": "^2.8.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.22.15",
+    "@babel/preset-env": "^7.22.15",
+    "@babel/preset-react": "^7.22.15",
+    "@babel/preset-typescript": "^7.22.15",
+    "@tanstack/react-query-devtools": "^4.29.0",
+    "@testing-library/dom": "^9.3.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/jest": "^29.5.14",
+    "@types/js-cookie": "^3.0.6",
+    "@types/lodash": "^4.17.15",
+    "@types/node": "^20.3.0",
+    "@types/react": "^18.2.11",
+    "@types/react-dom": "^18.2.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "babel-plugin-replace-ts-export-assignment": "^0.0.2",
+    "babel-plugin-root-import": "^6.6.0",
+    "babel-plugin-transform-import-meta": "^2.3.2",
+    "babel-plugin-transform-vite-meta-env": "^1.0.3",
+    "eslint-plugin-jest": "^28.11.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
+    "jest-canvas-mock": "^2.5.2",
+    "jest-environment-jsdom": "^29.7.0",
+    "jest-file-loader": "^1.0.3",
+    "jest-junit": "^16.0.0",
+    "postcss": "^8.4.31",
+    "postcss-loader": "^7.1.0",
+    "postcss-preset-env": "^8.2.0",
+    "tailwindcss": "^3.4.1",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.3.3",
+    "vite": "^6.3.4",
+    "vite-plugin-compression2": "^1.3.3",
+    "vite-plugin-node-polyfills": "^0.23.0",
+    "vite-plugin-pwa": "^0.21.2"
+  }
+}
+</file>
+
+<file path="packages/data-provider/package.json">
+{
+  "name": "librechat-data-provider",
+  "version": "0.7.899",
+  "description": "data services for librechat apps",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.js",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./react-query": {
+      "import": "./dist/react-query/index.es.js",
+      "require": "./dist/react-query/index.js",
+      "types": "./dist/types/react-query/index.d.ts"
+    }
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && rollup -c --silent --bundleConfigAsCjs",
+    "build:watch": "rollup -c -w",
+    "rollup:api": "npx rollup -c server-rollup.config.js --bundleConfigAsCjs",
+    "test": "jest --coverage --watch",
+    "test:ci": "jest --coverage --ci",
+    "verify": "npm run test:ci",
+    "b:clean": "bun run rimraf dist",
+    "b:build": "bun run b:clean && bun run rollup -c --silent --bundleConfigAsCjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danny-avila/LibreChat.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danny-avila/LibreChat/issues"
+  },
+  "homepage": "https://librechat.ai",
+  "dependencies": {
+    "axios": "^1.8.2",
+    "dayjs": "^1.11.13",
+    "js-yaml": "^4.1.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.21.5",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.21.0",
+    "@langchain/core": "^0.3.57",
+    "@rollup/plugin-alias": "^5.1.0",
+    "@rollup/plugin-commonjs": "^25.0.2",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "@rollup/plugin-replace": "^5.0.5",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@types/jest": "^29.5.2",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.3.0",
+    "@types/react": "^18.2.18",
+    "@types/winston": "^2.4.4",
+    "jest": "^29.5.0",
+    "jest-junit": "^16.0.0",
+    "openai": "^4.76.3",
+    "openapi-types": "^12.1.3",
+    "rimraf": "^5.0.1",
+    "rollup": "^4.22.4",
+    "rollup-plugin-generate-package-json": "^3.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.35.0",
+    "typescript": "^5.0.4"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^4.28.0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  }
+}
+</file>
+
+<file path="package.json">
+{
+  "name": "LibreChat",
+  "version": "v0.7.9-rc1",
+  "description": "",
+  "workspaces": [
+    "api",
+    "client",
+    "packages/*"
+  ],
+  "scripts": {
+    "update": "node config/update.js",
+    "add-balance": "node config/add-balance.js",
+    "set-balance": "node config/set-balance.js",
+    "list-balances": "node config/list-balances.js",
+    "user-stats": "node config/user-stats.js",
+    "rebuild:package-lock": "node config/packages",
+    "reinstall": "node config/update.js -l -g",
+    "b:reinstall": "bun config/update.js -b -l -g",
+    "reinstall:docker": "node config/update.js -d -g",
+    "update:local": "node config/update.js -l",
+    "update:docker": "node config/update.js -d",
+    "update:single": "node config/update.js -s",
+    "update:sudo": "node config/update.js --sudo",
+    "update:deployed": "node config/deployed-update.js",
+    "rebase:deployed": "node config/deployed-update.js --rebase",
+    "start:deployed": "docker compose -f ./deploy-compose.yml up -d || docker-compose -f ./deploy-compose.yml up -d",
+    "stop:deployed": "docker compose -f ./deploy-compose.yml down || docker-compose -f ./deploy-compose.yml down",
+    "upgrade": "node config/upgrade.js",
+    "create-user": "node config/create-user.js",
+    "invite-user": "node config/invite-user.js",
+    "list-users": "node config/list-users.js",
+    "reset-password": "node config/reset-password.js",
+    "ban-user": "node config/ban-user.js",
+    "delete-user": "node config/delete-user.js",
+    "update-banner": "node config/update-banner.js",
+    "delete-banner": "node config/delete-banner.js",
+    "backend": "cross-env NODE_ENV=production node api/server/index.js",
+    "backend:dev": "cross-env NODE_ENV=development npx nodemon api/server/index.js",
+    "backend:stop": "node config/stop-backend.js",
+    "build:data-provider": "cd packages/data-provider && npm run build",
+    "build:api": "cd packages/api && npm run build",
+    "build:data-schemas": "cd packages/data-schemas && npm run build",
+    "frontend": "npm run build:data-provider && npm run build:data-schemas && npm run build:api && cd client && npm run build",
+    "frontend:ci": "npm run build:data-provider && cd client && npm run build:ci",
+    "frontend:dev": "cd client && npm run dev",
+    "e2e": "playwright test --config=e2e/playwright.config.local.ts",
+    "e2e:headed": "playwright test --config=e2e/playwright.config.local.ts --headed",
+    "e2e:a11y": "playwright test --config=e2e/playwright.config.a11y.ts --headed",
+    "e2e:ci": "playwright test --config=e2e/playwright.config.ts",
+    "e2e:debug": "cross-env PWDEBUG=1 playwright test --config=e2e/playwright.config.local.ts",
+    "e2e:codegen": "npx playwright codegen --load-storage=e2e/storageState.json http://localhost:3080/c/new",
+    "e2e:login": "npx playwright codegen --save-storage=e2e/auth.json http://localhost:3080/login",
+    "e2e:github": "act -W .github/workflows/playwright.yml --secret-file my.secrets",
+    "test:client": "cd client && npm run test:ci",
+    "test:api": "cd api && npm run test:ci",
+    "e2e:update": "playwright test --config=e2e/playwright.config.js --update-snapshots",
+    "e2e:report": "npx playwright show-report e2e/playwright-report",
+    "lint:fix": "eslint --fix \"{,!(node_modules|venv)/**/}*.{js,jsx,ts,tsx}\"",
+    "lint": "eslint \"{,!(node_modules|venv)/**/}*.{js,jsx,ts,tsx}\"",
+    "format": "npx prettier --write \"{,!(node_modules|venv)/**/}*.{js,jsx,ts,tsx}\"",
+    "b:api": "NODE_ENV=production bun run api/server/index.js",
+    "b:api-inspect": "NODE_ENV=production bun --inspect run api/server/index.js",
+    "b:api:dev": "NODE_ENV=production bun run --watch api/server/index.js",
+    "b:data": "cd packages/data-provider && bun run b:build",
+    "b:mcp": "cd packages/api && bun run b:build",
+    "b:data-schemas": "cd packages/data-schemas && bun run b:build",
+    "b:build:api": "cd packages/api && bun run b:build",
+    "b:client": "bun --bun run b:data && bun --bun run b:mcp && bun --bun run b:data-schemas && cd client && bun --bun run b:build",
+    "b:client:dev": "cd client && bun run b:dev",
+    "b:test:client": "cd client && bun run b:test",
+    "b:test:api": "cd api && bun run b:test",
+    "b:balance": "bun config/add-balance.js",
+    "b:list-balances": "bun config/list-balances.js",
+    "reset-terms": "node config/reset-terms.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danny-avila/LibreChat.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danny-avila/LibreChat/issues"
+  },
+  "homepage": "https://librechat.ai/",
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.1",
+    "@eslint/compat": "^1.2.6",
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.20.0",
+    "@microsoft/eslint-formatter-sarif": "^3.1.0",
+    "@playwright/test": "^1.50.1",
+    "@types/bun": "^1.2.18",
+    "@types/react-virtualized": "^9.22.0",
+    "cross-env": "^7.0.3",
+    "elliptic": "^6.6.1",
+    "eslint": "^9.20.1",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-import-resolver-typescript": "^3.7.0",
+    "eslint-plugin-i18next": "^6.1.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jest": "^28.11.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-perfectionist": "^4.8.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "globals": "^15.14.0",
+    "husky": "^9.1.7",
+    "jest": "^29.7.0",
+    "lint-staged": "^15.4.3",
+    "prettier": "^3.5.0",
+    "prettier-eslint": "^16.3.0",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "typescript-eslint": "^8.36.0"
+  },
+  "overrides": {
+    "axios": "1.8.2",
+    "elliptic": "^6.6.1",
+    "mdast-util-gfm-autolink-literal": "2.0.0",
+    "remark-gfm": {
+      "mdast-util-gfm-autolink-literal": "2.0.0"
+    },
+    "mdast-util-gfm": {
+      "mdast-util-gfm-autolink-literal": "2.0.0"
+    },
+    "katex": "^0.16.21",
+    "rehype-katex": {
+      "katex": "^0.16.21"
+    },
+    "remark-math": {
+      "micromark-extension-math": {
+        "katex": "^0.16.21"
+      }
+    }
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "api/data/",
+      "data/",
+      "client/",
+      "admin/",
+      "packages/"
+    ]
+  },
+  "trustedDependencies": [
+    "@firebase/util",
+    "@swc/core",
+    "es5-ext",
+    "esbuild",
+    "javascript-obfuscator",
+    "mongodb-memory-server",
+    "protobufjs",
+    "sharp",
+    "unrs-resolver"
+  ],
+  "dependencies": {
+    "flatted": "^3.3.3"
+  }
+}
+</file>
+
+<file path="packages/api/package.json">
+{
+  "name": "@librechat/api",
+  "version": "1.2.6",
+  "type": "commonjs",
+  "description": "MCP services for LibreChat",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && rollup -c --bundleConfigAsCjs",
+    "build:watch": "rollup -c -w --bundleConfigAsCjs",
+    "test": "jest --coverage --watch",
+    "test:ci": "jest --coverage --ci",
+    "verify": "npm run test:ci",
+    "b:clean": "bun run rimraf dist",
+    "b:build": "bun run b:clean && bun run rollup -c --silent --bundleConfigAsCjs",
+    "start:everything-sse": "node -r dotenv/config --loader ./tsconfig-paths-bootstrap.mjs --experimental-specifier-resolution=node ./src/examples/everything/sse.ts",
+    "start:everything": "node -r dotenv/config --loader ./tsconfig-paths-bootstrap.mjs --experimental-specifier-resolution=node ./src/demo/everything.ts",
+    "start:filesystem": "node -r dotenv/config --loader ./tsconfig-paths-bootstrap.mjs --experimental-specifier-resolution=node ./src/demo/filesystem.ts",
+    "start:servers": "node -r dotenv/config --loader ./tsconfig-paths-bootstrap.mjs --experimental-specifier-resolution=node ./src/demo/servers.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danny-avila/LibreChat.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danny-avila/LibreChat/issues"
+  },
+  "homepage": "https://librechat.ai",
+  "devDependencies": {
+    "@babel/preset-env": "^7.21.5",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.21.0",
+    "@rollup/plugin-alias": "^5.1.0",
+    "@rollup/plugin-commonjs": "^25.0.2",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "@rollup/plugin-replace": "^5.0.5",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "@types/bun": "^1.2.18",
+    "@types/diff": "^6.0.0",
+    "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.2",
+    "@types/multer": "^1.4.13",
+    "@types/node": "^20.3.0",
+    "@types/react": "^18.2.18",
+    "@types/winston": "^2.4.4",
+    "jest": "^29.5.0",
+    "jest-junit": "^16.0.0",
+    "librechat-data-provider": "*",
+    "rimraf": "^5.0.1",
+    "rollup": "^4.22.4",
+    "rollup-plugin-generate-package-json": "^3.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.0.4"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "peerDependencies": {
+    "@librechat/agents": "file:/aot/stuff/dev/agents",
+    "@librechat/data-schemas": "*",
+    "@modelcontextprotocol/sdk": "^1.13.3",
+    "axios": "^1.8.2",
+    "diff": "^7.0.0",
+    "eventsource": "^3.0.2",
+    "express": "^4.21.2",
+    "js-yaml": "^4.1.0",
+    "keyv": "^5.3.2",
+    "librechat-data-provider": "*",
+    "node-fetch": "2.7.0",
+    "tiktoken": "^1.0.15",
+    "undici": "^7.10.0",
+    "zod": "^3.22.4"
+  }
+}
+</file>
+
+<file path="api/package.json">
+{
+  "name": "@librechat/backend",
+  "version": "v0.7.9-rc1",
+  "description": "",
+  "scripts": {
+    "start": "echo 'please run this from the root directory'",
+    "server-dev": "echo 'please run this from the root directory'",
+    "test": "cross-env NODE_ENV=test jest",
+    "b:test": "NODE_ENV=test bun jest",
+    "test:ci": "jest --ci",
+    "add-balance": "node ./add-balance.js",
+    "list-balances": "node ./list-balances.js",
+    "user-stats": "node ./user-stats.js",
+    "create-user": "node ./create-user.js",
+    "invite-user": "node ./invite-user.js",
+    "ban-user": "node ./ban-user.js",
+    "delete-user": "node ./delete-user.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danny-avila/LibreChat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "_moduleAliases": {
+    "~": "."
+  },
+  "imports": {
+    "~/*": "./*"
+  },
+  "bugs": {
+    "url": "https://github.com/danny-avila/LibreChat/issues"
+  },
+  "homepage": "https://librechat.ai",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.52.0",
+    "@aws-sdk/client-s3": "^3.758.0",
+    "@aws-sdk/s3-request-presigner": "^3.758.0",
+    "@azure/identity": "^4.7.0",
+    "@azure/search-documents": "^12.0.0",
+    "@azure/storage-blob": "^12.27.0",
+    "@google/generative-ai": "^0.24.0",
+    "@googleapis/youtube": "^20.0.0",
+    "@keyv/redis": "^4.3.3",
+    "@langchain/community": "^0.3.47",
+    "@langchain/core": "^0.3.60",
+    "@langchain/google-genai": "^0.2.13",
+    "@langchain/google-vertexai": "^0.2.13",
+    "@langchain/textsplitters": "^0.1.0",
+    "@librechat/agents": "file:/aot/stuff/dev/agents",
+    "@librechat/api": "*",
+    "@librechat/data-schemas": "*",
+    "@node-saml/passport-saml": "^5.0.0",
+    "@waylaidwanderer/fetch-event-source": "^3.0.1",
+    "axios": "^1.8.2",
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
+    "connect-redis": "^7.1.0",
+    "cookie": "^0.7.2",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dedent": "^1.5.3",
+    "dotenv": "^16.0.3",
+    "eventsource": "^3.0.2",
+    "express": "^4.21.2",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^7.4.1",
+    "express-session": "^1.18.1",
+    "express-static-gzip": "^2.2.0",
+    "file-type": "^18.7.0",
+    "firebase": "^11.0.2",
+    "googleapis": "^126.0.1",
+    "handlebars": "^4.7.7",
+    "https-proxy-agent": "^7.0.6",
+    "ioredis": "^5.3.2",
+    "js-yaml": "^4.1.0",
+    "jsonwebtoken": "^9.0.0",
+    "jwks-rsa": "^3.2.0",
+    "keyv": "^5.3.2",
+    "keyv-file": "^5.1.2",
+    "klona": "^2.0.6",
+    "librechat-data-provider": "*",
+    "lodash": "^4.17.21",
+    "meilisearch": "^0.38.0",
+    "memorystore": "^1.6.7",
+    "mime": "^3.0.0",
+    "module-alias": "^2.2.3",
+    "mongoose": "^8.12.1",
+    "multer": "^2.0.1",
+    "nanoid": "^3.3.7",
+    "node-fetch": "^2.7.0",
+    "nodemailer": "^6.9.15",
+    "ollama": "^0.5.0",
+    "openai": "^4.96.2",
+    "openai-chat-tokens": "^0.2.8",
+    "openid-client": "^6.5.0",
+    "passport": "^0.6.0",
+    "passport-apple": "^2.0.2",
+    "passport-discord": "^0.1.4",
+    "passport-facebook": "^3.0.0",
+    "passport-github2": "^0.1.12",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-jwt": "^4.0.1",
+    "passport-ldapauth": "^3.0.1",
+    "passport-local": "^1.0.0",
+    "rate-limit-redis": "^4.2.0",
+    "sharp": "^0.33.5",
+    "tiktoken": "^1.0.15",
+    "traverse": "^0.6.7",
+    "ua-parser-js": "^1.0.36",
+    "undici": "^7.10.0",
+    "winston": "^3.11.0",
+    "winston-daily-rotate-file": "^5.0.0",
+    "youtube-transcript": "^1.2.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.18",
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^10.1.3",
+    "nodemon": "^3.0.3",
+    "supertest": "^7.1.0"
+  }
+}
+</file>
+</files>

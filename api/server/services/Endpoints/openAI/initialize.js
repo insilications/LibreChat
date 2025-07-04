@@ -9,6 +9,7 @@ const {
 } = require('@librechat/api');
 const { getUserKeyValues, checkUserKeyExpiry } = require('~/server/services/UserService');
 const OpenAIClient = require('~/app/clients/OpenAIClient');
+const {stringify} = require('flatted');
 
 const initializeClient = async ({
   req,
@@ -143,7 +144,7 @@ const initializeClient = async ({
     clientOptions = Object.assign({ modelOptions }, clientOptions);
     clientOptions.modelOptions.user = req.user.id;
     const options = getOpenAIConfig(apiKey, clientOptions);
-    console.log(`[initialize OpenAI] - options: ${JSON.stringify(options)}`);
+    console.log(`[initializeClient OpenAI] - options: ${stringify(options)}`);
     const streamRate = clientOptions.streamRate;
     if (!streamRate) {
       return options;

@@ -23,7 +23,9 @@
     "baseUrl": ".",
     "paths": {
       "librechat-data-provider/react-query": ["./src/react-query/index.ts"]
-    }
+    },
+    "noErrorTruncation": true,
+    "disableSizeLimit": true
   },
   "exclude": ["node_modules", "dist", "types"],
   "include": ["src/**/*", "types/index.d.ts", "types/react-query/index.d.ts"]

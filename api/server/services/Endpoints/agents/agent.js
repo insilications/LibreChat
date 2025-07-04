@@ -23,10 +23,10 @@ const { getModelMaxTokens } = require('~/utils');
  * @param {object} params
  * @param {ServerRequest} params.req
  * @param {ServerResponse} params.res
+ * @param {LoadToolsFn} [params.loadTools]
  * @param {Agent} params.agent
  * @param {string | null} [params.conversationId]
- * @param {Array<IMongoFile>} [params.requestFiles]
- * @param {typeof import('~/server/services/ToolService').loadAgentTools | undefined} [params.loadTools]
+ * @param {Array<MongoFile>} [params.requestFiles]
  * @param {TEndpointOption} [params.endpointOption]
  * @param {Set<string>} [params.allowedProviders]
  * @param {boolean} [params.isInitialAgent]
@@ -35,8 +35,8 @@ const { getModelMaxTokens } = require('~/utils');
 const initializeAgent = async ({
   req,
   res,
-  agent,
   loadTools,
+  agent,
   requestFiles,
   conversationId,
   endpointOption,
@@ -135,7 +135,9 @@ const initializeAgent = async ({
     4096,
   );
   console.log(`[Endpoints/agents/agent.js] - maxTokens: ${JSON.stringify(maxTokens)}`);
-  console.log(`[Endpoints/agents/agent.js] - agentMaxContextTokens: ${JSON.stringify(agentMaxContextTokens)}`);
+  console.log(
+    `[Endpoints/agents/agent.js] - agentMaxContextTokens: ${JSON.stringify(agentMaxContextTokens)}`,
+  );
   if (
     agent.endpoint === EModelEndpoint.azureOpenAI &&
     options.llmConfig?.azureOpenAIApiInstanceName == null
@@ -184,8 +186,12 @@ const initializeAgent = async ({
       artifacts: agent.artifacts,
     });
   }
-  console.log(`[Endpoints/agents/agent.js] - (agentMaxContextTokens - maxTokens): ${(agentMaxContextTokens - maxTokens)}`);
-  console.log(`[Endpoints/agents/agent.js] - (agentMaxContextTokens - maxTokens) * 0.9: ${(agentMaxContextTokens - maxTokens) * 0.9}`);
+  console.log(
+    `[Endpoints/agents/agent.js] - (agentMaxContextTokens - maxTokens): ${agentMaxContextTokens - maxTokens}`,
+  );
+  console.log(
+    `[Endpoints/agents/agent.js] - (agentMaxContextTokens - maxTokens) * 0.9: ${(agentMaxContextTokens - maxTokens) * 0.9}`,
+  );
   return {
     ...agent,
     attachments,

@@ -5,7 +5,6 @@
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "lib": ["es2021"],
-    "allowJs": true,
     "checkJs": true,
     "baseUrl": "./",
     "paths": {
@@ -24,7 +23,9 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "noImplicitOverride": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "noErrorTruncation": true,
+    "disableSizeLimit": true
   },
   "exclude": ["node_modules"]
 }

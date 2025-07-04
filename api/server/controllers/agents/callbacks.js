@@ -18,12 +18,19 @@ const { saveBase64Image } = require('~/server/services/Files/process');
 class ModelEndHandler {
   /**
    * @param {Array<UsageMetadata>} collectedUsage
+   * @param {Array<TMessageMetadata>} collectedMessageMetadata
    */
-  constructor(collectedUsage) {
+  constructor(collectedUsage, collectedMessageMetadata) {
     if (!Array.isArray(collectedUsage)) {
       throw new Error('collectedUsage must be an array');
     }
+
+    if (!Array.isArray(collectedMessageMetadata)) {
+      throw new Error('collectedMessageMetadata must be an array');
+    }
+
     this.collectedUsage = collectedUsage;
+    this.collectedMessageMetadata = collectedMessageMetadata;
   }
 
   /**
@@ -44,6 +51,21 @@ class ModelEndHandler {
         handleToolCalls(data?.output?.tool_calls, metadata, graph);
       }
 
+      const response_metadata = data?.output?.response_metadata;
+      if (response_metadata) {
+        const id = response_metadata.id;
+        const created_at = response_metadata.created_at;
+        this.collectedMessageMetadata.push({
+          id,
+          created_at,
+        });
+        console.log(`ModelEndHandler: response_metadata.id: ${id}`);
+        console.log(`ModelEndHandler: response_metadata.created_at: ${created_at}`);
+        console.log(
+          'ModelEndHandler: this.collectedMessageMetadata: ',
+          this.collectedMessageMetadata,
+        );
+      }
       const usage = data?.output?.usage_metadata;
       if (!usage) {
         return;
@@ -64,6 +86,7 @@ class ModelEndHandler {
       }
       const stepKey = graph.getStepKey(metadata);
       const message_id = getMessageId(stepKey, graph) ?? '';
+      console.log(`ModelEndHandler: message_id: ${message_id}`);
       if (message_id) {
         graph.dispatchRunStep(stepKey, {
           type: StepTypes.MESSAGE_CREATION,
@@ -101,17 +124,24 @@ class ModelEndHandler {
  * @param {ContentAggregator} options.aggregateContent - The options object.
  * @param {ToolEndCallback} options.toolEndCallback - Callback to use when tool ends.
  * @param {Array<UsageMetadata>} options.collectedUsage - The list of collected usage metadata.
- * @returns {Record<string, t.EventHandler>} The default handlers.
+ * @param {Array<TMessageMetadata>} options.collectedMessageMetadata - The collected message metadata.
+ * @returns {Record<string, EventHandler>} The default handlers.
  * @throws {Error} If the request is not found.
  */
-function getDefaultHandlers({ res, aggregateContent, toolEndCallback, collectedUsage }) {
+function getDefaultHandlers({
+  res,
+  aggregateContent,
+  toolEndCallback,
+  collectedUsage,
+  collectedMessageMetadata,
+}) {
   if (!res || !aggregateContent) {
     throw new Error(
       `[getDefaultHandlers] Missing required options: res: ${!res}, aggregateContent: ${!aggregateContent}`,
     );
   }
   const handlers = {
-    [GraphEvents.CHAT_MODEL_END]: new ModelEndHandler(collectedUsage),
+    [GraphEvents.CHAT_MODEL_END]: new ModelEndHandler(collectedUsage, collectedMessageMetadata),
     [GraphEvents.TOOL_END]: new ToolEndHandler(toolEndCallback),
     [GraphEvents.CHAT_MODEL_STREAM]: new ChatModelStreamHandler(),
     [GraphEvents.ON_RUN_STEP]: {

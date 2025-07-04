@@ -1,0 +1,49 @@
+{
+	"files": [
+		{
+			"path": "api/app/clients/BaseClient.js",
+			"bookmarks": [
+				{
+					"line": 174,
+					"column": 13,
+					"label": ""
+				},
+				{
+					"line": 566,
+					"column": 13,
+					"label": ""
+				},
+				{
+					"line": 625,
+					"column": 28,
+					"label": ""
+				}
+			]
+		},
+		{
+			"path": "api/server/controllers/agents/request.js",
+			"bookmarks": [
+				{
+					"line": 181,
+					"column": 66,
+					"label": ""
+				}
+			]
+		},
+		{
+			"path": "api/server/controllers/agents/client.js",
+			"bookmarks": [
+				{
+					"line": 730,
+					"column": 6,
+					"label": ""
+				},
+				{
+					"line": 871,
+					"column": 18,
+					"label": ""
+				}
+			]
+		}
+	]
+}

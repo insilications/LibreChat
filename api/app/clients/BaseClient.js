@@ -16,6 +16,7 @@ const { truncateToolCallOutputs } = require('./prompts');
 const { getFiles } = require('~/models/File');
 const TextStream = require('./TextStream');
 const { logger } = require('~/config');
+const { stringify } = require('flatted');
 
 class BaseClient {
   constructor(apiKey, options = {}) {
@@ -188,7 +189,13 @@ class BaseClient {
       overrideUserMessageId ?? opts.overrideParentMessageId ?? crypto.randomUUID();
     let responseMessageId = opts.responseMessageId ?? crypto.randomUUID();
     let head = isEdited ? responseMessageId : parentMessageId;
-    this.currentMessages = (await this.loadHistory(conversationId, head)) ?? [];
+    console.log(
+      `[BaseClient/setMessageOptions] this.options.agent: ${stringify(this.options.agent)}`,
+    );
+    this.currentMessages = (await this.loadHistory(conversationId, head, opts)) ?? [];
+    console.log(
+      `[BaseClient/setMessageOptions] this.currentMessages: ${stringify(this.currentMessages)}`,
+    );
     this.conversationId = conversationId;
 
     if (isEdited && !isContinued) {
@@ -611,6 +618,11 @@ class BaseClient {
       this.currentMessages.push(userMessage);
     }
 
+    console.log(`[BaseClient] opts: ${Bun.inspect(opts, { depth: 3 })}`);
+    console.log(
+      `[BaseClient] this.currentMessages: ${Bun.inspect(this.currentMessages, { depth: 3 })}`,
+    );
+
     let {
       prompt: payload,
       tokenCountMap,
@@ -663,8 +675,13 @@ class BaseClient {
       });
     }
 
+    console.log(`[BaseClient] payload: ${Bun.inspect(payload, { depth: 3 })}`);
+
     /** @type {string|string[]|undefined} */
     const completion = await this.sendCompletion(payload, opts);
+
+    console.log(`[BaseClient] completion: ${stringify(completion)}`);
+
     if (this.abortController) {
       this.abortController.requestCompleted = true;
     }
@@ -728,6 +745,18 @@ class BaseClient {
        * @type {StreamUsage | null} */
       const usage = this.getStreamUsage != null ? this.getStreamUsage() : null;
 
+      // Get response metadata from usage, if available
+      /** @type {Array<TMessageMetadata>} */
+      const messageMetadata =
+        this.getStreamMessageMetadata != null ? this.getStreamMessageMetadata() : [];
+
+      if (messageMetadata.length > 0) {
+        console.log('[BaseClient] messageMetadata:', messageMetadata);
+        responseMessage.messageMetadata = messageMetadata[0];
+      } else {
+        console.log('[BaseClient] No messageMetadata');
+      }
+
       if (usage != null && Number(usage[this.outputTokensKey]) > 0) {
         responseMessage.tokenCount = usage[this.outputTokensKey];
         completionTokens = responseMessage.tokenCount;
@@ -762,6 +791,7 @@ class BaseClient {
       }
     }
 
+    console.log('[BaseClient] responseMessage.messageMetadata: ', responseMessage.messageMetadata);
     responseMessage.databasePromise = this.saveMessageToDatabase(
       responseMessage,
       saveOptions,
@@ -841,17 +871,49 @@ class BaseClient {
     });
   }
 
-  async loadHistory(conversationId, parentMessageId = null) {
+  async loadHistory(conversationId, parentMessageId = null, opts = {}) {
     logger.debug('[BaseClient] Loading history:', { conversationId, parentMessageId });
 
     const messages = (await getMessages({ conversationId })) ?? [];
+
+    console.log(`[BaseClient/loadHistory] messages: ${stringify(messages)}`);
 
     if (messages.length === 0) {
       return [];
     }
 
+    if (this.options?.agent?.model_parameters?.useResponsesApi === true) {
+      console.log('[BaseClient/loadHistory] - useResponsesApi');
+
+      let useRespID = '';
+      for (const msg of messages) {
+        if (!msg.isCreatedByUser) {
+          const id = msg.messageMetadata?.id;
+          if (!id || !id.startsWith('resp_')) {
+            useRespID = '';
+            break;
+          } else {
+            useRespID = id;
+          }
+        }
+      }
+
+      if (useRespID) {
+        console.log('[BaseClient/loadHistory] - Consistent response IDs found');
+        this.options.agent.model_parameters.useRespID = useRespID;
+      } else {
+        console.log('[BaseClient/loadHistory] - Inconsistent response IDs found');
+        this.options.agent.model_parameters.useRespID = useRespID;
+      }
+
+      return messages;
+    } else {
+      console.log('[BaseClient/loadHistory] - NOT useResponsesApi');
+    }
+
     let mapMethod = null;
     if (this.getMessageMapMethod) {
+      console.log('[BaseClient/loadHistory] Using getMessageMapMethod');
       mapMethod = this.getMessageMapMethod();
     }
 

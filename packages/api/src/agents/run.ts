@@ -60,6 +60,7 @@ export async function createRun({
     agent.model_parameters,
   );
 
+  // let kk2 = llmConfig.useRespID;
   /** Resolves issues with new OpenAI usage field */
   if (
     customProviders.has(agent.provider) ||
@@ -93,6 +94,8 @@ export async function createRun({
     additional_instructions: agent.additional_instructions,
     // toolEnd: agent.end_after_tools,
   };
+
+  // let kk = graphConfig.llmConfig.useRespID;
 
   // TEMPORARY FOR TESTING
   if (agent.provider === Providers.ANTHROPIC || agent.provider === Providers.BEDROCK) {
