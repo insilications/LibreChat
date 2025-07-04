@@ -490,12 +490,13 @@ async function processRequiredActions(client, requiredActions) {
 
 /**
  * Processes the runtime tool calls and returns the tool classes.
- * @param {Object} params - Run params containing user and request information.
+ * @param {object} params - Run params containing user and request information.
  * @param {ServerRequest} params.req - The request object.
  * @param {ServerResponse} params.res - The request object.
- * @param {Pick<Agent, 'id' | 'provider' | 'model' | 'tools'} params.agent - The agent to load tools for.
+ * @param {Pick<Agent, 'id' | 'provider' | 'model' | 'tools'>} params.agent - The agent to load tools for.
+ * @param {AgentToolResources} params.tool_resources - The agent tool resources.
  * @param {string | undefined} [params.openAIApiKey] - The OpenAI API key.
- * @returns {Promise<{ tools?: StructuredTool[] }>} The agent tools.
+ * @returns {LoadToolsFnReturn} The agent tools.
  */
 async function loadAgentTools({ req, res, agent, tool_resources, openAIApiKey }) {
   if (!agent.tools || agent.tools.length === 0) {

@@ -94,7 +94,9 @@ export default function useSSE(
       return;
     }
 
+    console.log('submission:', submission);
     let { userMessage } = submission;
+    console.log('userMessage:', userMessage);
 
     const payloadData = createPayload(submission);
     let { payload } = payloadData;
@@ -120,6 +122,8 @@ export default function useSSE(
       const data = JSON.parse(e.data);
 
       if (data.final != null) {
+        console.log('final - data:', data);
+        console.log('final - submission:', submission);
         clearDraft(submission.conversation?.conversationId);
         const { plugins } = data;
         finalHandler(data, { ...submission, plugins } as EventSubmission);
@@ -129,11 +133,13 @@ export default function useSSE(
       } else if (data.created != null) {
         const runId = v4();
         setActiveRunId(runId);
+        console.log('created:', data);
         userMessage = {
           ...userMessage,
           ...data.message,
           overrideParentMessageId: userMessage.overrideParentMessageId,
         };
+        console.log('created - userMessage:', userMessage);
 
         createdHandler(data, { ...submission, userMessage } as EventSubmission);
       } else if (data.event != null) {

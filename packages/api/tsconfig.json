@@ -29,7 +29,9 @@
       "librechat-data-provider/*": ["../data-provider/src/*"],
       "@librechat/data-schemas": ["../data-schemas/src"],
       "@librechat/data-schemas/*": ["../data-schemas/src/*"]
-    }
+    },
+    "noErrorTruncation": true,
+    "disableSizeLimit": true
   },
   "ts-node": {
     "experimentalSpecifierResolution": "node",

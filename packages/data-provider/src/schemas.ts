@@ -551,6 +551,11 @@ export type TAttachment =
       expiresAt: number;
     } & TAttachmentMetadata);
 
+export type TMessageMetadata = {
+  id: string;
+  created_at: string;
+};
+
 export type TMessage = z.input<typeof tMessageSchema> & {
   children?: TMessage[];
   plugin?: TResPlugin | null;
@@ -562,6 +567,7 @@ export type TMessage = z.input<typeof tMessageSchema> & {
   attachments?: TAttachment[];
   clientTimestamp?: string;
   feedback?: TFeedback;
+  messageMetadata?: TMessageMetadata;
 };
 
 export const coerceNumber = z.union([z.number(), z.string()]).transform((val) => {

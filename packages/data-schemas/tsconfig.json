@@ -21,7 +21,9 @@
       "~/*": ["./src/*"],
       "librechat-data-provider": ["../data-provider/src"],
       "librechat-data-provider/*": ["../data-provider/src/*"]
-    }
+    },
+    "noErrorTruncation": true,
+    "disableSizeLimit": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "tests"]

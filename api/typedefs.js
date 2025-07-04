@@ -1981,3 +1981,31 @@
  * @property {OCRUsageInfo} usage_info - Usage information for the OCR operation.
  * @memberof typedefs
  */
+
+/**
+ * @exports TMessageMetadata
+ * @typedef {import('librechat-data-provider').TMessageMetadata} TMessageMetadata
+ * @memberof typedefs
+ */
+
+/**
+ * @exports LoadToolsFnReturn
+ * @typedef {Promise<{tools: StructuredTool[], toolContextMap: Record<string, unknown>} | {} | undefined>} LoadToolsFnReturn
+ * @memberof typedefs
+ */
+
+/**
+ * Defines the function signature for loading tools for a given agent.
+ * @exports LoadToolsFn
+ * @callback LoadToolsFn
+ * @param {object} params - The parameters for loading tools.
+ * @param {ServerRequest} params.req - The server request object.
+ * @param {ServerResponse} params.res - The server response object.
+ * @param {string} params.agentId - The ID of the agent.
+ * @param {string[]} params.tools - The list of tools to load.
+ * @param {string} params.provider - The provider for the agent's model.
+ * @param {string} params.model - The specific model the agent is using.
+ * @param {AgentToolResources} params.tool_resources - Additional resources for the tools.
+ * @returns {LoadToolsFnReturn} A promise that resolves with the loaded tools and their context map.
+ * @memberof typedefs
+ */

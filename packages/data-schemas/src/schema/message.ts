@@ -154,6 +154,22 @@ const messageSchema: Schema<IMessage> = new Schema(
       default: undefined,
     },
     */
+    // messageMetadata: {
+    //   type: Schema.Types.Mixed,
+    //   default: undefined,
+    //   required: false,
+    // },
+    messageMetadata: {
+      type: new Schema(
+        {
+          id: { type: String, required: true },
+          created_at: { type: String, required: true },
+        },
+        { _id: false },
+      ),
+      default: undefined,
+      required: false,
+    },
     expiredAt: {
       type: Date,
     },
