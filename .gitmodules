@@ -1,0 +1,3 @@
+[submodule "packages/agents"]
+	path = packages/agents
+	url = https://github.com/insilications/agents.git
