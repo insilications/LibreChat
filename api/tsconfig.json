@@ -9,7 +9,7 @@
     "allowJs": true,
     "checkJs": true,
     "declarationDir": "./dist/types",
-    "noEmit": false,  // Allow emission of .d.ts
+    "noEmit": true,
     "baseUrl": ".",
     "paths": {
       // "*": ["*", "node_modules/*"],

@@ -11,6 +11,7 @@
     "allowJs": true,
     "checkJs": true,
     "noEmit": false,
+    "emitDeclarationOnly": true,
     "baseUrl": ".",
     "paths": {
       "librechat-data-provider/react-query": ["./src/react-query/index.ts"]
