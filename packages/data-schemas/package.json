@@ -17,14 +17,6 @@
     "dist"
   ],
   "scripts": {
-    "clean": "rimraf dist",
-    "build": "npm run clean && rollup -c --silent --bundleConfigAsCjs",
-    "build:watch": "rollup -c -w",
-    "test": "jest --coverage --watch",
-    "test:ci": "jest --coverage --ci",
-    "verify": "npm run test:ci",
-    "b:clean": "bun run rimraf dist",
-    "b:build": "bun run b:clean && bun run rollup -c --silent --bundleConfigAsCjs"
   },
   "repository": {
     "type": "git",
@@ -44,6 +36,7 @@
     "@rollup/plugin-replace": "^5.0.5",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.2",
+    "@swc/core": "^1.13.0",
     "@types/diff": "^6.0.0",
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.2",
@@ -53,7 +46,7 @@
     "jest-junit": "^16.0.0",
     "mongodb-memory-server": "^10.1.4",
     "rimraf": "^5.0.1",
-    "rollup": "^4.22.4",
+    "rollup": "^4.45.1",
     "rollup-plugin-generate-package-json": "^3.2.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-typescript2": "^0.35.0",
@@ -64,7 +57,7 @@
     "jsonwebtoken": "^9.0.2",
     "keyv": "^5.3.2",
     "klona": "^2.0.6",
-    "librechat-data-provider": "*",
+    "librechat-data-provider": "workspace:*",
     "lodash": "^4.17.21",
     "meilisearch": "^0.38.0",
     "mongoose": "^8.12.1",

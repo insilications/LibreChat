@@ -1,0 +1,11 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./packages/agents" },
+    { "path": "./packages/data-provider" },
+    { "path": "./packages/data-schemas" },
+    { "path": "./packages/api" },
+    { "path": "./client" },
+    { "path": "./api" }
+  ]
+}

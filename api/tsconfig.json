@@ -1,0 +1,26 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    // "moduleResolution": "node",
+    "lib": ["ES2021"],
+    "allowJs": true,
+    "checkJs": true,
+    "declarationDir": "./dist/types",
+    "noEmit": false,  // Allow emission of .d.ts
+    "baseUrl": ".",
+    "paths": {
+      // "*": ["*", "node_modules/*"],
+      "~/*": ["./*"],
+    },
+  },
+  "exclude": ["node_modules"],
+  "references": [
+    { "path": "../packages/data-schemas" },
+    { "path": "../packages/api" },
+    { "path": "../packages/data-provider" },
+    { "path": "../packages/agents" }
+  ]
+}

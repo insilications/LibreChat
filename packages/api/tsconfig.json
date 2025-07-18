@@ -1,37 +1,17 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "declaration": true,
+    "module": "ESNext",
+    "target": "ES2015",
+    "moduleResolution": "bundler",
     "declarationDir": "./dist/types",
-    "module": "esnext",
-    "noImplicitAny": true,
-    "outDir": "./types",
-    "target": "es2015",
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "lib": ["es2017", "dom", "ES2021.String"],
+    // "outDir": "./types",
+    "lib": ["ES2017", "DOM", "ES2021.String"],
     "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "noImplicitOverride": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "sourceMap": true,
+    "checkJs": true,
+    "noEmit": false,
     "baseUrl": ".",
-    "paths": {
-      "~/*": ["./src/*"],
-      "@librechat/agents": ["../../../agents/src"],
-      "@librechat/agents/*": ["../../../agents/src/*"],
-      "librechat-data-provider": ["../data-provider/src"],
-      "librechat-data-provider/*": ["../data-provider/src/*"],
-      "@librechat/data-schemas": ["../data-schemas/src"],
-      "@librechat/data-schemas/*": ["../data-schemas/src/*"]
-    },
-    "noErrorTruncation": true,
-    "disableSizeLimit": true
+    "paths": { "~/*": ["./src/*"] }
   },
   "ts-node": {
     "experimentalSpecifierResolution": "node",
@@ -39,5 +19,10 @@
     "esm": true
   },
   "exclude": ["node_modules", "dist", "types"],
-  "include": ["src/**/*", "types/index.d.ts", "types/react-query/index.d.ts"]
+  "include": ["src/**/*", "types/index.d.ts", "types/react-query/index.d.ts"],
+  "references": [
+    {"path": "../data-schemas" },
+    {"path": "../data-provider"},
+    {"path": "../agents"       }
+  ]
 }

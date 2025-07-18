@@ -1,40 +1,23 @@
 {
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "allowJs": true,
-    "checkJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": false,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": false,
+    "moduleResolution": "bundler",
     "module": "ESNext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "noImplicitOverride": true,
-    "noEmit": false,
-    "declaration": true,
-    "declarationDir": "./types",
-    "sourceMap": true,
-    "emitDeclarationOnly": true,
+    "target": "ESNext",
+    "declarationDir": "./dist/types",
+    "noEmit": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "jsx": "preserve",
     "baseUrl": "..",
     "paths": {
       "~/*": ["./client/src/*"],
       "test/*": ["./client/test/*"],
-      "*": ["./client/*", "../node_modules/*"],
-      "librechat-data-provider/*": ["./packages/data-provider/src/*"],
-      "librechat-data-provider": ["./packages/data-provider/src"]
+      // "*": ["./client/*", "../node_modules/*"],
+      // "librechat-data-provider/*": ["./packages/data-provider/src/*"],
+      // "librechat-data-provider": ["./packages/data-provider/src"]
     },
-    "noErrorTruncation": true,
-    "disableSizeLimit": true
   },
-  "types": ["node", "jest", "@testing-library/jest-dom"],
+  // "types": ["node", "jest", "@testing-library/jest-dom"],
   "exclude": ["node_modules", "vite.config.ts"],
   "include": [
     "src/**/*",
@@ -43,5 +26,8 @@
     "test/setupTests.js",
     "env.d.ts",
     "../config/translations/**/*.ts"
+  ],
+  "references": [
+    { "path": "../packages/data-provider" }
   ]
 }

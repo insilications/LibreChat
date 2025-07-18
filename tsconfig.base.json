@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "useDefineForClassFields": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    // "noImplicitOverride": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "incremental": true,
+    "composite": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "noErrorTruncation": true,
+    "disableSizeLimit": true
+  }
+}
