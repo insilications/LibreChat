@@ -22,10 +22,10 @@
   "include": [
     "src/**/*",
     "test/**/*",
-    "../e2e/**/*",
-    "test/setupTests.js",
-    "env.d.ts",
-    "../config/translations/**/*.ts"
+    // "../e2e/**/*",
+    // "test/setupTests.js",
+    // "env.d.ts",
+    // "../config/translations/**/*.ts"
   ],
   "references": [
     { "path": "../packages/data-provider" }
