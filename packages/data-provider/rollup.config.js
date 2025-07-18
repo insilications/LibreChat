@@ -1,4 +1,4 @@
-import typescript from 'rollup-plugin-typescript2';
+// import typescript from 'rollup-plugin-typescript2';
 import resolve from '@rollup/plugin-node-resolve';
 import pkg from './package.json';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
@@ -6,17 +6,29 @@ import commonjs from '@rollup/plugin-commonjs';
 import replace from '@rollup/plugin-replace';
 import terser from '@rollup/plugin-terser';
 import generatePackageJson from 'rollup-plugin-generate-package-json';
+import swc from '@rollup/plugin-swc';
 
 const plugins = [
   peerDepsExternal(),
-  resolve(),
+  resolve({
+    preferBuiltins: true,
+    extensions: ['.mjs', '.js', '.json', '.node', '.ts']
+  }),
   replace({
     __IS_DEV__: process.env.NODE_ENV === 'development',
+    preventAssignment: true,
   }),
-  commonjs(),
-  typescript({
+  // commonjs(),
+  commonjs({
+    esmExternals: true,
+    requireReturnsDefault: 'auto',
+  }),
+  // typescript({
+    // tsconfig: './tsconfig.json',
+    // useTsconfigDeclarationDir: true,
+  // }),
+  swc({
     tsconfig: './tsconfig.json',
-    useTsconfigDeclarationDir: true,
   }),
   terser(),
 ];

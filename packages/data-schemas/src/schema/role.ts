@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import { PermissionTypes, Permissions } from 'librechat-data-provider';
+import { PermissionTypes, Permissions } from '@librechat/data-provider';
 import type { IRole } from '~/types';
 
 // Create a sub-schema for permissions. Notice we disable _id for this subdocument.

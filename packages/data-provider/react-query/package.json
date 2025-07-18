@@ -1,4 +1,5 @@
 {
+  // "name": "@librechat/react-query",
   "name": "librechat-data-provider/react-query",
   "private": true,
   "main": "../index.js",

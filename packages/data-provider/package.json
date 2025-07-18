@@ -1,24 +1,35 @@
 {
-  "name": "librechat-data-provider",
-  "version": "0.7.899",
+  "name": "@librechat/data-provider",
+  "version": "0.7.900",
   "description": "data services for librechat apps",
   "main": "dist/index.js",
-  "module": "dist/index.es.js",
+  "module": "./dist/index.es.js",
   "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.es.js",
-      "require": "./dist/index.js",
-      "types": "./dist/types/index.d.ts"
+      "import": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/index.es.js"
+      },
+      "require": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/index.js"
+      }
     },
     "./react-query": {
-      "import": "./dist/react-query/index.es.js",
-      "require": "./dist/react-query/index.js",
-      "types": "./dist/types/react-query/index.d.ts"
-    }
+      "import": {
+        "types": "./dist/types/react-query/index.d.ts",
+        "default": "./dist/react-query/index.es.js"
+      },
+      "require": {
+        "types": "./dist/types/react-query/index.d.ts",
+        "default": "./dist/react-query/index.js"
+      }
+    },
+    "./package.json": "./package.json"
   },
   "scripts": {
-    "build2": "npm run clean && rollup -c --silent --bundleConfigAsCjs",
+    "build": "NODE_ENV=production bun run --bun rollup -c"
   },
   "repository": {
     "type": "git",
@@ -43,11 +54,10 @@
     "@langchain/core": "^0.3.57",
     "@rollup/plugin-alias": "^5.1.0",
     "@rollup/plugin-commonjs": "^25.0.2",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^15.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-replace": "^5.0.5",
+    "@rollup/plugin-swc": "^0.4.0",
     "@rollup/plugin-terser": "^0.4.4",
-    "@swc/core": "^1.13.0",
     "@types/jest": "^29.5.2",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^20.3.0",

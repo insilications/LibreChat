@@ -1,5 +1,5 @@
 import { ProxyAgent } from 'undici';
-import { KnownEndpoints, removeNullishValues } from 'librechat-data-provider';
+import { KnownEndpoints, removeNullishValues } from '@librechat/data-provider';
 import type { BindToolsInput } from '@langchain/core/language_models/chat_models';
 import type { AzureOpenAIInput } from '@langchain/openai';
 import type { OpenAI } from 'openai';

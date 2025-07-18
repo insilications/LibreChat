@@ -8,7 +8,7 @@ import {
   discoverOAuthProtectedResourceMetadata,
 } from '@modelcontextprotocol/sdk/client/auth.js';
 import { OAuthMetadataSchema } from '@modelcontextprotocol/sdk/shared/auth.js';
-import type { MCPOptions } from 'librechat-data-provider';
+import type { MCPOptions } from '@librechat/data-provider';
 import type { FlowStateManager } from '~/flow/manager';
 import type {
   OAuthClientInformation,

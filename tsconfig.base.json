@@ -7,7 +7,6 @@
     // "noImplicitOverride": true,
     // "noUnusedLocals": true,
     // "noUnusedParameters": true,
-    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "isolatedModules": true,
@@ -17,10 +16,12 @@
     "declarationMap": true,
     "incremental": true,
     "composite": true,
+    "skipDefaultLibCheck": false,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "noErrorTruncation": true,
-    "disableSizeLimit": true
+    "disableSizeLimit": true,
+    //"verbatimModuleSyntax": false
   }
 }

@@ -1,7 +1,7 @@
 /** Memories */
 import { z } from 'zod';
 import { tool } from '@langchain/core/tools';
-import { Tools } from 'librechat-data-provider';
+import { Tools } from '@librechat/data-provider';
 import { logger } from '@librechat/data-schemas';
 import { Run, Providers, GraphEvents } from '@librechat/agents';
 import type {
@@ -11,7 +11,7 @@ import type {
   ToolEndData,
   LLMConfig,
 } from '@librechat/agents';
-import type { TAttachment, MemoryArtifact } from 'librechat-data-provider';
+import type { TAttachment, MemoryArtifact } from '@librechat/data-provider';
 import type { ObjectId, MemoryMethods } from '@librechat/data-schemas';
 import type { BaseMessage } from '@langchain/core/messages';
 import type { Response as ServerResponse } from 'express';

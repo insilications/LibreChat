@@ -1,22 +1,48 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "target": "ES5",
+    "tsBuildInfoFile": "dist/tsconfig.tsbuildinfo",
+    "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    // "moduleResolution": "node",
     "declarationDir": "./dist/types",
-    // "outDir": "./types",
     "lib": ["ES2017", "DOM", "ES2021.String"],
-    "allowJs": true,
-    "checkJs": true,
     "noEmit": false,
     "emitDeclarationOnly": true,
-    "baseUrl": ".",
-    "paths": {
-      "librechat-data-provider/react-query": ["./src/react-query/index.ts"]
-    },
+    "baseUrl": "."
   },
-  "exclude": ["node_modules", "dist", "types"],
-  "include": ["src/**/*", "types/index.d.ts", "types/react-query/index.d.ts"]
+  "exclude": ["node_modules", "dist"],
+  // "exclude": ["node_modules", "dist", "types"],
+  "include": ["src/**/*"]
+  // "include": ["src/**/*", "types/index.d.ts", "types/react-query/index.d.ts"]
 }
+
+
+// {
+//   "compilerOptions": {
+//     "declaration": true,
+//     "declarationDir": "./dist/types",
+//     "module": "esnext",
+//     "noImplicitAny": true,
+//     "outDir": "./types",
+//     "target": "es5",
+//     "moduleResolution": "node",
+//     "allowSyntheticDefaultImports": true,
+//     "lib": ["es2017", "dom", "ES2021.String"],
+//     "allowJs": true,
+//     "skipLibCheck": true,
+//     "esModuleInterop": true,
+//     "strict": true,
+//     "forceConsistentCasingInFileNames": true,
+//     "resolveJsonModule": true,
+//     "isolatedModules": true,
+//     "noEmit": true,
+//     "sourceMap": true,
+//     "baseUrl": ".",
+//     "paths": {
+//       "librechat-data-provider/react-query": ["./src/react-query/index.ts"]
+//     }
+//   },
+//   "exclude": ["node_modules", "dist", "types"],
+//   "include": ["src/**/*", "types/index.d.ts", "types/react-query/index.d.ts"]
+// }

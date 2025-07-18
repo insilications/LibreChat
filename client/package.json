@@ -60,7 +60,7 @@
     "i18next-browser-languagedetector": "^8.0.3",
     "input-otp": "^1.4.2",
     "js-cookie": "^3.0.5",
-    "librechat-data-provider": "workspace:*",
+    "@librechat/data-provider": "workspace:*",
     "lodash": "^4.17.21",
     "lucide-react": "^0.394.0",
     "match-sorter": "^6.3.4",

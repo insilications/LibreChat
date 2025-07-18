@@ -1,8 +1,11 @@
 import json from '@rollup/plugin-json';
-import typescript from '@rollup/plugin-typescript';
+// import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
-import nodeResolve from '@rollup/plugin-node-resolve';
+import resolve from '@rollup/plugin-node-resolve';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import swc from '@rollup/plugin-swc';
+import path from 'path';
+import alias from '@rollup/plugin-alias';
 
 export default {
   input: 'src/index.ts',
@@ -19,20 +22,35 @@ export default {
     },
   ],
   plugins: [
-    // Allow importing JSON files
-    json(),
     // Automatically externalize peer dependencies
     peerDepsExternal(),
+    alias({
+      entries: [
+        { find: '~', replacement: path.resolve(__dirname, 'src') }
+      ]
+    }),
     // Resolve modules from node_modules
-    nodeResolve(),
+    resolve({
+      preferBuiltins: true,
+      extensions: ['.mjs', '.js', '.json', '.node', '.ts']
+    }),
     // Convert CommonJS modules to ES6
-    commonjs(),
+    commonjs({
+      esmExternals: true,
+      requireReturnsDefault: 'auto',
+    }),
     // Compile TypeScript files and generate type declarations
-    typescript({
-      tsconfig: './tsconfig.build.json',
-      declaration: true,
-      declarationDir: 'dist/types',
-      rootDir: 'src',
+    // typescript({
+    //   tsconfig: './tsconfig.json',
+    //   declaration: true,
+    //   declarationDir: 'dist/types',
+    //   rootDir: 'src',
+    // }),
+    // Allow importing JSON files
+    json(),
+    swc({
+      // Explicitly point to the tsconfig.json file
+      tsconfig: './tsconfig.json',
     }),
   ],
   // Do not bundle these external dependencies

@@ -1,20 +1,20 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
+    "tsBuildInfoFile": "dist/tsconfig.tsbuildinfo",
     "moduleResolution": "bundler",
     "module": "ESNext",
     "target": "ESNext",
     "declarationDir": "./dist/types",
-    "noEmit": true,
+    "noEmit": false,
+    "emitDeclarationOnly": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "jsx": "preserve",
-    "baseUrl": "..",
+    "baseUrl": ".",
     "paths": {
-      "~/*": ["./client/src/*"],
-      "test/*": ["./client/test/*"],
+      "~/*": ["./src/*"],
+      "test/*": ["./test/*"],
       // "*": ["./client/*", "../node_modules/*"],
-      // "librechat-data-provider/*": ["./packages/data-provider/src/*"],
-      // "librechat-data-provider": ["./packages/data-provider/src"]
     },
   },
   // "types": ["node", "jest", "@testing-library/jest-dom"],

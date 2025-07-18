@@ -3,7 +3,7 @@ import { CallToolResultSchema, ErrorCode, McpError } from '@modelcontextprotocol
 import type { OAuthClientInformation } from '@modelcontextprotocol/sdk/shared/auth.js';
 import type { RequestOptions } from '@modelcontextprotocol/sdk/shared/protocol.js';
 import type { TokenMethods } from '@librechat/data-schemas';
-import type { TUser } from 'librechat-data-provider';
+import type { TUser } from '@librechat/data-provider';
 import type { MCPOAuthTokens, MCPOAuthFlowMetadata } from './oauth/types';
 import type { FlowStateManager } from '~/flow/manager';
 import type { JsonSchemaType } from '~/types/zod';

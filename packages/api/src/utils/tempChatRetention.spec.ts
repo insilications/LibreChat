@@ -5,7 +5,7 @@ import {
   getTempChatRetentionHours,
   createTempChatExpirationDate,
 } from './tempChatRetention';
-import type { TCustomConfig } from 'librechat-data-provider';
+import type { TCustomConfig } from '@librechat/data-provider';
 
 describe('tempChatRetention', () => {
   const originalEnv = process.env;

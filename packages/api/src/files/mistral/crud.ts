@@ -7,8 +7,8 @@ import {
   envVarRegex,
   extractEnvVariable,
   extractVariableName,
-} from 'librechat-data-provider';
-import type { TCustomConfig } from 'librechat-data-provider';
+} from '@librechat/data-provider';
+import type { TCustomConfig } from '@librechat/data-provider';
 import type { Request as ServerRequest } from 'express';
 import type { AxiosError } from 'axios';
 import type {

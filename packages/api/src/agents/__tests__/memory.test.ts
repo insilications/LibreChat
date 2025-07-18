@@ -1,4 +1,4 @@
-import { Tools, type MemoryArtifact } from 'librechat-data-provider';
+import { Tools, type MemoryArtifact } from '@librechat/data-provider';
 import { createMemoryTool } from '../memory';
 
 // Mock the logger

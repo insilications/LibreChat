@@ -6,9 +6,9 @@ import {
   StdioOptionsSchema,
   WebSocketOptionsSchema,
   StreamableHTTPOptionsSchema,
-} from 'librechat-data-provider';
+} from '@librechat/data-provider';
 import type * as t from '@modelcontextprotocol/sdk/types.js';
-import type { TPlugin } from 'librechat-data-provider';
+import type { TPlugin } from '@librechat/data-provider';
 import type { JsonSchemaType } from '~/types/zod';
 
 export type StdioOptions = z.infer<typeof StdioOptionsSchema>;

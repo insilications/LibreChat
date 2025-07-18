@@ -1,6 +1,7 @@
 {
   "name": "@librechat/backend",
   "version": "v0.7.9-rc1",
+  "type": "commonjs",
   "description": "",
   "scripts": {
   },
@@ -14,7 +15,7 @@
   "_moduleAliases": {
     "~": "."
   },
-  "imports": {
+   "imports": {
     "~/*": "./*"
   },
   "bugs": {
@@ -39,6 +40,7 @@
     "@librechat/agents": "workspace:*",
     "@librechat/api": "workspace:*",
     "@librechat/data-schemas": "workspace:*",
+    "@librechat/data-provider": "workspace:*",
     "@node-saml/passport-saml": "^5.0.0",
     "@waylaidwanderer/fetch-event-source": "^3.0.1",
     "axios": "^1.8.2",
@@ -49,7 +51,7 @@
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dedent": "^1.5.3",
-    "dotenv": "^16.0.3",
+    "dotenv": "^17.2.0",
     "eventsource": "^3.0.2",
     "express": "^4.21.2",
     "express-mongo-sanitize": "^2.2.0",
@@ -68,7 +70,6 @@
     "keyv": "^5.3.2",
     "keyv-file": "^5.1.2",
     "klona": "^2.0.6",
-    "librechat-data-provider": "workspace:*",
     "lodash": "^4.17.21",
     "meilisearch": "^0.38.0",
     "memorystore": "^1.6.7",

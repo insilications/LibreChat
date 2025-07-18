@@ -4,7 +4,7 @@ import {
   PermissionTypes,
   EModelEndpoint,
   EndpointURLs,
-} from 'librechat-data-provider';
+} from '@librechat/data-provider';
 import type { IRole, IUser } from '@librechat/data-schemas';
 import { checkAccess, generateCheckAccess, skipAgentCheck } from './access';
 

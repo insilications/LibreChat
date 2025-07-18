@@ -134,3 +134,9 @@ helm/**/.values.yaml
 /.openai/
 /.tabnine/
 /.codeium
+
+packages/data-schemas/tsconfig.tsbuildinfo
+
+packages/data-provider/tsconfig.tsbuildinfo
+
+packages/api/tsconfig.tsbuildinfo

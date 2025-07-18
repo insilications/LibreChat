@@ -2,8 +2,8 @@ import {
   MCPOptions,
   StdioOptionsSchema,
   StreamableHTTPOptionsSchema,
-} from 'librechat-data-provider';
-import type { TUser } from 'librechat-data-provider';
+} from '@librechat/data-provider';
+import type { TUser } from '@librechat/data-provider';
 import { processMCPEnv } from '~/utils/env';
 
 // Helper function to create test user objects

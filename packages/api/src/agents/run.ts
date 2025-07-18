@@ -1,5 +1,5 @@
 import { Run, Providers } from '@librechat/agents';
-import { providerEndpointMap, KnownEndpoints } from 'librechat-data-provider';
+import { providerEndpointMap, KnownEndpoints } from '@librechat/data-provider';
 import type {
   OpenAIClientOptions,
   StandardGraphConfig,
@@ -8,7 +8,7 @@ import type {
   GraphEvents,
   IState,
 } from '@librechat/agents';
-import type { Agent } from 'librechat-data-provider';
+import type { Agent } from '@librechat/data-provider';
 import type * as t from '~/types';
 
 const customProviders = new Set([

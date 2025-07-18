@@ -1,5 +1,5 @@
 import { resolveHeaders } from './env';
-import type { TUser } from 'librechat-data-provider';
+import type { TUser } from '@librechat/data-provider';
 
 // Helper function to create test user objects
 function createTestUser(overrides: Partial<TUser> = {}): TUser {
