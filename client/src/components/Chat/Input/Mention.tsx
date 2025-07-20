@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { AutoSizer, List } from 'react-virtualized';
-import { EModelEndpoint } from 'librechat-data-provider';
+import { EModelEndpoint } from '@librechat/data-provider';
 import type { SetterOrUpdater } from 'recoil';
 import type { MentionOption, ConvoGenerator } from '~/common';
 import useSelectMention from '~/hooks/Input/useSelectMention';

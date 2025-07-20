@@ -6,7 +6,7 @@ const {
   ImageDetail,
   ContentTypes,
   EModelEndpoint,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 const { getStrategyFunctions } = require('~/server/services/Files/strategies');
 
 /**

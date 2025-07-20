@@ -1,14 +1,14 @@
 import { useState, useMemo } from 'react';
 import { useForm, FormProvider, Controller, useWatch } from 'react-hook-form';
-import { useGetModelsQuery } from 'librechat-data-provider/react-query';
+import { useGetModelsQuery } from '@librechat/data-provider/react-query';
 import {
   Tools,
   Capabilities,
   actionDelimiter,
   ImageVisionTool,
   defaultAssistantFormValues,
-} from 'librechat-data-provider';
-import type { FunctionTool, TConfig } from 'librechat-data-provider';
+} from '@librechat/data-provider';
+import type { FunctionTool, TConfig } from '@librechat/data-provider';
 import type { AssistantForm, AssistantPanelProps } from '~/common';
 import {
   useCreateAssistantMutation,

@@ -1,4 +1,4 @@
-const { EModelEndpoint, anthropicSettings } = require('librechat-data-provider');
+const { EModelEndpoint, anthropicSettings } = require('@librechat/data-provider');
 const { matchModelName } = require('~/utils');
 const { logger } = require('~/config');
 

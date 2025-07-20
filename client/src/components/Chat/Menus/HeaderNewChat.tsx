@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
-import { QueryKeys, Constants } from 'librechat-data-provider';
-import type { TMessage } from 'librechat-data-provider';
+import { QueryKeys, Constants } from '@librechat/data-provider';
+import type { TMessage } from '@librechat/data-provider';
 import { TooltipAnchor, Button } from '~/components/ui';
 import { NewChatIcon } from '~/components/svg';
 import { useChatContext } from '~/Providers';

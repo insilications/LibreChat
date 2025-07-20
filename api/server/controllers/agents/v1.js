@@ -11,7 +11,7 @@ const {
   EToolResources,
   actionDelimiter,
   removeNullishValues,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 const {
   getAgent,
   createAgent,

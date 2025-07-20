@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { AgentCapabilities } from 'librechat-data-provider';
+import { AgentCapabilities } from '@librechat/data-provider';
 import { useFormContext, Controller } from 'react-hook-form';
 import type { AgentForm } from '~/common';
 import {

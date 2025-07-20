@@ -1,6 +1,6 @@
 const express = require('express');
 const { logger } = require('@librechat/data-schemas');
-const { CacheKeys, defaultSocialLogins, Constants } = require('librechat-data-provider');
+const { CacheKeys, defaultSocialLogins, Constants } = require('@librechat/data-provider');
 const { getCustomConfig } = require('~/server/services/Config/getCustomConfig');
 const { getLdapConfig } = require('~/server/services/Config/ldap');
 const { getProjectByName } = require('~/models/Project');

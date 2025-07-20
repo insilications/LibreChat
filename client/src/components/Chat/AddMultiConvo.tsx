@@ -1,6 +1,6 @@
 import { PlusCircle } from 'lucide-react';
-import { isAssistantsEndpoint } from 'librechat-data-provider';
-import type { TConversation } from 'librechat-data-provider';
+import { isAssistantsEndpoint } from '@librechat/data-provider';
+import type { TConversation } from '@librechat/data-provider';
 import { useChatContext, useAddedChatContext } from '~/Providers';
 import { TooltipAnchor } from '~/components';
 import { mainTextareaId } from '~/common';

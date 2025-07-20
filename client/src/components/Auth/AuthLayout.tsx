@@ -1,5 +1,5 @@
 import { TranslationKeys, useLocalize } from '~/hooks';
-import { TStartupConfig } from 'librechat-data-provider';
+import { TStartupConfig } from '@librechat/data-provider';
 import { ErrorMessage } from '~/components/Auth/ErrorMessage';
 import SocialLoginRender from './SocialLoginRender';
 import { BlinkAnimation } from './BlinkAnimation';

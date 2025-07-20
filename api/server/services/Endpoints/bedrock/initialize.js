@@ -3,7 +3,7 @@ const {
   EModelEndpoint,
   providerEndpointMap,
   getResponseSender,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 const { getDefaultHandlers } = require('~/server/controllers/agents/callbacks');
 const getOptions = require('~/server/services/Endpoints/bedrock/options');
 const AgentClient = require('~/server/controllers/agents/client');

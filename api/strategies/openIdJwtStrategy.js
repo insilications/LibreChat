@@ -1,4 +1,4 @@
-const { SystemRoles } = require('librechat-data-provider');
+const { SystemRoles } = require('@librechat/data-provider');
 const { HttpsProxyAgent } = require('https-proxy-agent');
 const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
 const { updateUser, findUser } = require('~/models');

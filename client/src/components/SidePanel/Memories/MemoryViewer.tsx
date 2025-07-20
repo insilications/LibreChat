@@ -2,8 +2,8 @@
 import { useMemo, useState, useRef, useEffect } from 'react';
 import { Plus } from 'lucide-react';
 import { matchSorter } from 'match-sorter';
-import { SystemRoles, PermissionTypes, Permissions } from 'librechat-data-provider';
-import type { TUserMemory } from 'librechat-data-provider';
+import { SystemRoles, PermissionTypes, Permissions } from '@librechat/data-provider';
+import type { TUserMemory } from '@librechat/data-provider';
 import {
   Spinner,
   EditIcon,

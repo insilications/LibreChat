@@ -9,9 +9,9 @@ import {
   isAssistantsEndpoint,
   defaultAssistantsVersion,
   fileConfig as defaultFileConfig,
-} from 'librechat-data-provider';
+} from '@librechat/data-provider';
 import debounce from 'lodash/debounce';
-import type { EndpointFileConfig, TEndpointsConfig, TError } from 'librechat-data-provider';
+import type { EndpointFileConfig, TEndpointsConfig, TError } from '@librechat/data-provider';
 import type { ExtendedFile, FileSetter } from '~/common';
 import { useGetFileConfig, useUploadFileMutation } from '~/data-provider';
 import useLocalize, { TranslationKeys } from '~/hooks/useLocalize';

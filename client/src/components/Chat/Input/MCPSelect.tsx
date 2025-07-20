@@ -1,8 +1,8 @@
 import React, { memo, useCallback, useState } from 'react';
 import { SettingsIcon } from 'lucide-react';
-import { Constants } from 'librechat-data-provider';
-import { useUpdateUserPluginsMutation } from 'librechat-data-provider/react-query';
-import type { TUpdateUserPlugins, TPlugin } from 'librechat-data-provider';
+import { Constants } from '@librechat/data-provider';
+import { useUpdateUserPluginsMutation } from '@librechat/data-provider/react-query';
+import type { TUpdateUserPlugins, TPlugin } from '@librechat/data-provider';
 import MCPConfigDialog, { type ConfigFieldDetail } from '~/components/ui/MCPConfigDialog';
 import { useToastContext, useBadgeRowContext } from '~/Providers';
 import MultiSelect from '~/components/ui/MultiSelect';

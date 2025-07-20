@@ -1,7 +1,7 @@
 const { nanoid } = require('nanoid');
 const { sendEvent } = require('@librechat/api');
 const { logger } = require('@librechat/data-schemas');
-const { Tools, StepTypes, FileContext } = require('librechat-data-provider');
+const { Tools, StepTypes, FileContext } = require('@librechat/data-provider');
 const {
   EnvVar,
   Providers,

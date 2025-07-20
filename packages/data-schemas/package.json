@@ -1,7 +1,6 @@
 {
   "name": "@librechat/data-schemas",
   "version": "0.0.10",
-  "type": "module",
   "description": "Mongoose schemas and models for LibreChat",
   "main": "dist/index.cjs",
   "module": "dist/index.es.js",
@@ -23,7 +22,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "NODE_ENV=production bun run --bun rollup -c"
+    "clean": "rm -rf dist tsconfig.tsbuildinfo",
+    "build": "NODE_ENV=production bun run --bun rollup -c",
+    "dev": "bun rollup -c -w"
   },
   "repository": {
     "type": "git",
@@ -37,7 +38,7 @@
   "homepage": "https://librechat.ai",
   "devDependencies": {
     "@rollup/plugin-alias": "^5.1.1",
-    "@rollup/plugin-commonjs": "^25.0.2",
+    "@rollup/plugin-commonjs": "^28.0.6",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-replace": "^5.0.5",
@@ -47,7 +48,7 @@
     "@types/diff": "^6.0.0",
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.2",
-    "@types/node": "^20.3.0",
+    "@types/node": "^24.0.15",
     "@types/traverse": "^0.6.37",
     "jest": "^29.5.0",
     "jest-junit": "^16.0.0",
@@ -58,7 +59,7 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-typescript2": "^0.35.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.0.4"
+    "typescript": "^5.9.0-dev.20250723"
   },
   "peerDependencies": {
     "jsonwebtoken": "^9.0.2",

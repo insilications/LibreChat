@@ -9,7 +9,7 @@ const {
   excludedKeys,
   ErrorTypes,
   Constants,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 const { getMessages, saveMessage, updateMessage, saveConvo, getConvo } = require('~/models');
 const { checkBalance } = require('~/models/balanceMethods');
 const { truncateToolCallOutputs } = require('./prompts');
@@ -58,7 +58,7 @@ class BaseClient {
     this.fetchedConvo;
     /** @type {TMessage[]} */
     this.currentMessages = [];
-    /** @type {import('librechat-data-provider').VisionModes | undefined} */
+    /** @type {import('@librechat/data-provider').VisionModes | undefined} */
     this.visionMode;
   }
 

@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import * as Ariakit from '@ariakit/react';
 import { VisuallyHidden } from '@ariakit/react';
 import { X, Globe, Newspaper, Image, ChevronDown } from 'lucide-react';
-import type { ValidSource, ImageResult } from 'librechat-data-provider';
+import type { ValidSource, ImageResult } from '@librechat/data-provider';
 import { FaviconImage, getCleanDomain } from '~/components/Web/SourceHovercard';
 import { useSearchContext } from '~/Providers';
 import { AnimatedTabs } from '~/components/ui';

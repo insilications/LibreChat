@@ -1,7 +1,7 @@
 const express = require('express');
 const { logger } = require('@librechat/data-schemas');
 const { generateCheckAccess } = require('@librechat/api');
-const { Permissions, SystemRoles, PermissionTypes } = require('librechat-data-provider');
+const { Permissions, SystemRoles, PermissionTypes } = require('@librechat/data-provider');
 const {
   getPrompt,
   getPrompts,

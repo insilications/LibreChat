@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import React, { useState, useEffect, useContext } from 'react';
 import { Turnstile } from '@marsidev/react-turnstile';
-import type { TLoginUser, TStartupConfig } from 'librechat-data-provider';
+import type { TLoginUser, TStartupConfig } from '@librechat/data-provider';
 import type { TAuthContext } from '~/common';
 import { useResendVerificationEmail, useGetStartupConfig } from '~/data-provider';
 import { ThemeContext, useLocalize } from '~/hooks';

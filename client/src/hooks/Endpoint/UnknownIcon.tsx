@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { EModelEndpoint, KnownEndpoints } from 'librechat-data-provider';
+import { EModelEndpoint, KnownEndpoints } from '@librechat/data-provider';
 import { CustomMinimalIcon, XAIcon } from '~/components/svg';
 import { IconContext } from '~/common';
 import { cn } from '~/utils';

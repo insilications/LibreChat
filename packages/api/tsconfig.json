@@ -5,11 +5,13 @@
     "module": "ESNext",
     "target": "ES2015",
     "moduleResolution": "bundler",
-    // "moduleResolution": "nodenext",
     "declarationDir": "./dist/types",
     "lib": ["ES2017", "DOM", "ES2021.String"],
+    "allowJs": true,
+    "checkJs": true,
     "noEmit": false,
     "emitDeclarationOnly": true,
+    "rootDir": "./src",
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"],
@@ -21,44 +23,10 @@
     "esm": true
   },
   "exclude": ["node_modules", "dist", "types"],
-  "include": ["src/**/*", "types/index.d.ts", "types/react-query/index.d.ts"],
+  "include": ["src/**/*"],
   "references": [
     {"path": "../data-schemas" },
     {"path": "../data-provider"},
     {"path": "../agents" }
   ]
 }
-
-// {
-//   "compilerOptions": {
-//     "declaration": true,
-//     "declarationDir": "./dist/types",
-//     "module": "esnext",
-//     "noImplicitAny": true,
-//     "outDir": "./types",
-//     "target": "es2015",
-//     "moduleResolution": "node",
-//     "allowSyntheticDefaultImports": true,
-//     "lib": ["es2017", "dom", "ES2021.String"],
-//     "allowJs": true,
-//     "skipLibCheck": true,
-//     "esModuleInterop": true,
-//     "strict": true,
-//     "forceConsistentCasingInFileNames": true,
-//     "resolveJsonModule": true,
-//     "isolatedModules": true,
-//     "noEmit": true,
-//     "sourceMap": true,
-//     "baseUrl": ".",
-//     "paths": {
-//       "~/*": ["./src/*"]
-//     }
-//   },
-//   "ts-node": {
-//     "experimentalSpecifierResolution": "node",
-//     "transpileOnly": true,
-//     "esm": true
-//   },
-//   "exclude": ["node_modules", "dist", "types"],
-//   "include": ["src/**/*", "types/index.d.ts", "types/react-query/index.d.ts"]
-// }

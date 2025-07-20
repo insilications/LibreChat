@@ -1,4 +1,4 @@
-import { EModelEndpoint } from 'librechat-data-provider';
+import { EModelEndpoint } from '@librechat/data-provider';
 import type { IconMapProps, AgentIconMapProps, IconsRecord } from '~/common';
 import { Feather } from 'lucide-react';
 import {

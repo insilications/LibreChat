@@ -1,6 +1,6 @@
 // Mock librechat-data-provider
-jest.mock('librechat-data-provider', () => ({
-  ...jest.requireActual('librechat-data-provider'),
+jest.mock('@librechat/data-provider', () => ({
+  ...jest.requireActual('@librechat/data-provider'),
   extractVariableName: jest.fn(),
 }));
 
@@ -14,7 +14,7 @@ jest.mock('~/config', () => ({
 
 const { checkWebSearchConfig } = require('./checks');
 const { logger } = require('~/config');
-const { extractVariableName } = require('librechat-data-provider');
+const { extractVariableName } = require('@librechat/data-provider');
 
 describe('checkWebSearchConfig', () => {
   let originalEnv;

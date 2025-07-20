@@ -6,14 +6,14 @@ import {
   QueryKeys,
   defaultOrderQuery,
   mergeFileConfig,
-} from 'librechat-data-provider';
+} from '@librechat/data-provider';
 import type { UseMutationResult } from '@tanstack/react-query';
 import type {
   Agent,
   AgentAvatar,
   AgentCreateParams,
   AgentListResponse,
-} from 'librechat-data-provider';
+} from '@librechat/data-provider';
 import { useUploadAgentAvatarMutation, useGetFileConfig } from '~/data-provider';
 import { AgentAvatarRender, NoImage, AvatarMenu } from './Images';
 import { useToastContext } from '~/Providers';

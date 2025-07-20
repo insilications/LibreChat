@@ -1,5 +1,5 @@
 const rateLimit = require('express-rate-limit');
-const { ViolationTypes } = require('librechat-data-provider');
+const { ViolationTypes } = require('@librechat/data-provider');
 const denyRequest = require('~/server/middleware/denyRequest');
 const { limiterCache } = require('~/cache/cacheFactory');
 const { logViolation } = require('~/cache');

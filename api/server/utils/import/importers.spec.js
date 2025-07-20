@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { EModelEndpoint, Constants, openAISettings } = require('librechat-data-provider');
+const { EModelEndpoint, Constants, openAISettings } = require('@librechat/data-provider');
 const { bulkSaveConvos: _bulkSaveConvos } = require('~/models/Conversation');
 const { getImporter, processAssistantMessage } = require('./importers');
 const { ImportBatchBuilder } = require('./importBatchBuilder');

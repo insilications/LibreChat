@@ -5,7 +5,7 @@ const {
   EModelEndpoint,
   isAgentsEndpoint,
   getResponseSender,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 const {
   createToolEndCallback,
   getDefaultHandlers,

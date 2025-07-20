@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { QueryKeys } from 'librechat-data-provider';
+import { QueryKeys } from '@librechat/data-provider';
 import { Controller, useForm } from 'react-hook-form';
 import { useQueryClient } from '@tanstack/react-query';
-import type { TConversationTag, TConversationTagRequest } from 'librechat-data-provider';
+import type { TConversationTag, TConversationTagRequest } from '@librechat/data-provider';
 import { Checkbox, Label, TextareaAutosize, Input } from '~/components';
 import { useBookmarkContext } from '~/Providers/BookmarkContext';
 import { useConversationTagMutation } from '~/data-provider';

@@ -2,8 +2,8 @@ import React, { useState, useRef, useCallback } from 'react';
 import { useSetRecoilState } from 'recoil';
 import AvatarEditor from 'react-avatar-editor';
 import { FileImage, RotateCw, Upload } from 'lucide-react';
-import { fileConfig as defaultFileConfig, mergeFileConfig } from 'librechat-data-provider';
-import type { TUser } from 'librechat-data-provider';
+import { fileConfig as defaultFileConfig, mergeFileConfig } from '@librechat/data-provider';
+import type { TUser } from '@librechat/data-provider';
 import {
   Slider,
   Button,

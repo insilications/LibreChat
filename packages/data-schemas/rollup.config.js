@@ -1,5 +1,4 @@
 import json from '@rollup/plugin-json';
-// import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
@@ -39,13 +38,6 @@ export default {
       esmExternals: true,
       requireReturnsDefault: 'auto',
     }),
-    // Compile TypeScript files and generate type declarations
-    // typescript({
-    //   tsconfig: './tsconfig.json',
-    //   declaration: true,
-    //   declarationDir: 'dist/types',
-    //   rootDir: 'src',
-    // }),
     // Allow importing JSON files
     json(),
     swc({

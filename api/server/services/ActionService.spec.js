@@ -1,4 +1,4 @@
-const { Constants, EModelEndpoint, actionDomainSeparator } = require('librechat-data-provider');
+const { Constants, EModelEndpoint, actionDomainSeparator } = require('@librechat/data-provider');
 const { domainParser } = require('./ActionService');
 
 jest.mock('keyv');
@@ -10,7 +10,7 @@ const globalCache = {};
 jest.mock('~/cache/getLogStores', () => {
   return jest.fn().mockImplementation(() => {
     const EventEmitter = require('events');
-    const { CacheKeys } = require('librechat-data-provider');
+    const { CacheKeys } = require('@librechat/data-provider');
 
     class KeyvMongo extends EventEmitter {
       constructor(url = 'mongodb://127.0.0.1:27017', options) {

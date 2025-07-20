@@ -1,5 +1,5 @@
 const { nanoid } = require('nanoid');
-const { Tools } = require('librechat-data-provider');
+const { Tools } = require('@librechat/data-provider');
 const { logger } = require('~/config');
 
 /**

@@ -23,7 +23,7 @@ const {
   getResponseSender,
   validateVisionModel,
   mapModelToAzureConfig,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 const {
   truncateText,
   formatMessage,

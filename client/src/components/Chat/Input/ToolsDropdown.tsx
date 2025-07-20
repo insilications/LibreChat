@@ -8,7 +8,7 @@ import {
   ArtifactModes,
   PermissionTypes,
   defaultAgentCapabilities,
-} from 'librechat-data-provider';
+} from '@librechat/data-provider';
 import { TooltipAnchor, DropdownPopup } from '~/components';
 import { useLocalize, useHasAccess, useAgentCapabilities } from '~/hooks';
 import ArtifactsSubMenu from '~/components/Chat/Input/ArtifactsSubMenu';

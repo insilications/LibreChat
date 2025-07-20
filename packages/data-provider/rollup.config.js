@@ -1,4 +1,3 @@
-// import typescript from 'rollup-plugin-typescript2';
 import resolve from '@rollup/plugin-node-resolve';
 import pkg from './package.json';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
@@ -18,15 +17,7 @@ const plugins = [
     __IS_DEV__: process.env.NODE_ENV === 'development',
     preventAssignment: true,
   }),
-  // commonjs(),
-  commonjs({
-    esmExternals: true,
-    requireReturnsDefault: 'auto',
-  }),
-  // typescript({
-    // tsconfig: './tsconfig.json',
-    // useTsconfigDeclarationDir: true,
-  // }),
+  commonjs(),
   swc({
     tsconfig: './tsconfig.json',
   }),
@@ -92,7 +83,6 @@ export default [
       ...Object.keys(pkg.peerDependencies || {}),
       'react',
       'react-dom',
-      // 'librechat-data-provider', // Marking main part as external
     ],
     preserveSymlinks: true,
     plugins: subfolderPlugins('react-query'),

@@ -11,7 +11,7 @@ const {
   isAgentsEndpoint,
   replaceSpecialVars,
   providerEndpointMap,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 const generateArtifactsPrompt = require('~/app/clients/prompts/artifacts');
 const { getProviderConfig } = require('~/server/services/Endpoints');
 const { processFiles } = require('~/server/services/Files/process');

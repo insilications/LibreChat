@@ -4,7 +4,7 @@ const {
   deprecatedAzureVariables,
   conflictingAzureVariables,
   extractVariableName,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 const { isEnabled, checkEmailConfig } = require('~/server/utils');
 const { logger } = require('~/config');
 

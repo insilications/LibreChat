@@ -12,8 +12,8 @@ import {
   tConvoUpdateSchema,
   ContentTypes,
   isAssistantsEndpoint,
-} from 'librechat-data-provider';
-import type { TMessage, TConversation, EventSubmission } from 'librechat-data-provider';
+} from '@librechat/data-provider';
+import type { TMessage, TConversation, EventSubmission } from '@librechat/data-provider';
 import type { TResData, TFinalResData, ConvoGenerator } from '~/common';
 import type { InfiniteData } from '@tanstack/react-query';
 import type { TGenTitleMutation } from '~/data-provider';

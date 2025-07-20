@@ -4,13 +4,13 @@ import {
   dataService,
   promptPermissionsSchema,
   memoryPermissionsSchema,
-} from 'librechat-data-provider';
+} from '@librechat/data-provider';
 import type {
   UseQueryOptions,
   UseMutationResult,
   QueryObserverResult,
 } from '@tanstack/react-query';
-import type * as t from 'librechat-data-provider';
+import type * as t from '@librechat/data-provider';
 
 export const useGetRole = (
   roleName: string,

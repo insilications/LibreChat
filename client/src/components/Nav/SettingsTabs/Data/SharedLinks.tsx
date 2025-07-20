@@ -2,7 +2,7 @@ import { useCallback, useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 import { TrashIcon, MessageSquare, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
-import type { SharedLinkItem, SharedLinksListParams } from 'librechat-data-provider';
+import type { SharedLinkItem, SharedLinksListParams } from '@librechat/data-provider';
 import {
   OGDialog,
   OGDialogTrigger,

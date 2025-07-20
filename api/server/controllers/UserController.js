@@ -4,7 +4,7 @@ const {
   FileSources,
   webSearchKeys,
   extractWebSearchEnvVars,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 const { logger } = require('@librechat/data-schemas');
 const {
   getFiles,

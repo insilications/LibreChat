@@ -1,4 +1,4 @@
-const { anthropicSettings, removeNullishValues } = require('librechat-data-provider');
+const { anthropicSettings, removeNullishValues } = require('@librechat/data-provider');
 const { getLLMConfig } = require('~/server/services/Endpoints/anthropic/llm');
 const { checkPromptCacheSupport, getClaudeHeaders, configureReasoning } = require('./helpers');
 
@@ -12,7 +12,7 @@ jest.mock('./helpers', () => ({
   configureReasoning: jest.fn((requestOptions) => requestOptions),
 }));
 
-jest.mock('librechat-data-provider', () => ({
+jest.mock('@librechat/data-provider', () => ({
   anthropicSettings: {
     model: { default: 'claude-3-opus-20240229' },
     maxOutputTokens: { default: 4096, reset: jest.fn(() => 4096) },

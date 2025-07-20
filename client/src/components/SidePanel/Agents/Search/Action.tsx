@@ -1,5 +1,5 @@
 import { KeyRoundIcon } from 'lucide-react';
-import { AuthType, AgentCapabilities } from 'librechat-data-provider';
+import { AuthType, AgentCapabilities } from '@librechat/data-provider';
 import { useFormContext, Controller, useWatch } from 'react-hook-form';
 import type { AgentForm } from '~/common';
 import {

@@ -10,7 +10,7 @@ const {
   EModelEndpoint,
   isAgentsEndpoint,
   checkOpenAIStorage,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 const {
   filterFile,
   processFileUpload,

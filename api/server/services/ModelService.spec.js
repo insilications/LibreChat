@@ -1,6 +1,6 @@
 const axios = require('axios');
 const { logger } = require('@librechat/data-schemas');
-const { EModelEndpoint, defaultModels } = require('librechat-data-provider');
+const { EModelEndpoint, defaultModels } = require('@librechat/data-provider');
 
 const {
   fetchModels,
@@ -188,8 +188,8 @@ describe('getOpenAIModels with mocked config', () => {
         userProvidedOpenAI: true,
       },
     }));
-    jest.mock('librechat-data-provider', () => {
-      const original = jest.requireActual('librechat-data-provider');
+    jest.mock('@librechat/data-provider', () => {
+      const original = jest.requireActual('@librechat/data-provider');
       return {
         ...original,
         defaultModels: {

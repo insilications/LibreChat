@@ -1,5 +1,5 @@
 const z = require('zod');
-const { EModelEndpoint } = require('librechat-data-provider');
+const { EModelEndpoint } = require('@librechat/data-provider');
 
 const openAIModels = {
   'o4-mini': 200000,

@@ -8,7 +8,7 @@ const {
   EToolResources,
   loadWebSearchAuth,
   replaceSpecialVars,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 const {
   availableTools,
   manifestToolMap,

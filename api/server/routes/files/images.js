@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs').promises;
 const express = require('express');
-const { isAgentsEndpoint } = require('librechat-data-provider');
+const { isAgentsEndpoint } = require('@librechat/data-provider');
 const {
   filterFile,
   processImageFile,

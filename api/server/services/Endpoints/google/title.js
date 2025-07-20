@@ -1,4 +1,4 @@
-const { EModelEndpoint, CacheKeys, Constants, googleSettings } = require('librechat-data-provider');
+const { EModelEndpoint, CacheKeys, Constants, googleSettings } = require('@librechat/data-provider');
 const getLogStores = require('~/cache/getLogStores');
 const initializeClient = require('./initialize');
 const { isEnabled } = require('~/server/utils');

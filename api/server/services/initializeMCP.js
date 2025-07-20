@@ -1,5 +1,5 @@
 const { logger } = require('@librechat/data-schemas');
-const { CacheKeys } = require('librechat-data-provider');
+const { CacheKeys } = require('@librechat/data-provider');
 const { findToken, updateToken, createToken, deleteTokens } = require('~/models');
 const { getMCPManager, getFlowStateManager } = require('~/config');
 const { getCachedTools, setCachedTools } = require('./Config');

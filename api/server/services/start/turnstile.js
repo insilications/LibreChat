@@ -1,4 +1,4 @@
-const { removeNullishValues } = require('librechat-data-provider');
+const { removeNullishValues } = require('@librechat/data-provider');
 const { logger } = require('~/config');
 
 /**

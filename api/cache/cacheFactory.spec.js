@@ -1,4 +1,4 @@
-const { Time } = require('librechat-data-provider');
+const { Time } = require('@librechat/data-provider');
 
 // Mock dependencies first
 const mockKeyvRedis = {

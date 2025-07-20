@@ -3,7 +3,7 @@ const request = require('supertest');
 const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
 const { MongoMemoryServer } = require('mongodb-memory-server');
-const { GLOBAL_PROJECT_NAME } = require('librechat-data-provider').Constants;
+const { GLOBAL_PROJECT_NAME } = require('@librechat/data-provider').Constants;
 
 // Mock dependencies
 jest.mock('~/server/services/Files/process', () => ({

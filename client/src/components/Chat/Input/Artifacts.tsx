@@ -1,6 +1,6 @@
 import React, { memo, useState, useCallback, useMemo } from 'react';
 import * as Ariakit from '@ariakit/react';
-import { ArtifactModes } from 'librechat-data-provider';
+import { ArtifactModes } from '@librechat/data-provider';
 import { WandSparkles, ChevronDown } from 'lucide-react';
 import CheckboxButton from '~/components/ui/CheckboxButton';
 import { useBadgeRowContext } from '~/Providers';

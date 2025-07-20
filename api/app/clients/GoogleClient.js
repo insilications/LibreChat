@@ -18,7 +18,7 @@ const {
   ErrorTypes,
   Constants,
   AuthKeys,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 const { encodeAndFormat } = require('~/server/services/Files/images');
 const { spendTokens } = require('~/models/spendTokens');
 const { getModelMaxTokens } = require('~/utils');

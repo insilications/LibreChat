@@ -1,6 +1,6 @@
 const { logger } = require('@librechat/data-schemas');
 const { encrypt, decrypt } = require('@librechat/api');
-const { ErrorTypes } = require('librechat-data-provider');
+const { ErrorTypes } = require('@librechat/data-provider');
 const { updateUser } = require('~/models');
 const { Key } = require('~/db/models');
 

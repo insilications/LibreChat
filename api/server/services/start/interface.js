@@ -4,7 +4,7 @@ const {
   PermissionTypes,
   isMemoryEnabled,
   removeNullishValues,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 const { updateAccessPermissions } = require('~/models/Role');
 const { logger } = require('~/config');
 

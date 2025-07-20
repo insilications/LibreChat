@@ -15,7 +15,7 @@ import {
   AuthTypeEnum,
   AuthorizationTypeEnum,
   TokenExchangeMethodEnum,
-} from 'librechat-data-provider';
+} from '@librechat/data-provider';
 // TODO: Add MCP delete (for now mocked for ui)
 // import { useDeleteAgentMCP } from '~/data-provider';
 

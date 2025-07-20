@@ -1,14 +1,14 @@
 import { Plus } from 'lucide-react';
 import React, { useMemo, useCallback } from 'react';
 import { useWatch, useForm, FormProvider } from 'react-hook-form';
-import { useGetModelsQuery } from 'librechat-data-provider/react-query';
+import { useGetModelsQuery } from '@librechat/data-provider/react-query';
 import {
   Tools,
   Constants,
   SystemRoles,
   EModelEndpoint,
   isAssistantsEndpoint,
-} from 'librechat-data-provider';
+} from '@librechat/data-provider';
 import type { AgentForm, StringOption } from '~/common';
 import {
   useCreateAgentMutation,

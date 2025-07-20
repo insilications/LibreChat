@@ -4,8 +4,8 @@ import {
   excelMimeTypes,
   codeTypeMapping,
   fileConfig as defaultFileConfig,
-} from 'librechat-data-provider';
-import type { TFile, EndpointFileConfig } from 'librechat-data-provider';
+} from '@librechat/data-provider';
+import type { TFile, EndpointFileConfig } from '@librechat/data-provider';
 import type { QueryClient } from '@tanstack/react-query';
 import type { ExtendedFile } from '~/common';
 import SheetPaths from '~/components/svg/Files/SheetPaths';

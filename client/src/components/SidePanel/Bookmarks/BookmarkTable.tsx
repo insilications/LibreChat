@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { BookmarkPlusIcon } from 'lucide-react';
-import type { ConversationTagsResponse, TConversationTag } from 'librechat-data-provider';
+import type { ConversationTagsResponse, TConversationTag } from '@librechat/data-provider';
 import {
   Table,
   Input,

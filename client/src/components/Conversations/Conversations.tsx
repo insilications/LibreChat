@@ -3,7 +3,7 @@ import throttle from 'lodash/throttle';
 import { parseISO, isToday } from 'date-fns';
 import { List, AutoSizer, CellMeasurer, CellMeasurerCache } from 'react-virtualized';
 import { useLocalize, TranslationKeys, useMediaQuery } from '~/hooks';
-import { TConversation } from 'librechat-data-provider';
+import { TConversation } from '@librechat/data-provider';
 import { groupConversationsByDate } from '~/utils';
 import { Spinner } from '~/components/svg';
 import Convo from './Convo';

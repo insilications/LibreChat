@@ -4,8 +4,8 @@ jest.mock('@librechat/api', () => ({
   ...jest.requireActual('@librechat/api'),
   loadYaml: jest.fn(),
 }));
-jest.mock('librechat-data-provider', () => {
-  const actual = jest.requireActual('librechat-data-provider');
+jest.mock('@librechat/data-provider', () => {
+  const actual = jest.requireActual('@librechat/data-provider');
   return {
     ...actual,
     paramSettings: { foo: {}, bar: {}, custom: {} },

@@ -1,6 +1,6 @@
 const axios = require('axios');
 const { genAzureEndpoint } = require('@librechat/api');
-const { extractEnvVariable, TTSProviders } = require('librechat-data-provider');
+const { extractEnvVariable, TTSProviders } = require('@librechat/data-provider');
 const { getRandomVoiceId, createChunkProcessor, splitTextIntoChunks } = require('./streamAudio');
 const { getCustomConfig } = require('~/server/services/Config');
 const { logger } = require('~/config');

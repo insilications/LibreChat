@@ -4,7 +4,7 @@ import { usePromptGroupsInfiniteQuery } from '~/data-provider';
 import debounce from 'lodash/debounce';
 import store from '~/store';
 import { useQueryClient } from '@tanstack/react-query';
-import { QueryKeys } from 'librechat-data-provider';
+import { QueryKeys } from '@librechat/data-provider';
 
 export default function usePromptGroupsNav() {
   const queryClient = useQueryClient();

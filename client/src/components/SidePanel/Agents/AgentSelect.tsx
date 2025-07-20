@@ -1,9 +1,9 @@
 import { EarthIcon } from 'lucide-react';
 import { useCallback, useEffect, useRef } from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
-import { AgentCapabilities, defaultAgentFormValues } from 'librechat-data-provider';
+import { AgentCapabilities, defaultAgentFormValues } from '@librechat/data-provider';
 import type { UseMutationResult, QueryObserverResult } from '@tanstack/react-query';
-import type { Agent, AgentCreateParams } from 'librechat-data-provider';
+import type { Agent, AgentCreateParams } from '@librechat/data-provider';
 import type { TAgentCapabilities, AgentForm } from '~/common';
 import { cn, createProviderOption, processAgentOption, getDefaultAgentFormValues } from '~/utils';
 import { useListAgentsQuery, useGetStartupConfig } from '~/data-provider';

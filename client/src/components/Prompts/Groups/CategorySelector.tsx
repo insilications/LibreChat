@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { ReactNode } from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
-import { LocalStorageKeys } from 'librechat-data-provider';
+import { LocalStorageKeys } from '@librechat/data-provider';
 import { Dropdown } from '~/components/ui';
 import { useCategories } from '~/hooks';
 

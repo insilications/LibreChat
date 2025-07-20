@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const crypto = require('node:crypto');
 const { logger } = require('@librechat/data-schemas');
-const { SystemRoles, Tools, actionDelimiter } = require('librechat-data-provider');
+const { SystemRoles, Tools, actionDelimiter } = require('@librechat/data-provider');
 const { GLOBAL_PROJECT_NAME, EPHEMERAL_AGENT_ID, mcp_delimiter } =
-  require('librechat-data-provider').Constants;
-const { CONFIG_STORE, STARTUP_CONFIG } = require('librechat-data-provider').CacheKeys;
+  require('@librechat/data-provider').Constants;
+const { CONFIG_STORE, STARTUP_CONFIG } = require('@librechat/data-provider').CacheKeys;
 const {
   getProjectByName,
   addAgentIdsToProject,

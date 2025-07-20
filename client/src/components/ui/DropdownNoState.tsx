@@ -6,7 +6,8 @@ import {
   ListboxOptions,
   Transition,
 } from '@headlessui/react';
-import { AnchorPropsWithSelection } from '@headlessui/react/dist/internal/floating';
+import { AnchorPropsWithSelection } from '@headlessui/react';
+// import { AnchorPropsWithSelection } from '@headlessui/react/dist/internal/floating';
 import type { Option } from '~/common';
 import { cn } from '~/utils/';
 

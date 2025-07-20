@@ -2,7 +2,7 @@ import { useRecoilState } from 'recoil';
 import * as Tabs from '@radix-ui/react-tabs';
 import { Lightbulb, Cog } from 'lucide-react';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { useGetCustomConfigSpeechQuery } from 'librechat-data-provider/react-query';
+import { useGetCustomConfigSpeechQuery } from '@librechat/data-provider/react-query';
 import {
   CloudBrowserVoicesSwitch,
   AutomaticPlaybackSwitch,

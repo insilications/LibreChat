@@ -19,9 +19,13 @@
     "skipDefaultLibCheck": false,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
+    // "noEmit": true,
     "noErrorTruncation": true,
     "disableSizeLimit": true,
-    //"verbatimModuleSyntax": false
+    //"verbatimModuleSyntax": false,
+    // "allowImportingTsExtensions": true,
+    // "allowArbitraryExtensions": true,
+    // "verbatimModuleSyntax": true,
+    "outDir": "dist"
   }
 }

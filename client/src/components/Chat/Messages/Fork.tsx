@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 import * as Ariakit from '@ariakit/react';
 import { VisuallyHidden } from '@ariakit/react';
 import { GitFork, InfoIcon } from 'lucide-react';
-import { ForkOptions } from 'librechat-data-provider';
+import { ForkOptions } from '@librechat/data-provider';
 import { GitCommit, GitBranchPlus, ListTree } from 'lucide-react';
 import { TranslationKeys, useLocalize, useNavigateToConvo } from '~/hooks';
 import { useForkConvoMutation } from '~/data-provider';

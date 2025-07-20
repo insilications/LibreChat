@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { TMessage, TAttachment, SearchResultData } from 'librechat-data-provider';
+import type { TMessage, TAttachment, SearchResultData } from '@librechat/data-provider';
 import { useLocalize, useCopyToClipboard } from '~/hooks';
 import { Clipboard, CheckMark } from '~/components/svg';
 

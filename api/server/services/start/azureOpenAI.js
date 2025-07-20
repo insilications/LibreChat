@@ -2,7 +2,7 @@ const {
   EModelEndpoint,
   validateAzureGroups,
   mapModelToAzureConfig,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 const { logger } = require('~/config');
 
 /**

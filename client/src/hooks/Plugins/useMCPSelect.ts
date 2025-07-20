@@ -1,7 +1,7 @@
 import { useRef, useEffect, useCallback, useMemo } from 'react';
 import { useRecoilState } from 'recoil';
-import { Constants, LocalStorageKeys, EModelEndpoint } from 'librechat-data-provider';
-import type { TPlugin } from 'librechat-data-provider';
+import { Constants, LocalStorageKeys, EModelEndpoint } from '@librechat/data-provider';
+import type { TPlugin } from '@librechat/data-provider';
 import { useAvailableToolsQuery } from '~/data-provider';
 import useLocalStorage from '~/hooks/useLocalStorageAlt';
 import { ephemeralAgentByConvoId } from '~/store';

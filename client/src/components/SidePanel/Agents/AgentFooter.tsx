@@ -1,5 +1,5 @@
 import { useWatch, useFormContext } from 'react-hook-form';
-import { SystemRoles, Permissions, PermissionTypes } from 'librechat-data-provider';
+import { SystemRoles, Permissions, PermissionTypes } from '@librechat/data-provider';
 import type { AgentForm, AgentPanelProps } from '~/common';
 import { useLocalize, useAuthContext, useHasAccess } from '~/hooks';
 import { useUpdateAgentMutation } from '~/data-provider';

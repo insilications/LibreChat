@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
-import { Constants, EModelEndpoint } from 'librechat-data-provider';
-import type { MCP, Action, TPlugin, AgentToolType } from 'librechat-data-provider';
+import { Constants, EModelEndpoint } from '@librechat/data-provider';
+import type { MCP, Action, TPlugin, AgentToolType } from '@librechat/data-provider';
 import type { AgentPanelContextType } from '~/common';
 import { useAvailableToolsQuery, useGetActionsQuery } from '~/data-provider';
 import { useLocalize, useGetAgentsConfig } from '~/hooks';

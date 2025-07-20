@@ -1,6 +1,6 @@
 import filenamify from 'filenamify';
 import { useEffect, useState, useMemo, useCallback } from 'react';
-import type { TConversation } from 'librechat-data-provider';
+import type { TConversation } from '@librechat/data-provider';
 import { OGDialog, Button, Input, Label, Checkbox, Dropdown } from '~/components/ui';
 import OGDialogTemplate from '~/components/ui/OGDialogTemplate';
 import { useLocalize, useExportConversation } from '~/hooks';

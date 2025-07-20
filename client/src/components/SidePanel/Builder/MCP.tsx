@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { MCP } from 'librechat-data-provider';
+import type { MCP } from '@librechat/data-provider';
 import GearIcon from '~/components/svg/GearIcon';
 import MCPIcon from '~/components/svg/MCPIcon';
 import { cn } from '~/utils';

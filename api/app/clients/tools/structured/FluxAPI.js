@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 const { v4: uuidv4 } = require('uuid');
 const { Tool } = require('@langchain/core/tools');
 const { HttpsProxyAgent } = require('https-proxy-agent');
-const { FileContext, ContentTypes } = require('librechat-data-provider');
+const { FileContext, ContentTypes } = require('@librechat/data-provider');
 const { logger } = require('~/config');
 
 const displayMessage =

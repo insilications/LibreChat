@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
 import { useParams } from 'react-router-dom';
-import { Constants } from 'librechat-data-provider';
-import type { TConversation } from 'librechat-data-provider';
+import { Constants } from '@librechat/data-provider';
+import type { TConversation } from '@librechat/data-provider';
 import { useNavigateToConvo, useMediaQuery, useLocalize } from '~/hooks';
 import { useUpdateConversationMutation } from '~/data-provider';
 import EndpointIcon from '~/components/Endpoints/EndpointIcon';

@@ -1,4 +1,4 @@
-import type { TFile } from 'librechat-data-provider';
+import type { TFile } from '@librechat/data-provider';
 import type { ExtendedFile } from '~/common';
 import FileIcon from '~/components/svg/Files/FileIcon';
 import { Spinner } from '~/components';

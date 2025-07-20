@@ -2,7 +2,7 @@ const {
   Capabilities,
   assistantEndpointSchema,
   defaultAssistantsVersion,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 const { logger } = require('~/config');
 
 /**

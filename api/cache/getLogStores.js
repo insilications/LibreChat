@@ -1,6 +1,6 @@
 const { cacheConfig } = require('./cacheConfig');
 const { Keyv } = require('keyv');
-const { CacheKeys, ViolationTypes, Time } = require('librechat-data-provider');
+const { CacheKeys, ViolationTypes, Time } = require('@librechat/data-provider');
 const { logFile } = require('./keyvFiles');
 const keyvMongo = require('./keyvMongo');
 const { standardCache, sessionCache, violationCache } = require('./cacheFactory');

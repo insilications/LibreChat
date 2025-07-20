@@ -5,7 +5,7 @@
     { "path": "./packages/data-provider" },
     { "path": "./packages/data-schemas" },
     { "path": "./packages/api" },
-    { "path": "./client" },
-    { "path": "./api" }
+    { "path": "./client" }
+    // { "path": "./api" }
   ]
 }

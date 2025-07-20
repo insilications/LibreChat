@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { EToolResources } from 'librechat-data-provider';
+import { EToolResources } from '@librechat/data-provider';
 import type { ExtendedFile } from '~/common';
 import { useDeleteFilesMutation } from '~/data-provider';
 import { useToastContext } from '~/Providers';

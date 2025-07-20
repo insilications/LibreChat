@@ -1,4 +1,4 @@
-const { SystemRoles, Permissions, PermissionTypes } = require('librechat-data-provider');
+const { SystemRoles, Permissions, PermissionTypes } = require('@librechat/data-provider');
 const { updateAccessPermissions } = require('~/models/Role');
 const { loadDefaultInterface } = require('./interface');
 

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { EToolResources, defaultAgentCapabilities } from 'librechat-data-provider';
+import { EToolResources, defaultAgentCapabilities } from '@librechat/data-provider';
 import { FileSearch, ImageUpIcon, FileType2Icon, TerminalSquareIcon } from 'lucide-react';
 import { useLocalize, useGetAgentsConfig, useAgentCapabilities } from '~/hooks';
 import { OGDialog, OGDialogTemplate } from '~/components/ui';

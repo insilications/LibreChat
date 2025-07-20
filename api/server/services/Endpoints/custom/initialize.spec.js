@@ -6,7 +6,7 @@ jest.mock('@librechat/api', () => ({
   createHandleLLMNewToken: jest.fn(),
 }));
 
-jest.mock('librechat-data-provider', () => ({
+jest.mock('@librechat/data-provider', () => ({
   CacheKeys: { TOKEN_CONFIG: 'token_config' },
   ErrorTypes: { NO_USER_KEY: 'NO_USER_KEY', NO_BASE_URL: 'NO_BASE_URL' },
   envVarRegex: /\$\{([^}]+)\}/,

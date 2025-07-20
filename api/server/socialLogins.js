@@ -13,7 +13,7 @@ const {
 const { isEnabled } = require('~/server/utils');
 const { logger } = require('~/config');
 const { getLogStores } = require('~/cache');
-const { CacheKeys } = require('librechat-data-provider');
+const { CacheKeys } = require('@librechat/data-provider');
 
 /**
  *

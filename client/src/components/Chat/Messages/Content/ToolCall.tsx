@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { TriangleAlert } from 'lucide-react';
-import { actionDelimiter, actionDomainSeparator, Constants } from 'librechat-data-provider';
-import type { TAttachment } from 'librechat-data-provider';
+import { actionDelimiter, actionDomainSeparator, Constants } from '@librechat/data-provider';
+import type { TAttachment } from '@librechat/data-provider';
 import { useLocalize, useProgress } from '~/hooks';
 import { AttachmentGroup } from './Parts';
 import ToolCallInfo from './ToolCallInfo';

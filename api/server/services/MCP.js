@@ -1,9 +1,9 @@
 const { z } = require('zod');
 const { tool } = require('@langchain/core/tools');
 const { logger } = require('@librechat/data-schemas');
-const { Time, CacheKeys, StepTypes } = require('librechat-data-provider');
+const { Time, CacheKeys, StepTypes } = require('@librechat/data-provider');
 const { Constants: AgentConstants, Providers, GraphEvents } = require('@librechat/agents');
-const { Constants, ContentTypes, isAssistantsEndpoint } = require('librechat-data-provider');
+const { Constants, ContentTypes, isAssistantsEndpoint } = require('@librechat/data-provider');
 const {
   sendEvent,
   MCPOAuthHandler,

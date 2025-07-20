@@ -1,12 +1,12 @@
 import { memo, useMemo, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { ContentTypes } from 'librechat-data-provider';
+import { ContentTypes } from '@librechat/data-provider';
 import type {
   TMessageContentParts,
   SearchResultData,
   TAttachment,
   Agents,
-} from 'librechat-data-provider';
+} from '@librechat/data-provider';
 import { ThinkingButton } from '~/components/Artifacts/Thinking';
 import { MessageContext, SearchContext } from '~/Providers';
 import MemoryArtifacts from './MemoryArtifacts';

@@ -8,8 +8,8 @@ import {
   isAgentsEndpoint,
   tQueryParamsSchema,
   isAssistantsEndpoint,
-} from 'librechat-data-provider';
-import type { TPreset, TEndpointsConfig, TStartupConfig } from 'librechat-data-provider';
+} from '@librechat/data-provider';
+import type { TPreset, TEndpointsConfig, TStartupConfig } from '@librechat/data-provider';
 import type { ZodAny } from 'zod';
 import { getConvoSwitchLogic, getModelSpecIconURL, removeUnavailableTools, logger } from '~/utils';
 import useDefaultConvo from '~/hooks/Conversations/useDefaultConvo';

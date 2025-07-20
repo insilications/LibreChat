@@ -1,6 +1,6 @@
 import { useMemo, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
-import { SystemRoles } from 'librechat-data-provider';
+import { SystemRoles } from '@librechat/data-provider';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { ArrowLeft, MessageSquareQuote } from 'lucide-react';
 import {

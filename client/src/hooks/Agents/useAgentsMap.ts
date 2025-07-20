@@ -1,4 +1,4 @@
-import { TAgentsMap } from 'librechat-data-provider';
+import { TAgentsMap } from '@librechat/data-provider';
 import { useMemo } from 'react';
 import { useListAgentsQuery } from '~/data-provider';
 import { mapAgents } from '~/utils';

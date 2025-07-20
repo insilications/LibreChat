@@ -14,7 +14,7 @@ jest.mock('~/config', () => ({
 }));
 
 // Mock all other dependencies that might cause issues
-jest.mock('librechat-data-provider', () => ({
+jest.mock('@librechat/data-provider', () => ({
   isUUID: { parse: jest.fn() },
   megabyte: 1024 * 1024,
   FileContext: { message_attachment: 'message_attachment' },

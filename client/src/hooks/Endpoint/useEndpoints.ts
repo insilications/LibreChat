@@ -1,11 +1,11 @@
 import React, { useMemo, useCallback } from 'react';
-import { useGetModelsQuery } from 'librechat-data-provider/react-query';
+import { useGetModelsQuery } from '@librechat/data-provider/react-query';
 import {
   EModelEndpoint,
   PermissionTypes,
   Permissions,
   alternateName,
-} from 'librechat-data-provider';
+} from '@librechat/data-provider';
 import type {
   Agent,
   Assistant,
@@ -13,7 +13,7 @@ import type {
   TAgentsMap,
   TAssistantsMap,
   TStartupConfig,
-} from 'librechat-data-provider';
+} from '@librechat/data-provider';
 import type { Endpoint } from '~/common';
 import { mapEndpoints, getIconKey, getEndpointField } from '~/utils';
 import { useGetEndpointsQuery } from '~/data-provider';

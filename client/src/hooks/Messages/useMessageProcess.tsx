@@ -1,8 +1,8 @@
 import throttle from 'lodash/throttle';
 import { useRecoilValue } from 'recoil';
-import { Constants } from 'librechat-data-provider';
+import { Constants } from '@librechat/data-provider';
 import { useEffect, useRef, useCallback, useMemo, useState } from 'react';
-import type { TMessage } from 'librechat-data-provider';
+import type { TMessage } from '@librechat/data-provider';
 import { useChatContext, useAddedChatContext } from '~/Providers';
 import { getTextKey, logger } from '~/utils';
 import store from '~/store';

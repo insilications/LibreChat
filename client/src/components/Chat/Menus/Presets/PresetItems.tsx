@@ -2,7 +2,7 @@ import { useRecoilValue } from 'recoil';
 import { Close } from '@radix-ui/react-popover';
 import { Flipper, Flipped } from 'react-flip-toolkit';
 import type { FC } from 'react';
-import type { TPreset } from 'librechat-data-provider';
+import type { TPreset } from '@librechat/data-provider';
 import { getPresetTitle, getEndpointField, getIconKey } from '~/utils';
 import FileUpload from '~/components/Chat/Input/Files/FileUpload';
 import { PinIcon, EditIcon, TrashIcon } from '~/components/svg';

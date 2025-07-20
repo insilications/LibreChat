@@ -1,5 +1,5 @@
 import { useFormContext, Controller } from 'react-hook-form';
-import { Capabilities } from 'librechat-data-provider';
+import { Capabilities } from '@librechat/data-provider';
 import type { AgentForm } from '~/common';
 import { Checkbox } from '~/components/ui';
 import { useLocalize } from '~/hooks';

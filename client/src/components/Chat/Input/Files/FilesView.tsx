@@ -1,5 +1,5 @@
-import { FileSources, FileContext } from 'librechat-data-provider';
-import type { TFile } from 'librechat-data-provider';
+import { FileSources, FileContext } from '@librechat/data-provider';
+import type { TFile } from '@librechat/data-provider';
 import { OGDialog, OGDialogContent, OGDialogHeader, OGDialogTitle } from '~/components';
 import { useGetFiles } from '~/data-provider';
 import { DataTable, columns } from './Table';

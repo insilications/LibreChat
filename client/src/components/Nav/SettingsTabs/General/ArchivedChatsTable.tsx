@@ -1,7 +1,7 @@
 import { useState, useCallback, useMemo, useEffect } from 'react';
 import debounce from 'lodash/debounce';
 import { TrashIcon, ArchiveRestore, ArrowUp, ArrowDown, ArrowUpDown } from 'lucide-react';
-import type { ConversationListParams, TConversation } from 'librechat-data-provider';
+import type { ConversationListParams, TConversation } from '@librechat/data-provider';
 import {
   Button,
   OGDialog,

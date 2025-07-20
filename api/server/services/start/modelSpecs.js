@@ -1,4 +1,4 @@
-const { EModelEndpoint } = require('librechat-data-provider');
+const { EModelEndpoint } = require('@librechat/data-provider');
 const { normalizeEndpointName } = require('~/server/utils');
 const { logger } = require('~/config');
 

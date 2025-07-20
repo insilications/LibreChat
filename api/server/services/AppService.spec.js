@@ -8,7 +8,7 @@ const {
   defaultAgentCapabilities,
   deprecatedAzureVariables,
   conflictingAzureVariables,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 
 const AppService = require('./AppService');
 

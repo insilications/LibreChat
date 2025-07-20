@@ -262,7 +262,7 @@ describe('Multer Configuration', () => {
         fileConfig,
         imageMimeTypes,
         applicationMimeTypes,
-      } = require('librechat-data-provider');
+      } = require('@librechat/data-provider');
 
       // Test that the real checkType function works with regex patterns
       expect(fileConfig.checkType('image/jpeg', [imageMimeTypes])).toBe(true);
@@ -281,9 +281,9 @@ describe('Multer Configuration', () => {
 
     it('should reject unsupported file types using real config', async () => {
       // Mock defaultFileConfig for this specific test
-      const originalCheckType = require('librechat-data-provider').fileConfig.checkType;
+      const originalCheckType = require('@librechat/data-provider').fileConfig.checkType;
       const mockCheckType = jest.fn().mockReturnValue(false);
-      require('librechat-data-provider').fileConfig.checkType = mockCheckType;
+      require('@librechat/data-provider').fileConfig.checkType = mockCheckType;
 
       try {
         const multerInstance = await createMulterInstance();
@@ -293,12 +293,12 @@ describe('Multer Configuration', () => {
         expect(mockCheckType).toBeDefined();
       } finally {
         // Restore original function
-        require('librechat-data-provider').fileConfig.checkType = originalCheckType;
+        require('@librechat/data-provider').fileConfig.checkType = originalCheckType;
       }
     });
 
     it('should use real mergeFileConfig function', async () => {
-      const { mergeFileConfig, mbToBytes } = require('librechat-data-provider');
+      const { mergeFileConfig, mbToBytes } = require('@librechat/data-provider');
 
       // Test with actual merge function - note that it converts MB to bytes
       const testConfig = {

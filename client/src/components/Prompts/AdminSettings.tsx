@@ -3,7 +3,7 @@ import { ExternalLink } from 'lucide-react';
 import { useMemo, useEffect, useState } from 'react';
 import { ShieldEllipsis } from 'lucide-react';
 import { useForm, Controller } from 'react-hook-form';
-import { Permissions, SystemRoles, roleDefaults, PermissionTypes } from 'librechat-data-provider';
+import { Permissions, SystemRoles, roleDefaults, PermissionTypes } from '@librechat/data-provider';
 import type { Control, UseFormSetValue, UseFormGetValues } from 'react-hook-form';
 import {
   OGDialog,

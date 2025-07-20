@@ -472,19 +472,19 @@
 
 /**
  * @exports AgentToolCallDelta
- * @typedef {import('librechat-data-provider').Agents.ToolCallDelta} AgentToolCallDelta
+ * @typedef {import('@librechat/data-provider').Agents.ToolCallDelta} AgentToolCallDelta
  * @memberof typedefs
  */
 
 /**
  * @exports ToolCallChunk
- * @typedef {import('librechat-data-provider').Agents.ToolCallChunk} ToolCallChunk
+ * @typedef {import('@librechat/data-provider').Agents.ToolCallChunk} ToolCallChunk
  * @memberof typedefs
  */
 
 /**
  * @exports MessageContentImageUrl
- * @typedef {import('librechat-data-provider').Agents.MessageContentImageUrl} MessageContentImageUrl
+ * @typedef {import('@librechat/data-provider').Agents.MessageContentImageUrl} MessageContentImageUrl
  * @memberof typedefs
  */
 
@@ -504,90 +504,90 @@
 
 /**
  * @exports ValidSource
- * @typedef {import('librechat-data-provider').ValidSource} ValidSource
+ * @typedef {import('@librechat/data-provider').ValidSource} ValidSource
  * @memberof typedefs
  */
 
 /** Prompts */
 /**
  * @exports TPrompt
- * @typedef {import('librechat-data-provider').TPrompt} TPrompt
+ * @typedef {import('@librechat/data-provider').TPrompt} TPrompt
  * @memberof typedefs
  */
 
 /**
  * @exports TPromptGroup
- * @typedef {import('librechat-data-provider').TPromptGroup} TPromptGroup
+ * @typedef {import('@librechat/data-provider').TPromptGroup} TPromptGroup
  * @memberof typedefs
  */
 
 /**
  * @exports TCreatePrompt
- * @typedef {import('librechat-data-provider').TCreatePrompt} TCreatePrompt
+ * @typedef {import('@librechat/data-provider').TCreatePrompt} TCreatePrompt
  * @memberof typedefs
  */
 
 /**
  * @exports TCreatePromptRecord
- * @typedef {import('librechat-data-provider').TCreatePromptRecord} TCreatePromptRecord
+ * @typedef {import('@librechat/data-provider').TCreatePromptRecord} TCreatePromptRecord
  * @memberof typedefs
  */
 /**
  * @exports TCreatePromptResponse
- * @typedef {import('librechat-data-provider').TCreatePromptResponse} TCreatePromptResponse
+ * @typedef {import('@librechat/data-provider').TCreatePromptResponse} TCreatePromptResponse
  * @memberof typedefs
  */
 /**
  * @exports TUpdatePromptGroupResponse
- * @typedef {import('librechat-data-provider').TUpdatePromptGroupResponse} TUpdatePromptGroupResponse
+ * @typedef {import('@librechat/data-provider').TUpdatePromptGroupResponse} TUpdatePromptGroupResponse
  * @memberof typedefs
  */
 
 /**
  * @exports TPromptGroupsWithFilterRequest
- * @typedef {import('librechat-data-provider').TPromptGroupsWithFilterRequest } TPromptGroupsWithFilterRequest
+ * @typedef {import('@librechat/data-provider').TPromptGroupsWithFilterRequest } TPromptGroupsWithFilterRequest
  * @memberof typedefs
  */
 
 /**
  * @exports PromptGroupListResponse
- * @typedef {import('librechat-data-provider').PromptGroupListResponse } PromptGroupListResponse
+ * @typedef {import('@librechat/data-provider').PromptGroupListResponse } PromptGroupListResponse
  * @memberof typedefs
  */
 
 /**
  * @exports TGetCategoriesResponse
- * @typedef {import('librechat-data-provider').TGetCategoriesResponse } TGetCategoriesResponse
+ * @typedef {import('@librechat/data-provider').TGetCategoriesResponse } TGetCategoriesResponse
  * @memberof typedefs
  */
 
 /**
  * @exports TGetRandomPromptsResponse
- * @typedef {import('librechat-data-provider').TGetRandomPromptsResponse } TGetRandomPromptsResponse
+ * @typedef {import('@librechat/data-provider').TGetRandomPromptsResponse } TGetRandomPromptsResponse
  * @memberof typedefs
  */
 
 /**
  * @exports TGetRandomPromptsRequest
- * @typedef {import('librechat-data-provider').TGetRandomPromptsRequest } TGetRandomPromptsRequest
+ * @typedef {import('@librechat/data-provider').TGetRandomPromptsRequest } TGetRandomPromptsRequest
  * @memberof typedefs
  */
 
 /**
  * @exports TUpdatePromptGroupPayload
- * @typedef {import('librechat-data-provider').TUpdatePromptGroupPayload } TUpdatePromptGroupPayload
+ * @typedef {import('@librechat/data-provider').TUpdatePromptGroupPayload } TUpdatePromptGroupPayload
  * @memberof typedefs
  */
 
 /**
  * @exports TDeletePromptVariables
- * @typedef {import('librechat-data-provider').TDeletePromptVariables } TDeletePromptVariables
+ * @typedef {import('@librechat/data-provider').TDeletePromptVariables } TDeletePromptVariables
  * @memberof typedefs
  */
 
 /**
  * @exports TDeletePromptResponse
- * @typedef {import('librechat-data-provider').TDeletePromptResponse } TDeletePromptResponse
+ * @typedef {import('@librechat/data-provider').TDeletePromptResponse } TDeletePromptResponse
  * @memberof typedefs
  */
 
@@ -595,235 +595,235 @@
 
 /**
  * @exports TRole
- * @typedef {import('librechat-data-provider').TRole } TRole
+ * @typedef {import('@librechat/data-provider').TRole } TRole
  * @memberof typedefs
  */
 
 /**
  * @exports PermissionTypes
- * @typedef {import('librechat-data-provider').PermissionTypes } PermissionTypes
+ * @typedef {import('@librechat/data-provider').PermissionTypes } PermissionTypes
  * @memberof typedefs
  */
 
 /**
  * @exports Permissions
- * @typedef {import('librechat-data-provider').Permissions } Permissions
+ * @typedef {import('@librechat/data-provider').Permissions } Permissions
  * @memberof typedefs
  */
 
 /** Assistants */
 /**
  * @exports Assistant
- * @typedef {import('librechat-data-provider').Assistant} Assistant
+ * @typedef {import('@librechat/data-provider').Assistant} Assistant
  * @memberof typedefs
  */
 
 /**
  * @exports AssistantDocument
- * @typedef {import('librechat-data-provider').AssistantDocument} AssistantDocument
+ * @typedef {import('@librechat/data-provider').AssistantDocument} AssistantDocument
  * @memberof typedefs
  */
 
 /**
  * @exports OpenAIFile
- * @typedef {import('librechat-data-provider').File} OpenAIFile
+ * @typedef {import('@librechat/data-provider').File} OpenAIFile
  * @memberof typedefs
  */
 
 /**
  * @exports TConfig
- * @typedef {import('librechat-data-provider').TConfig} TConfig
+ * @typedef {import('@librechat/data-provider').TConfig} TConfig
  * @memberof typedefs
  */
 
 /**
  * @exports TPayload
- * @typedef {import('librechat-data-provider').TPayload} TPayload
+ * @typedef {import('@librechat/data-provider').TPayload} TPayload
  * @memberof typedefs
  */
 
 /**
  * @exports TAzureModelConfig
- * @typedef {import('librechat-data-provider').TAzureModelConfig} TAzureModelConfig
+ * @typedef {import('@librechat/data-provider').TAzureModelConfig} TAzureModelConfig
  * @memberof typedefs
  */
 
 /**
  * @exports TAzureGroup
- * @typedef {import('librechat-data-provider').TAzureGroup} TAzureGroup
+ * @typedef {import('@librechat/data-provider').TAzureGroup} TAzureGroup
  * @memberof typedefs
  */
 
 /**
  * @exports TAzureGroups
- * @typedef {import('librechat-data-provider').TAzureGroups} TAzureGroups
+ * @typedef {import('@librechat/data-provider').TAzureGroups} TAzureGroups
  * @memberof typedefs
  */
 
 /**
  * @exports TAzureModelGroupMap
- * @typedef {import('librechat-data-provider').TAzureModelGroupMap} TAzureModelGroupMap
+ * @typedef {import('@librechat/data-provider').TAzureModelGroupMap} TAzureModelGroupMap
  * @memberof typedefs
  */
 /**
  * @exports TAzureGroupMap
- * @typedef {import('librechat-data-provider').TAzureGroupMap} TAzureGroupMap
+ * @typedef {import('@librechat/data-provider').TAzureGroupMap} TAzureGroupMap
  * @memberof typedefs
  */
 
 /**
  * @exports TAzureConfig
- * @typedef {import('librechat-data-provider').TAzureConfig} TAzureConfig
+ * @typedef {import('@librechat/data-provider').TAzureConfig} TAzureConfig
  * @memberof typedefs
  */
 
 /**
  * @exports TModelsConfig
- * @typedef {import('librechat-data-provider').TModelsConfig} TModelsConfig
+ * @typedef {import('@librechat/data-provider').TModelsConfig} TModelsConfig
  * @memberof typedefs
  */
 
 /**
  * @exports TStartupConfig
- * @typedef {import('librechat-data-provider').TStartupConfig} TStartupConfig
+ * @typedef {import('@librechat/data-provider').TStartupConfig} TStartupConfig
  * @memberof typedefs
  */
 
 /**
  * @exports TConfigDefaults
- * @typedef {import('librechat-data-provider').TConfigDefaults} TConfigDefaults
+ * @typedef {import('@librechat/data-provider').TConfigDefaults} TConfigDefaults
  * @memberof typedefs
  */
 
 /**
  * @exports TPlugin
- * @typedef {import('librechat-data-provider').TPlugin} TPlugin
+ * @typedef {import('@librechat/data-provider').TPlugin} TPlugin
  * @memberof typedefs
  */
 
 /**
  * @exports TAzureConfigValidationResult
- * @typedef {import('librechat-data-provider').TAzureConfigValidationResult} TAzureConfigValidationResult
+ * @typedef {import('@librechat/data-provider').TAzureConfigValidationResult} TAzureConfigValidationResult
  * @memberof typedefs
  */
 
 /**
  * @exports EImageOutputType
- * @typedef {import('librechat-data-provider').EImageOutputType} EImageOutputType
+ * @typedef {import('@librechat/data-provider').EImageOutputType} EImageOutputType
  * @memberof typedefs
  */
 
 /**
  * @exports TCustomConfig
- * @typedef {import('librechat-data-provider').TCustomConfig} TCustomConfig
+ * @typedef {import('@librechat/data-provider').TCustomConfig} TCustomConfig
  * @memberof typedefs
  */
 
 /**
  * @exports TProviderSchema
- * @typedef {import('librechat-data-provider').TProviderSchema} TProviderSchema
+ * @typedef {import('@librechat/data-provider').TProviderSchema} TProviderSchema
  * @memberof typedefs
  */
 
 /**
  * @exports TBaseEndpoint
- * @typedef {import('librechat-data-provider').TBaseEndpoint} TBaseEndpoint
+ * @typedef {import('@librechat/data-provider').TBaseEndpoint} TBaseEndpoint
  * @memberof typedefs
  */
 
 /**
  * @exports TEndpoint
- * @typedef {import('librechat-data-provider').TEndpoint} TEndpoint
+ * @typedef {import('@librechat/data-provider').TEndpoint} TEndpoint
  * @memberof typedefs
  */
 
 /**
  * @exports TEndpointsConfig
- * @typedef {import('librechat-data-provider').TEndpointsConfig} TEndpointsConfig
+ * @typedef {import('@librechat/data-provider').TEndpointsConfig} TEndpointsConfig
  * @memberof typedefs
  */
 
 /**
  * @exports TMessage
- * @typedef {import('librechat-data-provider').TMessage} TMessage
+ * @typedef {import('@librechat/data-provider').TMessage} TMessage
  * @memberof typedefs
  */
 
 /**
  * @exports TConversation
- * @typedef {import('librechat-data-provider').TConversation} TConversation
+ * @typedef {import('@librechat/data-provider').TConversation} TConversation
  * @memberof typedefs
  */
 
 /**
  * @exports TModelSpec
- * @typedef {import('librechat-data-provider').TModelSpec} TModelSpec
+ * @typedef {import('@librechat/data-provider').TModelSpec} TModelSpec
  * @memberof typedefs
  */
 
 /**
  * @exports TPlugin
- * @typedef {import('librechat-data-provider').TPlugin} TPlugin
+ * @typedef {import('@librechat/data-provider').TPlugin} TPlugin
  * @memberof typedefs
  */
 
 /**
  * @exports FileSources
- * @typedef {import('librechat-data-provider').FileSources} FileSources
+ * @typedef {import('@librechat/data-provider').FileSources} FileSources
  * @memberof typedefs
  */
 
 /**
  * @exports TMessage
- * @typedef {import('librechat-data-provider').TMessage} TMessage
+ * @typedef {import('@librechat/data-provider').TMessage} TMessage
  * @memberof typedefs
  */
 
 /**
  * @exports ImageFile
- * @typedef {import('librechat-data-provider').ImageFile} ImageFile
+ * @typedef {import('@librechat/data-provider').ImageFile} ImageFile
  * @memberof typedefs
  */
 
 /**
  * @exports TMessageContentParts
- * @typedef {import('librechat-data-provider').TMessageContentParts} TMessageContentParts
+ * @typedef {import('@librechat/data-provider').TMessageContentParts} TMessageContentParts
  * @memberof typedefs
  */
 
 /**
  * @exports StreamContentData
- * @typedef {import('librechat-data-provider').StreamContentData} StreamContentData
+ * @typedef {import('@librechat/data-provider').StreamContentData} StreamContentData
  * @memberof typedefs
  */
 
 /**
  * @exports ActionRequest
- * @typedef {import('librechat-data-provider').ActionRequest} ActionRequest
+ * @typedef {import('@librechat/data-provider').ActionRequest} ActionRequest
  * @memberof typedefs
  */
 
 /**
  * @exports Action
- * @typedef {import('librechat-data-provider').Action} Action
+ * @typedef {import('@librechat/data-provider').Action} Action
  * @memberof typedefs
  */
 
 /**
  * @exports ActionMetadata
- * @typedef {import('librechat-data-provider').ActionMetadata} ActionMetadata
+ * @typedef {import('@librechat/data-provider').ActionMetadata} ActionMetadata
  * @memberof typedefs
  */
 
 /**
  * @exports ActionAuth
- * @typedef {import('librechat-data-provider').ActionAuth} ActionAuth
+ * @typedef {import('@librechat/data-provider').ActionAuth} ActionAuth
  * @memberof typedefs
  */
 
 /**
  * @exports DeleteFilesBody
- * @typedef {import('librechat-data-provider').DeleteFilesBody} DeleteFilesBody
+ * @typedef {import('@librechat/data-provider').DeleteFilesBody} DeleteFilesBody
  * @memberof typedefs
  */
 
@@ -930,73 +930,73 @@
 
 /**
  * @exports EModelEndpoint
- * @typedef {import('librechat-data-provider').EModelEndpoint} EModelEndpoint
+ * @typedef {import('@librechat/data-provider').EModelEndpoint} EModelEndpoint
  * @memberof typedefs
  */
 
 /**
  * @exports TEndpointOption
- * @typedef {import('librechat-data-provider').TEndpointOption} TEndpointOption
+ * @typedef {import('@librechat/data-provider').TEndpointOption} TEndpointOption
  * @memberof typedefs
  */
 
 /**
  * @exports TAttachment
- * @typedef {import('librechat-data-provider').TAttachment} TAttachment
+ * @typedef {import('@librechat/data-provider').TAttachment} TAttachment
  * @memberof typedefs
  */
 
 /**
  * @exports AssistantCreateParams
- * @typedef {import('librechat-data-provider').AssistantCreateParams} AssistantCreateParams
+ * @typedef {import('@librechat/data-provider').AssistantCreateParams} AssistantCreateParams
  * @memberof typedefs
  */
 
 /**
  * @exports AssistantUpdateParams
- * @typedef {import('librechat-data-provider').AssistantUpdateParams} AssistantUpdateParams
+ * @typedef {import('@librechat/data-provider').AssistantUpdateParams} AssistantUpdateParams
  * @memberof typedefs
  */
 
 /**
  * @exports AssistantListParams
- * @typedef {import('librechat-data-provider').AssistantListParams} AssistantListParams
+ * @typedef {import('@librechat/data-provider').AssistantListParams} AssistantListParams
  * @memberof typedefs
  */
 
 /**
  * @exports AssistantListResponse
- * @typedef {import('librechat-data-provider').AssistantListResponse} AssistantListResponse
+ * @typedef {import('@librechat/data-provider').AssistantListResponse} AssistantListResponse
  * @memberof typedefs
  */
 
 /**
  * @exports ContentPart
- * @typedef {import('librechat-data-provider').ContentPart} ContentPart
+ * @typedef {import('@librechat/data-provider').ContentPart} ContentPart
  * @memberof typedefs
  */
 
 /**
  * @exports StepTypes
- * @typedef {import('librechat-data-provider').StepTypes} StepTypes
+ * @typedef {import('@librechat/data-provider').StepTypes} StepTypes
  * @memberof typedefs
  */
 
 /**
  * @exports TContentData
- * @typedef {import('librechat-data-provider').TContentData} TContentData
+ * @typedef {import('@librechat/data-provider').TContentData} TContentData
  * @memberof typedefs
  */
 
 /**
  * @exports ContentPart
- * @typedef {import('librechat-data-provider').ContentPart} ContentPart
+ * @typedef {import('@librechat/data-provider').ContentPart} ContentPart
  * @memberof typedefs
  */
 
 /**
  * @exports PartMetadata
- * @typedef {import('librechat-data-provider').PartMetadata} PartMetadata
+ * @typedef {import('@librechat/data-provider').PartMetadata} PartMetadata
  * @memberof typedefs
  */
 
@@ -1014,61 +1014,61 @@
 
 /**
  * @exports TAssistantEndpoint
- * @typedef {import('librechat-data-provider').TAssistantEndpoint} TAssistantEndpoint
+ * @typedef {import('@librechat/data-provider').TAssistantEndpoint} TAssistantEndpoint
  * @memberof typedefs
  */
 
 /**
  * @exports TAgentsEndpoint
- * @typedef {import('librechat-data-provider').TAgentsEndpoint} TAgentsEndpoint
+ * @typedef {import('@librechat/data-provider').TAgentsEndpoint} TAgentsEndpoint
  * @memberof typedefs
  */
 
 /**
  * @exports Agent
- * @typedef {import('librechat-data-provider').Agent} Agent
+ * @typedef {import('@librechat/data-provider').Agent} Agent
  * @memberof typedefs
  */
 
 /**
  * @exports TEphemeralAgent
- * @typedef {import('librechat-data-provider').TEphemeralAgent} TEphemeralAgent
+ * @typedef {import('@librechat/data-provider').TEphemeralAgent} TEphemeralAgent
  * @memberof typedefs
  */
 
 /**
  * @exports TWebSearchKeys
- * @typedef {import('librechat-data-provider').TWebSearchKeys} TWebSearchKeys
+ * @typedef {import('@librechat/data-provider').TWebSearchKeys} TWebSearchKeys
  * @memberof typedefs
  */
 
 /**
  * @exports AgentToolResources
- * @typedef {import('librechat-data-provider').AgentToolResources} AgentToolResources
+ * @typedef {import('@librechat/data-provider').AgentToolResources} AgentToolResources
  * @memberof typedefs
  */
 
 /**
  * @exports AgentCreateParams
- * @typedef {import('librechat-data-provider').AgentCreateParams} AgentCreateParams
+ * @typedef {import('@librechat/data-provider').AgentCreateParams} AgentCreateParams
  * @memberof typedefs
  */
 
 /**
  * @exports AgentUpdateParams
- * @typedef {import('librechat-data-provider').AgentUpdateParams} AgentUpdateParams
+ * @typedef {import('@librechat/data-provider').AgentUpdateParams} AgentUpdateParams
  * @memberof typedefs
  */
 
 /**
  * @exports AgentListParams
- * @typedef {import('librechat-data-provider').AgentListParams} AgentListParams
+ * @typedef {import('@librechat/data-provider').AgentListParams} AgentListParams
  * @memberof typedefs
  */
 
 /**
  * @exports AgentListResponse
- * @typedef {import('librechat-data-provider').AgentListResponse} AgentListResponse
+ * @typedef {import('@librechat/data-provider').AgentListResponse} AgentListResponse
  * @memberof typedefs
  */
 
@@ -1917,13 +1917,13 @@
 
 /**
  * @exports TForkConvoResponse
- * @typedef {import('librechat-data-provider').TForkConvoResponse} TForkConvoResponse
+ * @typedef {import('@librechat/data-provider').TForkConvoResponse} TForkConvoResponse
  * @memberof typedefs
  */
 
 /**
  * @exports TForkConvoRequest
- * @typedef {import('librechat-data-provider').TForkConvoRequest} TForkConvoRequest
+ * @typedef {import('@librechat/data-provider').TForkConvoRequest} TForkConvoRequest
  * @memberof typedefs
  */
 
@@ -1984,7 +1984,7 @@
 
 /**
  * @exports TMessageMetadata
- * @typedef {import('librechat-data-provider').TMessageMetadata} TMessageMetadata
+ * @typedef {import('@librechat/data-provider').TMessageMetadata} TMessageMetadata
  * @memberof typedefs
  */
 

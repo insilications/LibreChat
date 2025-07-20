@@ -140,3 +140,5 @@ packages/data-schemas/tsconfig.tsbuildinfo
 packages/data-provider/tsconfig.tsbuildinfo
 
 packages/api/tsconfig.tsbuildinfo
+
+bun.lock

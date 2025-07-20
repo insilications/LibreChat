@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { TAttachment, Tools, SearchResultData } from 'librechat-data-provider';
+import { TAttachment, Tools, SearchResultData } from '@librechat/data-provider';
 
 /**
  * Hook that creates a map of turn numbers to SearchResultData from web search attachments

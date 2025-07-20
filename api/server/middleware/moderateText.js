@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { ErrorTypes } = require('librechat-data-provider');
+const { ErrorTypes } = require('@librechat/data-provider');
 const { isEnabled } = require('~/server/utils');
 const denyRequest = require('./denyRequest');
 const { logger } = require('~/config');

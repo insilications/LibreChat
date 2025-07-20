@@ -32,7 +32,7 @@ const {
   AgentCapabilities,
   bedrockInputSchema,
   removeNullishValues,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 const {
   findPluginAuthsByKeys,
   getFormattedMemories,

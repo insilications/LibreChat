@@ -5,7 +5,7 @@ const {
   loadMemoryConfig,
   getConfigDefaults,
   loadWebSearchConfig,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 const { agentsConfigSetup } = require('@librechat/api');
 const {
   checkHealth,

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
-import { EModelEndpoint, alternateName, isAssistantsEndpoint } from 'librechat-data-provider';
+import { EModelEndpoint, alternateName, isAssistantsEndpoint } from '@librechat/data-provider';
 import type { TDialogProps } from '~/common';
 import OGDialogTemplate from '~/components/ui/OGDialogTemplate';
 import { useGetEndpointsQuery } from '~/data-provider';

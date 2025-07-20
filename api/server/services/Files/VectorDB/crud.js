@@ -3,7 +3,7 @@ const axios = require('axios');
 const FormData = require('form-data');
 const { logAxiosError } = require('@librechat/api');
 const { logger } = require('@librechat/data-schemas');
-const { FileSources } = require('librechat-data-provider');
+const { FileSources } = require('@librechat/data-provider');
 const { generateShortLivedToken } = require('~/server/services/AuthService');
 
 /**

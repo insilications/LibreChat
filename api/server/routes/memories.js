@@ -1,6 +1,6 @@
 const express = require('express');
 const { Tokenizer, generateCheckAccess } = require('@librechat/api');
-const { PermissionTypes, Permissions } = require('librechat-data-provider');
+const { PermissionTypes, Permissions } = require('@librechat/data-provider');
 const {
   getAllUserMemories,
   toggleUserMemories,

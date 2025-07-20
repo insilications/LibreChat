@@ -19,7 +19,7 @@ const {
   AgentCapabilities,
   defaultAgentCapabilities,
   validateAndParseOpenAPISpec,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 const {
   createActionTool,
   decryptMetadata,

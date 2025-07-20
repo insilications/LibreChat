@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo } from 'react';
 import { Share2Icon } from 'lucide-react';
 import { useForm, Controller } from 'react-hook-form';
-import { Permissions } from 'librechat-data-provider';
-import type { TStartupConfig, AgentUpdateParams } from 'librechat-data-provider';
+import { Permissions } from '@librechat/data-provider';
+import type { TStartupConfig, AgentUpdateParams } from '@librechat/data-provider';
 import {
   Button,
   Switch,

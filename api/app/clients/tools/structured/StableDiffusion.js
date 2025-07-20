@@ -6,7 +6,7 @@ const axios = require('axios');
 const sharp = require('sharp');
 const { v4: uuidv4 } = require('uuid');
 const { Tool } = require('@langchain/core/tools');
-const { FileContext, ContentTypes } = require('librechat-data-provider');
+const { FileContext, ContentTypes } = require('@librechat/data-provider');
 const paths = require('~/config/paths');
 const { logger } = require('~/config');
 

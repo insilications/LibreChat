@@ -4,7 +4,7 @@ const {
   envVarRegex,
   FetchTokenConfig,
   extractEnvVariable,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 const { Providers } = require('@librechat/agents');
 const { getOpenAIConfig, createHandleLLMNewToken, resolveHeaders } = require('@librechat/api');
 const { getUserKeyValues, checkUserKeyExpiry } = require('~/server/services/UserService');

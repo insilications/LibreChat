@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { EModelEndpoint, isAgentsEndpoint, Constants, QueryKeys } from 'librechat-data-provider';
-import type { TConversation, TPreset, Agent } from 'librechat-data-provider';
+import { EModelEndpoint, isAgentsEndpoint, Constants, QueryKeys } from '@librechat/data-provider';
+import type { TConversation, TPreset, Agent } from '@librechat/data-provider';
 import useDefaultConvo from '~/hooks/Conversations/useDefaultConvo';
 import { useAgentsMapContext } from '~/Providers/AgentsMapContext';
 import { useChatContext } from '~/Providers/ChatContext';

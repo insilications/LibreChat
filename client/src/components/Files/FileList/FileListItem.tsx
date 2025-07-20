@@ -1,4 +1,4 @@
-import type { TFile } from 'librechat-data-provider';
+import type { TFile } from '@librechat/data-provider';
 import React from 'react';
 import { TrashIcon } from '~/components/svg';
 import { Button } from '~/components/ui';

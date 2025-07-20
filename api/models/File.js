@@ -1,5 +1,5 @@
 const { logger } = require('@librechat/data-schemas');
-const { EToolResources, FileContext, Constants } = require('librechat-data-provider');
+const { EToolResources, FileContext, Constants } = require('@librechat/data-provider');
 const { getProjectByName } = require('./Project');
 const { getAgent } = require('./Agent');
 const { File } = require('~/db/models');

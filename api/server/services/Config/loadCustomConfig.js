@@ -11,7 +11,7 @@ const {
   EImageOutputType,
   agentParamSettings,
   validateSettingDefinitions,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 const getLogStores = require('~/cache/getLogStores');
 
 const projectRoot = path.resolve(__dirname, '..', '..', '..', '..');

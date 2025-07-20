@@ -9,7 +9,10 @@
     "packages/*"
   ],
   "scripts": {
-    "check": "bun run tsc --build --clean && bun run tsc --build"
+    "clean": "bun run --filter \"!@librechat/backend\" clean",
+    "build": "bun run clean && bun run --filter \"!@librechat/backend\" build && bun run typecheck",
+    "typecheck": "NODE_ENV=production bun run --bun tsc --build",
+    "b:api": "NODE_ENV=production bun run --bun api/server/index.js"
   },
   "repository": {
     "type": "git",
@@ -28,9 +31,7 @@
     "@eslint/js": "^9.20.0",
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "@playwright/test": "^1.50.1",
-    "@rollup/plugin-swc": "^0.4.0",
-    "@swc/core": "^1.13.0",
-    "@types/bun": "^1.2.18",
+    "@types/bun": "^1.2.19",
     "@types/react-virtualized": "^9.22.0",
     "cross-env": "^7.0.3",
     "elliptic": "^6.6.1",
@@ -53,28 +54,13 @@
     "prettier": "^3.5.0",
     "prettier-eslint": "^16.3.0",
     "prettier-plugin-tailwindcss": "^0.6.11",
-    "rollup": "^4.45.1",
     "typescript-eslint": "^8.36.0"
   },
   "overrides": {
     "axios": "1.8.2",
     "elliptic": "^6.6.1",
     "mdast-util-gfm-autolink-literal": "2.0.0",
-    "remark-gfm": {
-      "mdast-util-gfm-autolink-literal": "2.0.0"
-    },
-    "mdast-util-gfm": {
-      "mdast-util-gfm-autolink-literal": "2.0.0"
-    },
-    "katex": "^0.16.21",
-    "rehype-katex": {
-      "katex": "^0.16.21"
-    },
-    "remark-math": {
-      "micromark-extension-math": {
-        "katex": "^0.16.21"
-      }
-    }
+    "katex": "^0.16.21"
   },
   "nodemonConfig": {
     "ignore": [
@@ -95,8 +81,5 @@
     "protobufjs",
     "sharp",
     "unrs-resolver"
-  ],
-  "dependencies": {
-    "flatted": "^3.3.3"
-  }
+  ]
 }

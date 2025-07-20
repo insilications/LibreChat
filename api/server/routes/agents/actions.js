@@ -8,7 +8,7 @@ const {
   PermissionTypes,
   actionDelimiter,
   removeNullishValues,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 const { encryptMetadata, domainParser } = require('~/server/services/ActionService');
 const { updateAction, getActions, deleteAction } = require('~/models/Action');
 const { isActionDomainAllowed } = require('~/server/services/domains');

@@ -3,17 +3,12 @@
   "compilerOptions": {
     "tsBuildInfoFile": "dist/tsconfig.tsbuildinfo",
     "target": "ES6",
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
+    "module": "CommonJS",
     "lib": ["ES2021"],
     "allowJs": true,
     "checkJs": true,
-    // "declarationDir": "./dist/types",
-    // "noEmit": false,
-    // "emitDeclarationOnly": true,
     "baseUrl": ".",
     "paths": {
-      // "*": ["*", "node_modules/*"],
       "~/*": ["./*"],
     },
   },

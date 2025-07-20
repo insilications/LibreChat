@@ -1,4 +1,4 @@
-import { TFile, TMessage } from 'librechat-data-provider';
+import { TFile, TMessage } from '@librechat/data-provider';
 
 type ParentMessage = TMessage & { children: TMessage[]; depth: number };
 export default function buildTree({

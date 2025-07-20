@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { PermissionTypes, Permissions } from 'librechat-data-provider';
+import { PermissionTypes, Permissions } from '@librechat/data-provider';
 import HoverCardSettings from '~/components/Nav/SettingsTabs/HoverCardSettings';
 import { useLocalize, useHasAccess } from '~/hooks';
 import SlashCommandSwitch from './SlashCommandSwitch';

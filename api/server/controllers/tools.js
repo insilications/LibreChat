@@ -9,7 +9,7 @@ const {
   ToolCallTypes,
   PermissionTypes,
   loadWebSearchAuth,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 const { processFileURL, uploadImageBuffer } = require('~/server/services/Files/process');
 const { processCodeOutput } = require('~/server/services/Files/Code/process');
 const { createToolCall, getToolCallsByConvo } = require('~/models/ToolCall');

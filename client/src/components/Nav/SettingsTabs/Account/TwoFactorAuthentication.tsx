@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { SmartphoneIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import type { TUser, TVerify2FARequest } from 'librechat-data-provider';
+import type { TUser, TVerify2FARequest } from '@librechat/data-provider';
 import { OGDialog, OGDialogContent, OGDialogHeader, OGDialogTitle, Progress } from '~/components';
 import { SetupPhase, QRPhase, VerifyPhase, BackupPhase, DisablePhase } from './TwoFactorPhases';
 import { DisableTwoFactorToggle } from './DisableTwoFactorToggle';

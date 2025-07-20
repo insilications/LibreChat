@@ -6,7 +6,7 @@ const {
   defaultRetrievalModels,
   defaultAssistantsVersion,
   defaultAgentCapabilities,
-} = require('librechat-data-provider');
+} = require('@librechat/data-provider');
 const { sendEvent } = require('@librechat/api');
 const { Providers } = require('@librechat/agents');
 const partialRight = require('lodash/partialRight');

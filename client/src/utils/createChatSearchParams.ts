@@ -3,8 +3,8 @@ import {
   isAgentsEndpoint,
   tQueryParamsSchema,
   isAssistantsEndpoint,
-} from 'librechat-data-provider';
-import type { TConversation, TPreset } from 'librechat-data-provider';
+} from '@librechat/data-provider';
+import type { TConversation, TPreset } from '@librechat/data-provider';
 
 const allowedParams = Object.keys(tQueryParamsSchema.shape);
 export default function createChatSearchParams(

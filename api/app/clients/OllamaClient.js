@@ -4,7 +4,7 @@ const { Ollama } = require('ollama');
 const { sleep } = require('@librechat/agents');
 const { logAxiosError } = require('@librechat/api');
 const { logger } = require('@librechat/data-schemas');
-const { Constants } = require('librechat-data-provider');
+const { Constants } = require('@librechat/data-provider');
 const { deriveBaseURL } = require('~/utils');
 
 const ollamaPayloadSchema = z.object({
